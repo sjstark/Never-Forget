@@ -2,7 +2,15 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
+        title="Never Forget"
         link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/navbar.css')
   body
+    nav.navbar
+      a(href="/")
+        img(src="/images/logo.PNG" width="200")
+      .navbar__links
+        a.navbar__item.navbar__item-button(href="/login") Login
+        a.navbar__item.navbar__item-button(href="/demo") Demo
+        a.navbar__item.navbar__item-primary(href="/signup") Sign Up for Free
     block content
