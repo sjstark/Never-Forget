@@ -1,8 +1,43 @@
 body {
     background-color: #EDDAF4;
-
 }
 
-h1 {
+.main__container{
+    display: flex;
+    flex-direction: column;
+}
+
+h1,
+h2,
+p {
     color: #FFFFFF;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+div.spacer{
+    height:30px;
+}
+
+.main__header{
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.main__subheader{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.main__text{
+    font-size: 24px;
+}
+
+.main__signup{
+    text-decoration: none;
+    background-color: #D24B03;
+    color: #FFFFFF;
+    padding: 15px 25px;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
 }
