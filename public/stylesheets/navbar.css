@@ -1,5 +1,5 @@
 .navbar{
-  background-color: #2560B9;
+  background-color: #8125B9;
   display: flex;
   justify-content: space-around;
 }
@@ -14,7 +14,7 @@
 .navbar__item{
   margin: auto 20px;
 
-  color: #BFCFEA;
+  color: #CDBFEA;
   text-decoration: none;
   font-size: 14px;
   font-weight: bold;
@@ -33,7 +33,7 @@
 .navbar__item-primary{
   box-sizing: content-box;
   padding: 5px 10px;
-  border: 2px solid #BFCFEA;
+  border: 2px solid #CDBFEA;
   border-radius: 5px;
   font-size: 18px;
 }
