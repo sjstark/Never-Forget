@@ -10,6 +10,7 @@ const db = require('./db/models')
 const sequelize = db.sequelize
 
 const { sessionSecret } = require('./config');
+const { restoreUser } = require('./auth')
 
 
 const indexRouter = require('./routes/index');
@@ -43,6 +44,7 @@ app.use(
 );
 store.sync();
 
+app.use(restoreUser)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

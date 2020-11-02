@@ -8,4 +8,8 @@ append head
 
 block content
   h1= title
+  if locals.authenticated
+    h2= user.firstName
+    form(action='/users/logout' method='POST')
+      button(type='submit') Logout
   p Welcome to your Project Skeleton
