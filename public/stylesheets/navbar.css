@@ -4,6 +4,7 @@
   justify-content: space-around;
   position: fixed;
   width: 100%;
+  padding: 10px;
 }
 
 .navbar__links {
