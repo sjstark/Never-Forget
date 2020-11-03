@@ -22,10 +22,23 @@ const validateTask = [
         }),
     check("title")
         .exists(({ checkFalsy: true}))
-        .withMessage('Must provide a title.')
+        .withMessage('Must provide a title.'),
+    
+    check('estimate')
+        .exists({checkFalsy: true})
+        .withMessage('Estimate cannot be null')
+        .isLength({min: 0})
+    
+    //TODO: VALIDATE LIST ID IF IT EXISTS
 
 ]
 
+const taskNotFoundError = (id) => {
+    const error = new Error(`Task with id of ${id} not found`);
+    error.title = 'Task not found';
+    error.status = 404;
+    return error
+}
 
 router.get('/', csrfProtection, asyncHandler(async (req,res) => {
     let allTasks = await Task.findAll();
@@ -38,13 +51,14 @@ router.get('/', csrfProtection, asyncHandler(async (req,res) => {
     })
 }))
 
-router.post('/', csrfProtection, asyncHandler(async (req, res) => {
+router.post('/', csrfProtection, validateTask, asyncHandler(async (req, res) => {
     //TODO add user ID
     const {createdBy, title, listId} = req.body;
     const task = db.Task.build(
         {createdBy,
          title,
-         listId
+         listId,
+         estimate
         }
 
     );
@@ -59,7 +73,39 @@ router.post('/', csrfProtection, asyncHandler(async (req, res) => {
     }
 }))
 
-router.put('/:id(\\d+)', )
+router.put('/:id(\\d+)', csrfProtection, validateTask, asyncHandler( async (req,res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+
+
+    const task = await Task.findByPk(taskId);
+    if (task) {
+        const {title,estimate,listId} = req.body;
+        task.title = title;
+        task.estimate = estimate;
+        if (listId) {
+            task.listId = listId
+        }
+        //TODO Implement AJAX
+    } else {
+        next(taskNotFoundError(taskId))
+    }
+    
+}));
+
+router.delete('/:id(\\d+)', csrfProtection, validateTask, asyncHandler( async (req,res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+
+
+    const task = await Task.findByPk(taskId);
+    if (task) {
+        await task.destroy()
+        //TODO implement AJAX
+        res.status(204).end()
+    } else {
+        next(taskNotFoundError(taskId))
+    }
+    
+}));
 
 
 module.exports = router
