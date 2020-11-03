@@ -7,16 +7,15 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  h1.main__header The smart<em>er</em> to-do app for busy people.
-  a.main__signup(href="/users/signup") Sign Up Free
-  .main__exampleTask1
-  .main__exampleTask2
-  img.main__taskDoer(src="")
-  h2.main__subheader Get reminded, online.
-  p.main__text You'll never forget anything again.
-  h1= title
-  if locals.authenticated
-    h2= user.firstName
-    form(action='/users/logout' method='POST')
-      button(type='submit') Logout
-  p Welcome to your Project Skeleton
+  .main__container
+    div.spacer
+    h1.main__header The smart<em>er</em> to-do app for busy people.
+    a.main__signup(href="/users/signup") Sign Up Free
+    .main__examples
+      .main__exampleTask.main__exampleTask--1
+        span Finish your App Academy homework.
+      .main__exampleTask.main__exampleTask--2
+        span Do your End of Day Report!
+      img.main__taskDoer(src="/images/task-doer.png")
+    h2.main__subheader Get reminded, online.
+    p.main__text You'll never forget anything again.
