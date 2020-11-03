@@ -9,5 +9,5 @@ html(lang="en")
         if allTasks
             each task in allTasks
                 div 
-                    p task.title, task.createdBy.name, task.estimate
+                    p #{task.title}, #{task.estimate}
                     

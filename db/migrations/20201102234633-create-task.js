@@ -25,7 +25,7 @@ module.exports = {
         defaultValue: false 
       },
       listId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER
       },
       dueDate: {
