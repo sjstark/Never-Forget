@@ -1,14 +1,25 @@
-if errors
-  each error in errors
-    p= error
-form(action='/users/login' method='post')
-  input(type='hidden' name='_csrf' value=csrfToken)
-  div
-    label(for="email") Email
-    input(type='text' id='email' name='email')
-  div
-    label(for="password") Password
-    input(type='text' id='password' name='password')
-  div
-    button(type='submit' id='loginbtn') Login
-script(src="/javascripts/login.js" type="module" defer)
+extends form-layout.pug
+
+block content
+  div.main-container
+    div.form-left
+      a(href="/")
+        img(src="/images/logo.PNG" width="200")
+      div.quote-container
+        p Some quotes here
+        p Quotes curated by Someone
+    div.form-right
+      if errors
+        each error in errors
+          p= error
+      button.signup-button(type="button" href="/users/signup") Sign up for free
+      div Been here before? Welcome back!
+      form.form-group(action='/users/login' method='post')
+        input(type='hidden' name='_csrf' value=csrfToken)
+        div.form-item
+          input(type='text' id='email' name='email' placeholder='Email')
+        div.form-item
+          input(type='text' id='password' name='password' placeholder='Password')
+        div
+          button.form-button(type='submit' id='loginbtn') Log in
+    //- script(src="/javascripts/login.js" type="module" defer)
