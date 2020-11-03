@@ -165,6 +165,12 @@ router.post('/login', csrfProtection, loginValidators,
   })
 );
 
+router.get('/demo', asyncHandler(async (req, res, next) => {
+  let demoUser = await db.User.findOne({where: {email: "demo@user.com"}})
+  loginUser(req, res, demoUser);
+  return res.redirect('/') //TODO Change to application route
+}))
+
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
   res.redirect('/');
