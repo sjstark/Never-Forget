@@ -50,8 +50,11 @@
   font-size: 18px;
 }
 
-.navbar__menu{
+.navbar__menu-button{
   justify-self: flex-start;
+  background: none ;
+  border: none;
+
 }
 
 .navbar__menu::before{
