@@ -5,6 +5,12 @@ body {
 .main__container{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main__container>*{
+    margin: 40px
 }
 
 h1,
@@ -15,7 +21,7 @@ p {
 }
 
 div.spacer{
-    height:30px;
+    height:150px;
 }
 
 .main__header{
@@ -40,4 +46,62 @@ div.spacer{
     font-size: 24px;
     font-weight: bold;
     border-radius: 5px;
+    transition: .1s;
+}
+
+.main__signup:hover {
+    background-color: #b14105;
+    transition: .3s;
+}
+
+.main__examples {
+    position: relative;
+    height: 450px;
+}
+
+.main__exampleTask{
+    position: absolute;
+    width: max-content;
+    color: #000000;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,.1);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    margin:15px;
+}
+
+.main__exampleTask>span{
+    margin: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(0,0,0,.8)
+}
+
+.main__exampleTask::before {
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 36px;
+    height: 36px;
+    background-size: contain;
+    background-image: url(../images/Main-Logo-Silo.png);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.main__exampleTask--1 {
+    left: -500px;
+}
+
+.main__exampleTask--2 {
+    right: -500px;
+    top: 50px
+}
+
+.main__taskDoer {
+    position: absolute;
+    top: 100px;
+    left: -225px;
 }
