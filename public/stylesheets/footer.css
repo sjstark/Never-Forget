@@ -22,6 +22,10 @@
   width:100%;
 }
 
+.row-1>*{
+  width:150px;
+}
+
 .row-1>.col-1{
   display: flex;
   justify-content: center;
@@ -39,14 +43,20 @@
 .footer__title{
   color: #8B8B94;
   font-weight: bold;
-  margin: 15px 0;
+  padding: 15px 15px 10px;
 }
 
 .footer__links{
   color: #8B8B94;
   font-size: 14px;
   font-weight: 200;
-  margin: 10px 0;
+  padding: 5px 15px;
+  margin: 5px 0;
+}
+
+.footer__links:hover{
+  background-color: #eeeeee;
+  border-radius: 5px;
 }
 
 .footer__text{
