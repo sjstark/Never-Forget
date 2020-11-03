@@ -19,6 +19,7 @@ p {
     color: #FFFFFF;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: 1px 1px 2px rgba(0,0,0,.3);
+    text-align: center;
 }
 
 div.spacer{
@@ -105,4 +106,30 @@ div.spacer{
     position: absolute;
     top: 100px;
     left: -225px;
+}
+
+@media screen and (max-width: 1000px) {
+    .main__examples {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main__exampleTask{
+        position: static;
+        width: max-content;
+        color: #000000;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        box-shadow: 2px 2px 3px rgba(0,0,0,.1);
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        margin:15px;
+    }
+
+    .main__taskDoer {
+        position: static;
+    }
 }

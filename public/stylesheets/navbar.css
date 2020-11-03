@@ -5,6 +5,7 @@
   position: fixed;
   width: 100%;
   padding: 10px;
+  z-index: 50;
 }
 
 .navbar__links {
