@@ -61,6 +61,11 @@ input {
   border-radius: 4px;
   border-color: transparent;
   cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.form__button:hover {
+  background-color: #6b2199;
 }
 
 .form__item {
@@ -80,6 +85,7 @@ input {
   border-color: transparent;
   cursor: pointer;
   color: rgb(102, 102, 102);
+  text-decoration: none;
 }
 
 .logo {

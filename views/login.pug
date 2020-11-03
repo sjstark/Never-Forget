@@ -2,7 +2,7 @@ extends form-layout.pug
 
 block content
   div.form__right
-    button.signup__button(type="button" href="/users/signup") Sign up for free
+    a.signup__button(href="/users/signup") Sign up for free
     div.error__container
       if errors
         each error in errors
