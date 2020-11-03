@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+      block head
+        title="Never Forget"
+        link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/navbar.css')
+        script(src="https://kit.fontawesome.com/e145510635.js" crossorigin="anonymous")
+  body
+    nav.navbar
+      button.navbar__menu
+      input.navbar__search(type='text' id='searchBar' value='searchBar')
+      form(action="/users/logout" method="POST")
+        button.navbar__item.navbar__item-button(type="submit")
+          i.fas.fa-sign-out-alt
+    block content
+    //- div.listMenu
+    //-   block listMenu
+    //- div.taskList
+    //-   block taskList
+    //- div.details
+    //-   block details
