@@ -91,14 +91,15 @@ router.get('/', csrfProtection, asyncHandler(async (req,res) => {
 
 router.post('/',  validateTask, asyncHandler(async (req, res) => {
     //TODO add user ID
-    const {createdBy, title, listId, estimate, dueDate} = req.body;
+    const userId = req.session.auth.userId;
+
+    const {title, listId, estimate, dueDate} = req.body;
     const task = await Task.build(
-        {createdBy, 
+        {createdBy: userId, 
          title,
          listId,
          estimate,
          dueDate,
-        //  createdBy: req.createdBy.id
           });
     res.status(201).json( {task} );
     
@@ -117,8 +118,25 @@ router.post('/',  validateTask, asyncHandler(async (req, res) => {
 router.put('/:id(\\d+)', validateEditTask, asyncHandler( async (req,res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
+    const userId = req.session.auth.userId;
 
     if (task) {
+
+        // CHECKS TO SEE IF USER HAS ACCESS TO THAT TASK
+        let userTasks = await Task.findAll({    
+            include: [{ model: User, as: "user", attributes:["id"]}],
+            attributes: ["id"],
+            where: {
+                "createdBy": userId
+            }
+        });
+
+        if (!userTasks.includes(taskId)) {
+            next(taskNotFoundError(taskId))
+        }
+
+        //CHECKS FOR ERRORS AND UPDATES
+
         const validatorErrors = validationResult(req);
         if(validatorErrors.isEmpty()) {
         const {title, estimate, listId, dueDate} = req.body;
