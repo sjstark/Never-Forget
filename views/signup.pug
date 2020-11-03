@@ -1,22 +1,25 @@
-if errors
-  each error in errors
-    p= error
-form(action='/users/signup' method='post')
-  input(type='hidden' name='_csrf' value=csrfToken)
-  div
-    label(for="firstName") First Name
-    input(type='text' id='firstName' name='firstName' value=user.firstName)
-  div
-    label(for="lastName") Last Name
-    input(type='text' id='lastName' name='lastName' value=user.lastName)
-  div
-    label(for="email") Email
-    input(type='text' id='email' name='email' value=user.email)
-  div
-    label(for="username") Username
-    input(type='text' id='username' name='username' value=user.username)
-  div
-    label(for="password") Password
-    input(type='text' id='password' name='password')
-  div
-    button(type='submit') Sign Up
+extends form-layout.pug
+
+block content
+  div.form__right
+    if errors
+      each error in errors
+        p= error
+    form(action='/users/signup' method='post')
+      input(type='hidden' name='_csrf' value=csrfToken)
+      div
+        input(type='text' id='firstName' name='firstName' value=user.firstName placeholder='First Name')
+      div
+        label(for="lastName") Last Name
+        input(type='text' id='lastName' name='lastName' value=user.lastName)
+      div
+        label(for="email") Email
+        input(type='text' id='email' name='email' value=user.email)
+      div
+        label(for="username") Username
+        input(type='text' id='username' name='username' value=user.username)
+      div
+        label(for="password") Password
+        input(type='text' id='password' name='password')
+      div
+        button(type='submit') Sign Up

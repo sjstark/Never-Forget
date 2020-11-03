@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .icon::before{
   display: inline-block;
   font-style: normal;
@@ -6,6 +7,8 @@
   -webkit-font-smoothing: antialiased;
 }
 
+=======
+>>>>>>> master
 .navbar{
   background-color: #8125B9;
   display: flex;
@@ -49,6 +52,7 @@
   border-radius: 5px;
   font-size: 18px;
 }
+<<<<<<< HEAD
 
 .navbar__menu-button{
   justify-self: flex-start;
@@ -62,3 +66,5 @@
   font-weight: 900;
   content: "\f0c9";
 }
+=======
+>>>>>>> master
