@@ -1,15 +1,17 @@
 const express = require('express');
+const router = express.Router();
 const { check, validationResult } = require('express-validator')
 const { csrfProtection, asyncHandler } = require('./utils')
 const cors = require('cors')
-// const {Task} = require('../db/models');
+// const { requireAuth } = require('../auth');
 const db = require("../db/models")
 
-const { Task } = db;
+const { Task, User } = db;
+// router.use(requireAuth);
 
 
+/****************** VALIDATION AND ERROR CHECKS **************************/
 
-const router = express.Router();
 
 const validateTask = [
     check("createdBy")
@@ -33,7 +35,6 @@ const validateTask = [
         .isLength({min: 0})    
     
     //TODO: VALIDATE LIST ID IF IT EXISTS
-
 ]
 
 const validateEditTask = [
@@ -54,37 +55,56 @@ const taskNotFoundError = (id) => {
     return error
 }
 
+/***********************      ROUTES     *****************************/
+
 router.get('/', csrfProtection, asyncHandler(async (req,res) => {
-    let allTasks = await Task.findAll();
+    const userId = req.session.auth.userId;
+    let allTasks = await Task.findAll({    
+        include: [{ model: User, as: "user", attributes:["email"]}],
+        order: [["createdAt", "DESC"]],
+        attributes: ["title"],
+        where: {
+            "createdBy": userId
+        }
+    });
+    console.log("hit5")
+    res.json({allTasks});
     // console.log(allTasks)
 
-    res.render('dummy-all-tasks', {
-        title: 'Dummy',
-        allTasks,
-        csrfToken: req.csrfToken()
-    })
-}))
+    // res.render('dummy-all-tasks', {
+    //     title: 'Dummy',
+    //     allTasks,
+    //     csrfToken: req.csrfToken()
+    // })
+}));
+
+// router.get('/:id(\\d+)', asyncHandler( async (req, res, next) => {
+//     const taskId = parseInt(req.params.id, 10);
+//     const task = await Task.findByPk(taskId);
+  
+//     if (task) {
+//       res.json({task})
+//     } else {
+//         next(taskNotFoundError(taskId))
+//     }
+//   }))
 
 router.post('/',  validateTask, asyncHandler(async (req, res) => {
-    console.log("hit1")
     //TODO add user ID
     const {createdBy, title, listId, estimate, dueDate} = req.body;
-    console.log("hit2")
     const task = await Task.build(
-        {createdBy,
+        {createdBy, 
          title,
          listId,
          estimate,
-         dueDate
-        });
-
-    res.status(201).json({task});
-    console.log("hit3")
-
+         dueDate,
+        //  createdBy: req.createdBy.id
+          });
+    res.status(201).json( {task} );
+    
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
-        console.log("hit4")
         await task.save();
         //TODO implement AJAX here.
     }else {
@@ -96,9 +116,8 @@ router.post('/',  validateTask, asyncHandler(async (req, res) => {
 
 router.put('/:id(\\d+)', validateEditTask, asyncHandler( async (req,res, next) => {
     const taskId = parseInt(req.params.id, 10);
-
-
     const task = await Task.findByPk(taskId);
+
     if (task) {
         const validatorErrors = validationResult(req);
         if(validatorErrors.isEmpty()) {
@@ -125,9 +144,8 @@ router.put('/:id(\\d+)', validateEditTask, asyncHandler( async (req,res, next) =
 
 router.delete('/:id(\\d+)', validateTask, asyncHandler( async (req,res, next) => {
     const taskId = parseInt(req.params.id, 10);
-
-
     const task = await Task.findByPk(taskId);
+
     if (task) {
         await task.destroy()
         //TODO implement AJAX
