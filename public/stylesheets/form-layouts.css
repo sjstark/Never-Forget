@@ -32,7 +32,6 @@ body {
   position: absolute;
   max-width: 400px;
   width: 100%;
-  top: 35%;
   padding: 2px;
 }
 
@@ -96,8 +95,6 @@ input {
 
 .form__msg {
   font-size: 20px;
-  position: absolute;
-  top: 40%;
 }
 
 .quote__container {
@@ -131,21 +128,18 @@ input {
 }
 
 .error__container {
-  position: absolute;
-  top: 25%;
+  box-sizing: border-box;
   background-color: lightpink;
   border: darkred;
   border-radius: 3px;
   max-width: 400px;
   width: 100%;
-}
-.error__container > ul {
-  margin: 0;
-  padding: 0;
+  padding: 10px;
+  margin-bottom: 2rem;
 }
 
-.error__container > p {
+.error__container > * {
   text-align: left;
-  padding-left: 2rem;
+  padding-left: 1rem;
   color: darkred;
 }

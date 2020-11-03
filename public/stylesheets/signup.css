@@ -1,0 +1,60 @@
+.signup__avatars {
+  position: absolute;
+  top: 35%;
+  left: 15%;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 400px;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-right: 8px;
+}
+
+.signup__avatars > img {
+  box-sizing: border-box;
+  width: 100px;
+  height: 103px;
+  border-radius: 50%;
+  padding: 0px 10px;
+  padding-top: 5px;
+  background-color: #dacef1;
+}
+
+.signup__avatars-msg {
+  margin-left: 25px;
+  max-width: 400px;
+  width: 100%;
+  color: #dacef1;
+  font-size: 28px;
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+.login__button {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  padding: 5px 11px 5px;
+  background-color: #dacef1;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  border-color: transparent;
+  cursor: pointer;
+  color: rgb(102, 102, 102);
+  text-decoration: none;
+}
+
+.form__msg-signup {
+  max-width: 400px;
+  width: 100%;
+  font-size: 20px;
+  margin-left: 2px;
+  margin-bottom: 10px;
+}
+
+.error__container > ul {
+  list-style-position: outside;
+  margin-left: 20px;
+}
