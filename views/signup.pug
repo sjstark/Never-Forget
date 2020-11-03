@@ -1,22 +1,40 @@
-if errors
-  each error in errors
-    p= error
-form(action='/users/signup' method='post')
-  input(type='hidden' name='_csrf' value=csrfToken)
-  div
-    label(for="firstName") First Name
-    input(type='text' id='firstName' name='firstName' value=user.firstName)
-  div
-    label(for="lastName") Last Name
-    input(type='text' id='lastName' name='lastName' value=user.lastName)
-  div
-    label(for="email") Email
-    input(type='text' id='email' name='email' value=user.email)
-  div
-    label(for="username") Username
-    input(type='text' id='username' name='username' value=user.username)
-  div
-    label(for="password") Password
-    input(type='text' id='password' name='password')
-  div
-    button(type='submit') Sign Up
+doctype html
+html
+  head
+      block head
+        title="Never Forget - Login"
+        link(rel='stylesheet' href='/stylesheets/form-layouts.css')
+        link(rel='stylesheet' href='/stylesheets/signup.css')
+  body
+    div.main__container
+      div.form__left
+        a(href="/")
+          img.logo(src="/images/logo.png" width="200")
+        div.signup__avatars
+          img.signup__avatars-1(src="/images/signup_person_1.png")
+          img.signup__avatars-2(src="/images/signup_person_2.png")
+          img.signup__avatars-3(src="/images/signup_person_3.png")
+          p.signup__avatars-msg Join millions of people getting more organized and productive!
+      div.form__right
+        a.login__button(href="/users/login") Log in
+        form.form__group(action='/users/signup' method='post')
+          if errors
+            div.error__container
+              div We ecountered the following errors:
+              ul
+                each error in errors
+                  li= error
+          div.form__msg-signup Sign up for free
+          input(type='hidden' name='_csrf' value=csrfToken)
+          div.form__item
+            input(type='text' id='firstName' name='firstName' value=user.firstName placeholder='First Name')
+          div.form__item
+            input(type='text' id='lastName' name='lastName' value=user.lastName placeholder='Last Name')
+          div.form__item
+            input(type='text' id='email' name='email' value=user.email placeholder='Email')
+          div.form__item
+            input(type='text' id='username' name='username' value=user.username placeholder='Username')
+          div.form__item
+            input(type='password' id='password' name='password' placeholder='Password')
+          div
+            button.form__button(type='submit') Sign Up!

@@ -2,7 +2,42 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
+        title="Never Forget"
         link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/navbar.css')
+        link(rel='stylesheet' href='/stylesheets/footer.css')
+        script(src="https://kit.fontawesome.com/e145510635.js" crossorigin="anonymous")
   body
+    nav.navbar
+      a(href="/")
+        img(src="/images/logo.png" width="200")
+      .navbar__links
+        a.navbar__item.navbar__item-button(href="/users/login") Login
+        a.navbar__item.navbar__item-button(href="/users/demo") Demo
+        a.navbar__item.navbar__item-primary(href="/users/signup") Sign Up for Free
     block content
+  footer.footer
+    .row-1
+      .col-1
+        img(src="/images/peanut.png" width="100")
+      .col-2
+        h3.footer__title Contributers
+        a.footer__links(href="https://github.com/Brandon-Perry") Brandon Perry
+        a.footer__links(href="https://github.com/dezadkins") Dez Adkins
+        a.footer__links(href="https://github.com/memg92") Miguel Munoz
+        a.footer__links(href="https://github.com/sjstark") Sam Stark
+      .col-3
+        h3.footer__title Product
+        a.footer__links(href="https://www.rememberthemilk.com/") Reference App
+        a.footer__links(href="https://github.com/sjstark/Never-Forget/wiki") Never Forget Wiki
+      .col-4
+        h3.footer__title Community
+        a.footer__links(href="https://www.appacademy.io/") App Academy
+        a.footer__links(href="https://github.com/sjstark/Never-Forget/wiki/API-Documentation") API
+      .col-5
+        h3.footer__title Support
+        a.footer__links(href="https://github.com/sjstark/Never-Forget/issues") Report Issue
+    .row-2
+      span.footer__text &#169; 2020 Never Forget
+      a.footer__social-links(href="https://github.com/sjstark/Never-Forget")
+        i.fab.fa-github-square
