@@ -5,6 +5,7 @@ body {
 
 .main__container {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas: "form-left form-right";
 }
 
@@ -12,14 +13,8 @@ body {
   position: relative;
   grid-area: form-left;
   height: 100vh;
+  width: 100%;
   background-color: #8125b9;
-}
-
-.quote__container {
-  position: absolute;
-  top: 50%;
-  left: 25%;
-  color: #fff;
 }
 
 .form__right {
@@ -28,13 +23,16 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100%;
   justify-content: center;
   align-items: center;
 }
 
 .form__group {
   position: absolute;
-  top: 40%;
+  max-width: 400px;
+  width: 100%;
+  top: 35%;
   padding: 2px;
 }
 
@@ -42,7 +40,7 @@ input,
 .form__button {
   display: block;
   box-sizing: border-box;
-  width: 300px;
+  width: 100%;
   font-size: 20px;
   padding: 10px 12px;
   border: 1px solid #ccc;
@@ -81,6 +79,7 @@ input {
   border-radius: 3px;
   border-color: transparent;
   cursor: pointer;
+  color: rgb(102, 102, 102);
 }
 
 .logo {
@@ -90,6 +89,57 @@ input {
 }
 
 .form__msg {
-  display: flex;
-  align-items: top;
+  font-size: 20px;
+  position: absolute;
+  top: 40%;
+}
+
+.quote__container {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  margin-right: 8px;
+  color: #fff;
+  max-width: 400px;
+}
+
+.quote {
+  font-size: 25px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  margin-top: 20px;
+  float: left;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  height: 64px;
+  width: 64px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.curator {
+  font-size: 13px;
+  margin-top: 60px;
+  margin-bottom: 0;
+}
+
+.error__container {
+  position: absolute;
+  top: 25%;
+  background-color: lightpink;
+  border: darkred;
+  border-radius: 3px;
+  max-width: 400px;
+  width: 100%;
+}
+.error__container > ul {
+  margin: 0;
+  padding: 0;
+}
+
+.error__container > p {
+  text-align: left;
+  padding-left: 2rem;
+  color: darkred;
 }

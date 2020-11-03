@@ -2,11 +2,13 @@ extends form-layout.pug
 
 block content
   div.form__right
-    if errors
-      each error in errors
-        p= error
     button.signup__button(type="button" href="/users/signup") Sign up for free
-    div.form__msg Been here before? Welcome back!
+    div.error__container
+      if errors
+        each error in errors
+          p= error
+      else
+        div.form__msg Been here before? Welcome back!
     form.form__group(action='/users/login' method='post')
       input(type='hidden' name='_csrf' value=csrfToken)
       div.form__item
