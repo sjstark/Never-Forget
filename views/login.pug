@@ -8,7 +8,7 @@ html
     div.main__container
       div.form__left
         a(href="/")
-          img.logo(src="/images/logo.PNG" width="200")
+          img.logo(src="/images/logo.png" width="200")
         div.quote__container
           p.quote “What we truly need to do is often what we most feel like avoiding.”
           p.author - David Allen
@@ -16,13 +16,12 @@ html
           p.curator Quotes curated by [Someone]
       div.form__right
         a.signup__button(href="/users/signup") Sign up for free
-        div.error__container
-          if errors
-            each error in errors
-              p= error
-          else
-            div.form__msg Been here before? Welcome back!
         form.form__group(action='/users/login' method='post')
+          if errors
+            div.error__container
+              each error in errors
+                p= error
+          div.form__msg Been here before? Welcome back!
           input(type='hidden' name='_csrf' value=csrfToken)
           div.form__item
             input(type='text' id='email' name='email' placeholder='Email')
