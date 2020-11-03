@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+      block head
+        title="Never Forget"
+        link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/navbar.css')
+  body
+    nav.navbar
+      button.navbar__menu
+      input.navbar__search(type='text' id='searchBar' value='searchBar')
+      a.navbar__item.navbar__item-button(href="/login") Logout
+    block content
+    //- div.listMenu
+    //-   block listMenu
+    //- div.taskList
+    //-   block taskList
+    //- div.details
+    //-   block details

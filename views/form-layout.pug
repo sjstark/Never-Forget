@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+      block head
+        title="Never Forget"
+        link(rel='stylesheet' href='/stylesheets/form-layouts.css')
+  body
+    div.main__container
+      div.form__left
+        a(href="/")
+          img.logo(src="/images/logo.PNG" width="200")
+        div.quote__container
+          p.quote “What we truly need to do is often what we most feel like avoiding.”
+          p.author - David Allen
+          img.avatar(src="/images/avatar_bob_quote.png")
+          p.curator Quotes curated by [Someone]
+      block content
