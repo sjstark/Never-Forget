@@ -1,10 +1,14 @@
-ul.list-tree, ul.nested {
+ul.list-tree, ul.nested, .inbox-tree {
     list-style-type: none;
 }
 
-.lists-div {
+.lists-div{
     border-top: 1px solid plum;
     border-bottom: 1px solid plum;
+    padding: 10px 0px 0px 10px;
+}
+
+.inbox-div {
     padding: 10px 0px 0px 10px;
 }
 
@@ -24,9 +28,13 @@ ul.list-tree, ul.nested {
 }
 
 .nested {
-    display: none;
+    display: block;
 }
 
-.active {
-    display: block;
+.nested-div {
+    padding-left: 20px
+}
+
+.nested--inactive {
+    display: none;
 }
