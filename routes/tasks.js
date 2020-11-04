@@ -86,7 +86,7 @@ router.get('/', csrfProtection, asyncHandler(async (req,res) => {
 //     }
 //   }))
 
-router.post('/',  validateTask, asyncHandler(async (req, res) => {
+router.post('/',  validateTask, asyncHandler(async (req, res, next) => {
     //TODO add user ID
     const userId = req.session.auth.userId;
 
@@ -110,6 +110,7 @@ router.post('/',  validateTask, asyncHandler(async (req, res) => {
     }else {
         const errors = validatorErrors.array().map((error) => error.msg);
         console.error(errors);
+        next(errors)
         //TODO implement AJAX here.
     }
 }))
