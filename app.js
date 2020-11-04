@@ -12,7 +12,7 @@ const sequelize = db.sequelize
 const { sessionSecret } = require('./config');
 const { restoreUser } = require('./auth')
 
-
+const appRouter = require('./routes/app-router')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const taskRouter = require('./routes/tasks')
@@ -47,6 +47,7 @@ store.sync();
 
 app.use(restoreUser)
 app.use('/', indexRouter);
+app.use('/app', appRouter);
 app.use('/tasks',taskRouter)
 app.use('/users', usersRouter);
 

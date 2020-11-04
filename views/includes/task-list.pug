@@ -7,7 +7,7 @@ link(rel='stylesheet' href='/stylesheets/task-list.css')
 .task-add__container
   form()
     .task-add__input-container
-      input.task-add__input-field(id='taskInput' name='taskInput' placeholder="Add a task...")
+      input.task-add__input-field(autocomplete="off" id='taskInput' name='taskInput' placeholder="Add a task...")
     .task-add__options
       .task-add__options-modifiers
         div.task-add__due-date(title='Add Due Date')
@@ -19,7 +19,7 @@ link(rel='stylesheet' href='/stylesheets/task-list.css')
       button.task-add__submit#add-task Add Task
 .task-list__container
   .task-list__tasks
-    - var tasks = [{title:"Enroll in App Academy"},{title:"Do my homework"},]
+    //- - var tasks = [{title:"Enroll in App Academy"},{title:"Do my homework"},]
     if tasks
       each task in tasks
         +task-item(task)
