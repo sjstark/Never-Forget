@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const task = await fetch('/tasks', options)
-    taskInput.value = ''
+    taskInput.value = '';
 
     reloadTaskList();
   })
@@ -73,11 +73,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 const createTaskItem = (task) => {
   let taskItem = document.createElement('div')
   taskItem.classList.add('task-list__task-item')
-
+  taskItem.id = `Task-${task.id}`
   taskItem.innerHTML = `
   <div class="task-list__task-bar"></div>
   <div class="task-list__task-select"></div>
   <span class="task-list__task-title">${task.title}</span>`
+  
 
   return taskItem
 }
