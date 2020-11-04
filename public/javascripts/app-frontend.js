@@ -66,15 +66,22 @@ const createTaskItem = (task) => {
 }
 
 
-const reloadTaskList = async () => {
+const reloadTaskList = async (listId = null) => {
   const taskList = document.querySelector('.task-list__tasks')
 
-  let res = await fetch('/tasks')
+  let route = '/tasks'
+  if (listId) {
+    route = `/lists/${listId}`
+  }
+
+  let res = await fetch(route)
   let body = await res.json();
 
   let tasks = body.allTasks
 
   taskList.innerHTML = ''
+
+  getTotalEstimate(tasks)
 
   tasks.forEach(task => {
     taskList.appendChild(createTaskItem(task))

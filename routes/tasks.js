@@ -59,7 +59,7 @@ router.get('/', csrfProtection, asyncHandler(async (req,res) => {
     let allTasks = await Task.findAll({
         include: [{ model: User, as: "user", attributes:["email"]}],
         order: [["createdAt", "DESC"]],
-        attributes: ["title"],
+        attributes: ["title", "id", "estimate"],
         where: {
             "createdBy": userId
         }
