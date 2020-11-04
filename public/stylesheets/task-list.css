@@ -88,6 +88,11 @@ button {
   margin: 5px;
 }
 
+.task-add__container i:hover{
+  color: black;
+  cursor: pointer;
+}
+
 .task-add__container i {
   font-size: 16px;
   color: darkgray;
@@ -120,7 +125,7 @@ button {
 
 .task-add__submit:hover {
   box-shadow: inset 0 -2px 0 black;
-
+  cursor: pointer;
 }
 
 
@@ -174,6 +179,7 @@ button {
 /******************************************************************************/
 
 .task-add__input-prompt {
+  z-index: 100;
   background-color: #aaaaaa;
   color: white;
   padding: 3px;
@@ -181,11 +187,15 @@ button {
 
   size: 12px;
 
-  position: relative;
+  position: absolute;
 
 
   transform: translateX() translateY(10px);
 
+  /* display: flex;
+  flex-direction: column;
+
+  overflow: hidden; */
 }
 
 .task-add__input-prompt::before {
@@ -197,5 +207,17 @@ button {
   height: 0;
   border-left: 8px solid transparent;
   border-bottom: 10px solid #aaaaaa;
-  border-right: 8px solid transparent
+  border-right: 8px solid transparent;
+
+}
+
+.task-add__input-option {
+  background-color: #aaaaaa;
+  border: 1px solid black;
+  padding: 3px 8px;
+}
+
+.task-add__input-option:hover {
+  background-color: #dddddd;
+  cursor: pointer;
 }

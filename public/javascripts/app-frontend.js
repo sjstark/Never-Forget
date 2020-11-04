@@ -19,32 +19,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   taskDueDate.addEventListener('click', async (e) => {
     (e).stopPropagation();
     taskInput.value+=" ^"
+    checkInputs()
   })
 
   taskListAdd.addEventListener('click', async (e) => {
     (e).stopPropagation();
     taskInput.value+=" #"
+    checkInputs()
   })
 
   taskEstimate.addEventListener('click', async (e) => {
     (e).stopPropagation();
     taskInput.value+=" ="
+    checkInputs()
   })
 
-  taskInput.addEventListener('input', async (e) => {
-    let input = taskInput.value;
-
-    const listIdPatt = /( #(\d*))$/
-    const estimatePatt = /( =(\d*))$/
-    const dueDatePatt =  /( \^([\d\/]*))$/
-
-    removePrompts();
-    if (dueDatePatt.test(input)) {
-      addDueDatePrompt();
-    } else if (estimatePatt.test(input)) {
-      addEstimatePrompt();
-    }
-  })
+  taskInput.addEventListener('input', checkInputs)
 
   taskButton.addEventListener('click', async (e) => {
 
@@ -209,12 +199,46 @@ const addListIdPrompt = async () => {
   inputContainer.appendChild(listIdPrompt)
 }
 
+const makeListOption = (list) => {
+  let listId = list.id
+  let title = list.title
 
+  let listEl = document.createElement('div')
+  listEl.id = `listOption-${listId}`;
+  listEl.classList.add('task-add__input-option')
+
+  listEl.innerText = title
+
+  listEl.addEventListener('click', (e) => {
+    e.stopPropagation()
+    taskInput.value += e.target.innerText + ' '
+    checkInputs();
+  })
+
+  return listEl
+}
 
 const removePrompts = () => {
   const inputContainer = document.querySelector('.task-add__input-container')
 
   while (inputContainer.childNodes.length > 1) {
     inputContainer.removeChild(inputContainer.lastChild)
+  }
+}
+
+const checkInputs = () => {
+  let input = taskInput.value;
+
+  const listIdPatt = /( #(\d*))$/
+  const estimatePatt = /( =(\d*))$/
+  const dueDatePatt =  /( \^([\d\/]*))$/
+
+  removePrompts();
+  if (dueDatePatt.test(input)) {
+    addDueDatePrompt();
+  } else if (estimatePatt.test(input)) {
+    addEstimatePrompt();
+  } else if (listIdPatt.test(input)) {
+    addListIdPrompt()
   }
 }
