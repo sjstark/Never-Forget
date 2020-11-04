@@ -91,6 +91,7 @@ button {
 .task-add__container i {
   font-size: 16px;
   color: darkgray;
+  position: relative;
 }
 
 .task-add__due-date {
@@ -165,4 +166,36 @@ button {
   margin-left: 5px;
   font-size: 14px;
   color: #555555
+}
+
+
+/******************************************************************************/
+/*********************** INPUT PROMPTS FORMATTING *****************************/
+/******************************************************************************/
+
+.task-add__input-prompt {
+  background-color: #aaaaaa;
+  color: white;
+  padding: 3px;
+  border-radius: 3px;
+
+  size: 12px;
+
+  position: relative;
+
+
+  transform: translateX() translateY(10px);
+
+}
+
+.task-add__input-prompt::before {
+  content: '';
+  position: absolute;
+  left:50%;
+  bottom: 100%;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-bottom: 10px solid #aaaaaa;
+  border-right: 8px solid transparent
 }

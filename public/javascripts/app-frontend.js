@@ -13,6 +13,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   const taskInput = document.querySelector('#taskInput')
   const taskButton = document.querySelector('#add-task')
 
+  taskInput.addEventListener('input', async (e) => {
+    let input = taskInput.value;
+
+    const listIdPatt = /( #(\d*))$/
+    const estimatePatt = /( =(\d*))$/
+    const dueDatePatt =  /( \^([\d\/]*))$/
+
+    removePrompts();
+    if (dueDatePatt.test(input)) {
+      addDueDatePrompt();
+    } else if (estimatePatt.test(input)) {
+      addEstimatePrompt();
+    }
+  })
+
   taskButton.addEventListener('click', async (e) => {
 
     e.preventDefault();
@@ -81,7 +96,7 @@ const reloadTaskList = async (listId = null) => {
 
   taskList.innerHTML = ''
 
-  getTotalEstimate(tasks)
+  // getTotalEstimate(tasks)
 
   tasks.forEach(task => {
     taskList.appendChild(createTaskItem(task))
@@ -119,4 +134,70 @@ const parseTaskInput = (input) => {
   let title = input.replace(dueDateExp, '').replace(listExp, '').replace(estimateExp, '')
 
   return{title, dueDate, listId, estimate}
+}
+
+/******************************************************************************/
+/***************************** FLOATING PROMPTS *******************************/
+/******************************************************************************/
+
+const addDueDatePrompt = () => {
+  const inputContainer = document.querySelector('.task-add__input-container')
+
+  let dueDatePrompt = document.createElement('div')
+
+  dueDatePrompt.classList.add('task-add__input-prompt')
+  dueDatePrompt.innerText = 'Please provide a date in MM/DD/YYYY format.'
+
+  inputContainer.appendChild(dueDatePrompt)
+}
+
+const addEstimatePrompt = () => {
+  const inputContainer = document.querySelector('.task-add__input-container')
+
+  let estimatePrompt = document.createElement('div')
+
+  estimatePrompt.classList.add('task-add__input-prompt')
+  estimatePrompt.innerText = 'Please provide number of minutes task is estimated to take.'
+
+  inputContainer.appendChild(estimatePrompt)
+}
+
+const addListIdPrompt = async () => {
+  const inputContainer = document.querySelector('.task-add__input-container')
+
+  let listIdPrompt = document.createElement('div')
+
+  // let res = await fetch('/lists')
+  // let body = await res.json();
+  // let lists = body.lists
+
+  //lists for testing
+  let lists = [
+    {
+      id: 12,
+      title: 'Peronsal'
+    },
+    {
+      id: 14,
+      title: 'Work'
+    },
+  ]
+
+  listIdPrompt.classList.add('task-add__input-prompt')
+
+  lists.forEach(list => {
+    listIdPrompt.appendChild(makeListOption(list))
+  })
+
+  inputContainer.appendChild(listIdPrompt)
+}
+
+
+
+const removePrompts = () => {
+  const inputContainer = document.querySelector('.task-add__input-container')
+
+  while (inputContainer.childNodes.length > 1) {
+    inputContainer.removeChild(inputContainer.lastChild)
+  }
 }
