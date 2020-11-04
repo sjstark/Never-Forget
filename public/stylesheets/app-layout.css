@@ -38,11 +38,21 @@
 }
 
 .details{
-  visibility: hidden;
+  /* visibility: hidden; */
   grid-column: 3 / 4;
   grid-row: 1 / 2;
   background-color: white;
   margin-top: 10px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  border-left: 2px solid lightgrey;
+  transform: translateX(100%);
+  transition: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+.details--shown {
+  transform: translateX(0%);
+  transition: 1s;
+  transition-timing-function: ease-in-out;
 }
