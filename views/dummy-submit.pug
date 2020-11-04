@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Dummy Submit
+    body
+        div
+            h1 POST request for tasks
+            form(action="/tasks", method="post")
+                input(type='hidden' name='_csurf' value = csrfToken)
+                label Title
+                input(name='title' type='text')
+                label ListId
+                input(type="text" name='listId')
+                label Estimated time
+                input(type="text" name='estimate')
+                label dueDate
+                input(type='date' name='dueDate')
+                button(type="submit") Submit Post Request
+        
+        div
+            h1 PUT request for tasks
+            form(action="/tasks/1", method="put")
+                input(type='hidden' name='_csurf' value = csrfToken)
+                label Title
+                input(name='title' type='text')
+                label ListId
+                input(type="text" name='listId')
+                label Estimated time
+                input(type="text" name='estimate')
+                label dueDate
+                input(type='date' name='dueDate')
+                button(type="submit") Submit Post Request

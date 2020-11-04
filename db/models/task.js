@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     title: {type: 
-      DataTypes.STRING,
+      DataTypes.STRING(100),
       allowNull: false,
     },
     isComplete: {type: 
