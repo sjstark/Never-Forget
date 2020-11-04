@@ -1,0 +1,32 @@
+ul.list-tree, ul.nested {
+    list-style-type: none;
+}
+
+.lists-div {
+    border-top: 1px solid plum;
+    border-bottom: 1px solid plum;
+    padding: 10px 0px 0px 10px;
+}
+
+.caret {
+    cursor: pointer;
+}
+
+.caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.caret-down::before {
+    transform: rotate(90deg);
+}
+
+.nested {
+    display: none;
+}
+
+.active {
+    display: block;
+}

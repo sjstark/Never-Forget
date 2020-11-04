@@ -1,0 +1,23 @@
+link(rel='stylesheet' href='/stylesheets/list-menu.css')
+
+div
+    img(src='/images/logo.png' width="200")
+
+div.lists-div
+    p Inbox
+    //- ul.inbox-tree
+    //-     li #[span.caret Inbox]
+    //-     ul.nested
+    //-         li All Tasks
+    //-         li Trash
+
+
+div.lists-div
+    ul.list-tree
+        li #[span.caret Lists]
+        ul.nested <!--TODO: ADD MIXIN TO FILL NESTED LIST WITH ALL LISTS -->
+            li Personal
+            li Work
+
+
+script(src="../javascripts/lists-menu.js" type='module' defer)
