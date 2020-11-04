@@ -155,7 +155,7 @@ router.post('/:id(\\d+)', csrfProtection, validateEditTask, asyncHandler( async 
 
 }));
 
-router.delete('/:id(\\d+)', validateTask, asyncHandler( async (req,res, next) => {
+router.post('/delete/:id(\\d+)', validateTask, asyncHandler( async (req,res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
     const userId = req.session.auth.userId;
