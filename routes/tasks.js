@@ -114,7 +114,8 @@ router.post('/',  validateTask, asyncHandler(async (req, res) => {
     }
 }))
 
-router.put('/:id(\\d+)', validateEditTask, asyncHandler( async (req,res, next) => {
+router.put('/:id(\\d+)', csrfProtection, validateEditTask, asyncHandler( async (req,res, next) => {
+    console.log("-------------------------------")
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
     const userId = req.session.auth.userId;
