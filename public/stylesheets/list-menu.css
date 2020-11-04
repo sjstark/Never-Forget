@@ -51,6 +51,7 @@ ul.list-tree, ul.nested, .inbox-tree {
 
 /* INNER ELEMENTS */
 
-/* li .caret {
-    font-size: 14;
-} */
+.list-tree-li--emphasis {
+    font-weight: bold;
+    color: purple;
+}

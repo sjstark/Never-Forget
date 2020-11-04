@@ -39,9 +39,26 @@ function treeView() {
 function emphasisText() {
     let listMenu = document.querySelector('.list-menu');
 
-    let texts = document.querySelectorAll('li')
+    let texts = document.querySelectorAll('li');
 
-    console.log(texts)
+    console.log(texts);
 
+    let textList = [...texts];
 
+    textList.forEach(el => {
+        console.log('reached for each emphasisText')
+        el.addEventListener('click', ()=> {
+            console.log('reached event listener')
+            emphasisHelperFunction(textList, el)
+        })
+    })
+}
+
+function emphasisHelperFunction(textList, el) {
+    textList.forEach(item => {
+        console.log('reached for each helper function')
+        item.classList.remove('list-tree-li--emphasis')
+    })
+    console.log('got to end of helper function')
+    el.classList.add('list-tree-li--emphasis')
 }
