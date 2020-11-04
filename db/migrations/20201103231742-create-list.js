@@ -1,6 +1,12 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    queryInterface.changeColumn("Tasks", "listId", {
+      allowNull: true,
+      type: Sequelize.INTEGER,
+      references: { model: "Lists" },
+    });
+
     return queryInterface.createTable("Lists", {
       id: {
         allowNull: false,

@@ -74,6 +74,7 @@ router.get(
 
 router.post(
   "/",
+  csrfProtection,
   validateList,
   asyncHandler(async (req, res, next) => {
     const { title } = req.body;
@@ -97,6 +98,7 @@ router.post(
 
 router.put(
   "/:id(\\d+)",
+  csrfProtection,
   validateEditList,
   asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
