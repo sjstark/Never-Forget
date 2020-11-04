@@ -12,13 +12,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const taskInput = document.querySelector('#taskInput')
   const taskButton = document.querySelector('#add-task')
+  const taskDueDate = document.querySelector('.task-add__due-date')
+  const taskListAdd = document.querySelector('.task-add__list')
+  const taskEstimate = document.querySelector('.task-add__estimate')
+  
+  taskDueDate.addEventListener('click', async (e) => {
+    (e).stopPropagation();
+    taskInput.value+=" ^"
+  })
 
+  taskListAdd.addEventListener('click', async (e) => {
+    (e).stopPropagation();
+    taskInput.value+=" #"
+  })
+
+  taskEstimate.addEventListener('click', async (e) => {
+    (e).stopPropagation();
+    taskInput.value+=" ="
+  })
+  
   taskButton.addEventListener('click', async (e) => {
 
     e.preventDefault();
 
     let input = taskInput.value;
-
     // parameters = {title, listId, estimate, dueDate}
     let parameters = parseTaskInput(input)
 
@@ -81,7 +98,7 @@ const reloadTaskList = async (listId = null) => {
 
   taskList.innerHTML = ''
 
-  getTotalEstimate(tasks)
+  // getTotalEstimate(tasks)
 
   tasks.forEach(task => {
     taskList.appendChild(createTaskItem(task))
