@@ -1,6 +1,4 @@
-ul.list-tree, ul.nested, .inbox-tree {
-    list-style-type: none;
-}
+/* CONTAINERS */
 
 .lists-div{
     border-top: 1px solid plum;
@@ -12,8 +10,32 @@ ul.list-tree, ul.nested, .inbox-tree {
     padding: 10px 0px 0px 10px;
 }
 
+.nested-div {
+    padding-left: 20px
+}
+
+/* UNORDERED LISTS  */
+
+ul.list-tree, ul.nested, .inbox-tree {
+    list-style-type: none;
+}
+
+.list-tree li {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.nested {
+    display: block;
+}
+
+.nested--inactive {
+    display: none;
+}
+
 .caret {
     cursor: pointer;
+    font-size: 14;
 }
 
 .caret::before {
@@ -27,14 +49,8 @@ ul.list-tree, ul.nested, .inbox-tree {
     transform: rotate(90deg);
 }
 
-.nested {
-    display: block;
-}
+/* INNER ELEMENTS */
 
-.nested-div {
-    padding-left: 20px
-}
-
-.nested--inactive {
-    display: none;
-}
+/* li .caret {
+    font-size: 14;
+} */

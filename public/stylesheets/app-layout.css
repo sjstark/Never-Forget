@@ -21,6 +21,10 @@
   padding-right: 10px;
 }
 
+.list-menu li {
+  font-size: 14px;
+}
+
 .task-list{
   grid-column: 2 / 3;
   grid-row: 1 / 2;
