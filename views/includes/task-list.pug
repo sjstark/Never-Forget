@@ -1,0 +1,47 @@
+link(rel='stylesheet' href='/stylesheets/task-list.css')
+.menubar
+  .menubar-incomplete Incomplete
+  .menubar-complete Completed
+.task-add__container
+  form()
+    input.task-add__input-field(id='taskInput' name='taskInput' placeholder="Add a task...")
+    .task-add__options
+      button.task-add__due-date
+        i.far.fa-calendar-check
+      button.task-add__list
+        i.fas.fa-list
+      button.task-add__estimate
+        i.far.fa-clock
+      button.task-add__submit#add-task Add Task
+.task-list__container
+  .task-list__tasks
+    - var tasks = [{title:"Enroll in App Academy"},{title:"Do my homework"},]
+    if tasks
+      each task in tasks
+        .task-list__task-item
+          .task-list__task-bar
+          .task-list__task-select
+          span.task-list__task-title #{task.title}
+  .task-list__placeholder
+    - var n = 0
+    while n < 40
+      - n++
+      .task-list__task-item
+        .task-list__task-bar
+        .task-list__task-select
+        span.task-list__task-title
+
+
+
+
+
+//- head
+//-         meta(charset="UTF-8")
+//-         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-         title = #{title}
+//-     body
+
+//-         if allTasks
+//-             each task in allTasks
+//-                 div
+//-                     p #{task.title}, #{task.estimate}

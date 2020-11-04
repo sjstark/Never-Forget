@@ -8,6 +8,8 @@
   display: grid;
   grid-template-columns: 200px 1fr 1fr;
   grid-template-rows: 100%;
+
+  overflow: hidden;
 }
 
 .list-menu{
@@ -23,6 +25,7 @@
   margin-top: 10px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  /* overflow: hidden; */
 }
 
 .summary{
