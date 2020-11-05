@@ -45,6 +45,12 @@
     margin-left: -10px;
 }
 
+.list-menu-flex {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+}
+
 /* UNORDERED LISTS  */
 
 ul.list-tree, ul.nested, .inbox-tree {
@@ -55,14 +61,23 @@ ul.list-tree, ul.nested, .inbox-tree {
     margin-top: 3px;
     margin-bottom: 3px;
     cursor: pointer;
+    display: flex;
+    /* justify-content: space-between; */
 }
+
+.list-tree li:hover {
+    background-color: plum;
+}
+
 
 .nested {
     display: block;
 }
 
+
 .nested--inactive {
     display: none;
+
 }
 
 
@@ -83,11 +98,10 @@ ul.list-tree, ul.nested, .inbox-tree {
 .caret {
     cursor: pointer;
     /* position: relative; */
-    /* font-size: 14; */
 }
 
 .caret::before {
-    content: "\25B6";
+    content: "\25BA";
     color: black;
     display: inline-block;
     margin-right: 6px;
@@ -96,3 +110,22 @@ ul.list-tree, ul.nested, .inbox-tree {
 .caret-down::before {
     transform: rotate(90deg);
 }
+
+.add-list {
+    color: purple;
+    background-color: plum;
+    /* font-size: 100px; */
+    /* display: inline-block; */
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 8%;
+    height: 95%;
+    border: solid 1px purple;
+}
+
+.add-list:hover {
+    background-color: purple;
+    color: plum
+}
+

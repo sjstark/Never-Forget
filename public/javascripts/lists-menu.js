@@ -19,7 +19,7 @@ function treeView() {
     caretToggle.forEach(caret => {
         // console.log('hit1')
         // console.log(caret)
-        caret.addEventListener('click', ()=> {
+        caret.addEventListener('click', (event)=> {
             // console.log('hit2')
             // let parentEl = el.parentElement.querySelector('.nested');
             let parentTreeDOM = caret.parentElement.parentElement;
@@ -28,7 +28,7 @@ function treeView() {
             let nestedDOM = parentTreeDOM.getElementsByClassName('nested')
             // console.log(nestedDOM)
             nestedDOM[0].classList.toggle('nested--inactive')
-
+            event.stopPropagation()
             caret.classList.toggle('caret-down')
         })
     })
