@@ -78,11 +78,10 @@ router.get(
           {
             model: User,
             as: "user",
-            attributes: ["estimate", "createdBy", "isComplete"],
           },
         ],
         order: [["createdAt", "DESC"]],
-        attributes: ["title"],
+        attributes: ["title", "estimate", "createdBy", "isComplete", 'dueDate', 'listId'],
         where: {
           listId: taskId,
         },
