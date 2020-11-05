@@ -138,26 +138,26 @@ const reloadTaskList = async (listId = null) => {
   })
 }
 
-const getLists = () => {
-  // let res = await fetch('/lists')
-  // let body = await res.json();
-  // let lists = body.lists
+const getLists = async () => {
+  let res = await fetch('/lists')
+  let body = await res.json();
+  let lists = body.lists
 
   //lists for testing
-  let lists = [
-    {
-      "listId": 2,
-      "List": {
-        "title": "Personal"
-      }
-    },
-    {
-      "listId": 3,
-      "List": {
-        "title": "Work"
-      }
-    },
-  ]
+  // let lists = [
+  //   {
+  //     "listId": 2,
+  //     "List": {
+  //       "title": "Personal"
+  //     }
+  //   },
+  //   {
+  //     "listId": 3,
+  //     "List": {
+  //       "title": "Work"
+  //     }
+  //   },
+  // ]
 
   return lists;
 }
@@ -240,6 +240,8 @@ const addEstimatePrompt = () => {
 
 const addListPrompt = async () => {
   let lists = getLists()
+
+  console.log('lists')
 
   const inputContainer = document.querySelector('.task-add__input-container')
 
