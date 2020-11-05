@@ -1,7 +1,9 @@
 'use strict';
 
+const {User} = require('../models')
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -10,18 +12,19 @@ module.exports = {
       */
     let updatedAt = new Date();
     let createdAt = new Date();
+    let demoUser = await User.findOne({where: {email: "demo@user.com"}})
     return queryInterface.bulkInsert('Lists', [
       {
         id: 1,
         title: 'Work',
-        userId: 1,
+        userId: demoUser.id,
         createdAt,
         updatedAt
       },
       {
         id: 2,
         title: 'Personal',
-        userId: 1,
+        userId: demoUser.id,
         createdAt,
         updatedAt
       },

@@ -25,12 +25,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
-      listId: {
-        allowNull: true,
-        type: Sequelize.INTEGER,
-        defaultValue: null
-        //REFERENCE TO THE LIST TABLE IS LOCATED IN THE 'LIST' MIGRATION FILE
-      },
+
       dueDate: {
         allowNull: true,
         type: Sequelize.DATE,
