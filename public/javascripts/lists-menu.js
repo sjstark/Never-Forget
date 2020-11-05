@@ -23,7 +23,7 @@ function treeView() {
             // console.log('hit2')
             // let parentEl = el.parentElement.querySelector('.nested');
             let parentTreeDOM = caret.parentElement.parentElement;
-            console.log(parentTreeDOM)
+            // console.log(parentTreeDOM)
             // console.log('hit3')
             let nestedDOM = parentTreeDOM.getElementsByClassName('nested')
             // console.log(nestedDOM)
@@ -32,7 +32,7 @@ function treeView() {
             caret.classList.toggle('caret-down')
         })
     })
- 
+
 }
 
 
@@ -41,14 +41,14 @@ function emphasisText() {
 
     let texts = document.querySelectorAll('li');
 
-    console.log(texts);
+    // console.log(texts);
 
     let textList = [...texts];
 
     textList.forEach(el => {
-        console.log('reached for each emphasisText')
+        // console.log('reached for each emphasisText')
         el.addEventListener('click', ()=> {
-            console.log('reached event listener')
+            // console.log('reached event listener')
             emphasisHelperFunction(textList, el)
         })
     })
@@ -56,9 +56,9 @@ function emphasisText() {
 
 function emphasisHelperFunction(textList, el) {
     textList.forEach(item => {
-        console.log('reached for each helper function')
+        // console.log('reached for each helper function')
         item.classList.remove('list-tree-li--emphasis')
     })
-    console.log('got to end of helper function')
+    // console.log('got to end of helper function')
     el.classList.add('list-tree-li--emphasis')
 }
