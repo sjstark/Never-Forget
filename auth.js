@@ -4,7 +4,6 @@ const loginUser = (req, res, user) => {
   req.session.auth = {
     userId: user.id,
   };
-  res.redirect("/app");
 };
 
 const restoreUser = async (req, res, next) => {
@@ -17,7 +16,7 @@ const restoreUser = async (req, res, next) => {
       if (user) {
         res.locals.authenticated = true;
         res.locals.user = user;
-        if (req.path === "/") {
+        if (req.path === "/" || req.path === "/users/login") {
           res.redirect("/app");
         }
         next();

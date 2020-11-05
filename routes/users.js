@@ -175,7 +175,7 @@ router.get(
   asyncHandler(async (req, res, next) => {
     let demoUser = await db.User.findOne({ where: { email: "demo@user.com" } });
     loginUser(req, res, demoUser);
-    return res.redirect("/app");
+    res.redirect("/app");
   })
 );
 
