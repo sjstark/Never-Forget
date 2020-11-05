@@ -12,7 +12,6 @@ module.exports = {
       */
     let updatedAt = new Date();
     let createdAt = new Date();
-<<<<<<< HEAD
     let demoUser = await User.findOne({ where: { email: "demo@user.com" } });
     return queryInterface.bulkInsert(
       "Lists",
@@ -32,23 +31,6 @@ module.exports = {
       ],
       {}
     );
-=======
-    let demoUser = await User.findOne({where: {email: "demo@user.com"}})
-    return queryInterface.bulkInsert('Lists', [
-      {
-        title: 'Work',
-        userId: demoUser.id,
-        createdAt,
-        updatedAt
-      },
-      {
-        title: 'Personal',
-        userId: demoUser.id,
-        createdAt,
-        updatedAt
-      },
-    ], {});
->>>>>>> d43aafae54a8613251eb3ad677d77dca8713b6d5
   },
 
   down: (queryInterface, Sequelize) => {
