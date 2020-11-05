@@ -130,12 +130,11 @@ router.get(
     const taskId = parseInt(req.params.id, 10)
     const userId = req.session.auth.userId;
     let task = await Task.findByPk(taskId);
-    console.log('found task:', task)
     res.json( task );
   })
 );
 
-router.post(
+router.put(
   "/:id(\\d+)",
   csrfProtection,
   validateEditTask,
@@ -176,9 +175,9 @@ router.post(
   })
 );
 
-router.post(
-  "/delete/:id(\\d+)",
-  validateTask,
+router.delete(
+  "/:id(\\d+)",
+  csrfProtection,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
@@ -205,5 +204,9 @@ router.get(
     res.render("dummy-submit", { csrfToken: req.csrfToken() });
   })
 );
+
+// router.get('/search?:searchTerm(\\w+)', async () =>{
+//   Task.findAll()
+// })
 
 module.exports = router;

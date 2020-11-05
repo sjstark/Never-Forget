@@ -4,8 +4,11 @@ import {showTaskDetails} from './showTaskDetails.js'
 /************************* BUILD TASK HTML ELEMENT ****************************/
 /******************************************************************************/
 
-export const reloadTaskList = async (listId = null) => {
+export const reloadTaskList = async () => {
   const taskList = document.querySelector('.task-list__tasks')
+
+  let listId = localStorage.getItem('never-forget-currentList') ? localStorage.getItem('never-forget-currentList') : null;
+  if (listId === 'null') listId = null;
 
   let route = '/tasks'
   if (listId) {

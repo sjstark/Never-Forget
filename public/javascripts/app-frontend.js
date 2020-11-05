@@ -1,7 +1,16 @@
 import {reloadTaskList} from "./utils/reloadTaskList.js"
 
+//import {treeView, highlighting, selector }from "./menufrontend.js"
 
 document.addEventListener('DOMContentLoaded', async () => {
+
+  localStorage.setItem('never-forget-currentList', null)
+
+  /*
+  treeView();
+  highlighting();
+  selector(reloadTaskList);
+  */
 
 /******************************************************************************/
 /********************* GET ALL TASKS FOR USER ON LOAD *************************/
