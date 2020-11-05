@@ -16,6 +16,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const taskRouter = require("./routes/tasks");
 const listsRouter = require("./routes/lists");
+const appRouter = require("./routes/app-router");
 
 const app = express();
 
@@ -44,19 +45,12 @@ app.use(
 );
 store.sync();
 
-<<<<<<< HEAD
 app.use(restoreUser)
 app.use('/', indexRouter);
 app.use('/app', appRouter);
 app.use('/tasks',taskRouter)
 app.use('/users', usersRouter);
-=======
-app.use(restoreUser);
-app.use("/", indexRouter);
-app.use("/tasks", taskRouter);
-app.use("/users", usersRouter);
 app.use("/lists", listsRouter);
->>>>>>> master
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
