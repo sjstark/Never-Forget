@@ -14,6 +14,37 @@
     padding-left: 20px
 }
 
+.peanut-div {
+    position: absolute;
+    bottom:15px;
+}
+
+.github-blurb {
+    background-color:#fffd78;
+    width: 100px;
+    height: 60px;
+    position: absolute;
+    bottom: 40px;
+    left:45px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.github-blurb:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: #fffd78;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -5px;
+    margin-left: -10px;
+}
+
 /* UNORDERED LISTS  */
 
 ul.list-tree, ul.nested, .inbox-tree {
@@ -23,6 +54,7 @@ ul.list-tree, ul.nested, .inbox-tree {
 .list-tree li {
     margin-top: 3px;
     margin-bottom: 3px;
+    cursor: pointer;
 }
 
 .nested {
@@ -33,9 +65,25 @@ ul.list-tree, ul.nested, .inbox-tree {
     display: none;
 }
 
+
+/* INNER ELEMENTS */
+
+.list-tree-li--emphasis {
+    font-weight: bold;
+    color: purple;
+}
+
+.github-blurb a {
+    text-decoration: none;
+    text-emphasis: bold;
+    font-size: 15px;
+    /* margin: 10px; */
+}
+
 .caret {
     cursor: pointer;
-    font-size: 14;
+    /* position: relative; */
+    /* font-size: 14; */
 }
 
 .caret::before {
@@ -47,11 +95,4 @@ ul.list-tree, ul.nested, .inbox-tree {
 
 .caret-down::before {
     transform: rotate(90deg);
-}
-
-/* INNER ELEMENTS */
-
-.list-tree-li--emphasis {
-    font-weight: bold;
-    color: purple;
 }

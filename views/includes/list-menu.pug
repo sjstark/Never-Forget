@@ -6,7 +6,7 @@ div
 div.inbox-div
     //- p Inbox
     ul.list-tree
-        li #[span.caret Inbox]
+        li #[span.caret.caret-down Inbox]
         div.nested-div
             ul.nested
                 li All Tasks
@@ -15,11 +15,16 @@ div.inbox-div
 
 div.lists-div
     ul.list-tree
-        li #[span.caret Lists]
+        li #[span.caret.caret-down Lists]
+        //- span.caret.caret-down #[li Lists]
         div.nested-div
             ul.nested <!--TODO: ADD MIXIN TO FILL NESTED LIST WITH ALL LISTS -->
                 li Personal
                 li Work
 
+div.peanut-div 
+    img(src="/images/peanut.png")
+    div.github-blurb 
+        a(href="https://github.com/sjstark/Never-Forget") Checkout our code here!
 
 script(src="../javascripts/lists-menu.js" type='module' defer)
