@@ -57,7 +57,7 @@ router.get(
     const userId = res.locals.user.id;
 
     let allLists = await List.findAll({
-      attributes: ["title"],
+      attributes: ["userId", "title"],
       where: { userId: userId },
       // order: [["title", "DESC"]],
     });
