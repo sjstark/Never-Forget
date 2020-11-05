@@ -143,3 +143,55 @@ input {
   padding-left: 1rem;
   color: darkred;
 }
+
+/* .signup__avatars {
+  position: absolute;
+  top: 35%;
+  left: 15%;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 400px;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-right: 8px;
+  /* border: 5px solid black; */
+  
+  .invert-logo{
+    visibility: hidden;
+  }
+
+
+
+/*********** Media Queries ********** */
+@media only screen and (max-width: 768px){
+  .form__left {
+    all: unset;
+  }
+
+  
+  .form__group {
+    position: relative;
+    margin-right: 240px;
+    max-width: 400;
+    /* border: 1px solid black; */
+  }
+  .logo {
+    display:none;
+  }
+
+  .invert-logo{
+  visibility: visible;
+  position: relative;
+  left: 20%;
+  margin-top: 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1000px){
+  .form__group {
+    position: absolute;
+    max-width: 300px;
+    width: 90%;
+    padding: 2px;
+  }
+}
