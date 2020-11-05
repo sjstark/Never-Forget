@@ -44,4 +44,16 @@ html(lang="en")
                 label Title
                 input(name='title' type='text')
                 button(type="submit") Submit Post Request
+        div
+            h1 PUT request for lists
+            form(action="/lists/put/8", method="post")
+                input(type='hidden' name='_csrf' value = csrfToken)
+                label Title
+                input(name='title' type='text')
+                button#thisButton(type="submit") Submit Post Request
+        div
+            h1 DELETE request for list
+            form(action="/lists/delete/8", method="post")
+                input(type='hidden' name='_csrf' value = csrfToken)
+                button#thisButton(type="submit") Submit Post Request
         script(src="/javascripts/dummy-submit.js" type="module" defer)

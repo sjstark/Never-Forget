@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const {User} = require('../models')
+const { User } = require("../models");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -12,21 +12,25 @@ module.exports = {
       */
     let updatedAt = new Date();
     let createdAt = new Date();
-    let demoUser = await User.findOne({where: {email: "demo@user.com"}})
-    return queryInterface.bulkInsert('Lists', [
-      {
-        title: 'Work',
-        userId: demoUser.id,
-        createdAt,
-        updatedAt
-      },
-      {
-        title: 'Personal',
-        userId: demoUser.id,
-        createdAt,
-        updatedAt
-      },
-    ], {});
+    let demoUser = await User.findOne({ where: { email: "demo@user.com" } });
+    return queryInterface.bulkInsert(
+      "Lists",
+      [
+        {
+          title: "Work",
+          userId: demoUser.id,
+          createdAt,
+          updatedAt,
+        },
+        {
+          title: "Personal",
+          userId: demoUser.id,
+          createdAt,
+          updatedAt,
+        },
+      ],
+      {}
+    );
   },
 
   down: (queryInterface, Sequelize) => {
@@ -36,6 +40,6 @@ module.exports = {
 
       Example:
       */
-    return queryInterface.bulkDelete('Lists', null, {});
-  }
+    return queryInterface.bulkDelete("Lists", null, {});
+  },
 };
