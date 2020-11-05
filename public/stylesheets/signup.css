@@ -8,6 +8,7 @@
   width: 100%;
   flex-wrap: wrap;
   margin-right: 8px;
+  
 }
 
 .signup__avatars > img {
@@ -58,3 +59,40 @@
   list-style-position: outside;
   margin-left: 20px;
 }
+
+/*********** Media Queries ********** */
+
+@media only screen and (max-width: 768px){
+  .form__left {
+    all: unset;
+  }
+  .signup__avatars >img{
+    display: none;
+  }
+  .signup__avatars-msg{
+    display:none;
+  }
+}
+
+@media only screen and (max-width: 1000px){
+  .signup__avatars{
+    display:block;
+    padding-left: 4px;
+    padding-right:4px;
+    
+  }
+ 
+  .signup__avatars-msg {
+   margin-left: 25px;
+   max-width: 200px;
+   text-align: center;
+   width: 100%;
+   color: #dacef1;
+   font-size: 28px;
+   opacity: 0.6;
+   font-weight: 500;
+ }
+ 
+   
+ }
+
