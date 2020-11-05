@@ -6,7 +6,9 @@ link(rel='stylesheet' href='/stylesheets/task-list.css')
   .menubar-item Completed
 .task-add__container
   form()
+    .task-add__errors-container
     .task-add__input-container
+      input#csrf(type='hidden' name='_csrf' value = csrfToken)
       input.task-add__input-field(autocomplete="off" id='taskInput' name='taskInput' placeholder="Add a task...")
     .task-add__options
       .task-add__options-modifiers

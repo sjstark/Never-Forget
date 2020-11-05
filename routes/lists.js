@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const { csrfProtection, asyncHandler } = require("./utils");
-const cors = require("cors");
 const db = require("../db/models");
 
 const { Task, User, List } = db;
@@ -57,7 +56,7 @@ router.get(
     const userId = res.locals.user.id;
 
     let allLists = await List.findAll({
-      attributes: ["userId", "title"],
+      attributes: ["id", "title"],
       where: { userId: userId },
       // order: [["title", "DESC"]],
     });
@@ -102,7 +101,7 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const userId = res.locals.user.id;
     const { title } = req.body;
-    // console.log(title);
+    // console.log('Hey, Im working here', title);
     const list = await List.build({
       title,
       userId,

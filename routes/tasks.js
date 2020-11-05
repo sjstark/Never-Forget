@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const { csrfProtection, asyncHandler } = require("./utils");
-const cors = require("cors");
 // const { requireAuth } = require('../auth');
 const db = require("../db/models");
 
@@ -16,10 +15,10 @@ const validateTask = [
     .exists({ checkFalsy: true })
     .withMessage("Must provide a title."),
 
-  check("estimate")
-    .exists({ checkFalsy: true })
-    .withMessage("Estimate cannot be null")
-    .isLength({ min: 0 }),
+  // check("estimate")
+  //   .exists({ checkFalsy: true })
+  //   .withMessage("Estimate cannot be null")
+  //   .isLength({ min: 0 }),
 
   //TODO: VALIDATE LIST ID IF IT EXISTS
 ];
@@ -29,10 +28,10 @@ const validateEditTask = [
     .exists({ checkFalsy: true })
     .withMessage("Must provide a title."),
 
-  check("estimate")
-    .exists({ checkFalsy: true })
-    .withMessage("Estimate cannot be null")
-    .isLength({ min: 0 }),
+  // check("estimate")
+  //   .exists({ checkFalsy: true })
+  //   .withMessage("Estimate cannot be null")
+  //   .isLength({ min: 0 }),
 ];
 
 const taskNotFoundError = (id) => {
@@ -97,7 +96,7 @@ router.post(
     //TODO add user ID
     const userId = req.session.auth.userId;
 
-    console.log("/n/n/n/Post request went through/n/n");
+    console.log("\n\n\nPost request went through\n\n");
 
     const { title, listId, estimate, dueDate } = req.body;
     const task = await Task.build({

@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 /******************************************************************************/
 
   reloadTaskList();
-  let lists = getLists()
 
 /******************************************************************************/
 /********************** ADD TASK CREATE FUNCTIONALITY *************************/
@@ -16,6 +15,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const taskDueDate = document.querySelector('.task-add__due-date')
   const taskListAdd = document.querySelector('.task-add__list')
   const taskEstimate = document.querySelector('.task-add__estimate')
+  const errorContainer = document.querySelector('.task-add__errors-container')
+  const _csrf = document.querySelector('#csrf').value
 
   taskDueDate.addEventListener('click', async (e) => {
     (e).stopPropagation();
@@ -44,28 +45,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     e.preventDefault();
 
+
     let input = taskInput.value;
+    errorContainer.innerHTML = ''
 
     if (!input) {
       return
     }
+    let parameters
 
-    // parameters = {title, listTitle, estimate, dueDate}
+    parameters = parseTaskInput(input)
 
-    let parameters = parseTaskInput(input)
+    const errors = await validateInput(parameters)
 
-    let errors = await validateInput(parameters)
-
-    console.log('errors going into if', errors)
     if (errors.length > 0) {
-      console.error(errors)
+
+      let errorsUL = document.createElement('ul')
+      errorsUL.classList.add('task-add__errors')
+
+      errors.forEach(error => {
+        let errorLI = document.createElement('li')
+        errorLI.innerHTML = error
+        errorsUL.appendChild(errorLI)
+      })
+      errorContainer.appendChild(errorsUL)
       return;
-    } else{
+    }
+    else{
+      let listId = null
+      if (parameters.listTitle) {
+        listId = await getListId(parameters.listTitle)
+      }
+
       let body = {
         title: parameters.title,
-        listId: getListId(parameters.listTitle),
+        listId,
         estimate: parameters.estimate,
-        dueDate: parameters.dueDate
+        dueDate: parameters.dueDate,
+        _csrf
       }
 
       const options = {
@@ -75,17 +92,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
         method: 'POST'
       }
+
       try {
         const res = await fetch('/tasks', options)
-        if (!res.ok) {
-          throw res
-        }
         taskInput.value = '';
 
         reloadTaskList();
+        checkInputs();
 
       } catch (e) {
-        console.log('hit!')
         console.error(e)
         return
       }
@@ -141,23 +156,7 @@ const reloadTaskList = async (listId = null) => {
 const getLists = async () => {
   let res = await fetch('/lists')
   let body = await res.json();
-  let lists = body.lists
-
-  //lists for testing
-  // let lists = [
-  //   {
-  //     "listId": 2,
-  //     "List": {
-  //       "title": "Personal"
-  //     }
-  //   },
-  //   {
-  //     "listId": 3,
-  //     "List": {
-  //       "title": "Work"
-  //     }
-  //   },
-  // ]
+  let lists = body.allLists
 
   return lists;
 }
@@ -188,26 +187,38 @@ const parseTaskInput = (input) => {
 
   let parameters = {}
 
-  if (/\^(1-9\/)+/g.test(input)){
-    let [dueDateExp, dueDate] = dueDatePatt.exec(input)
-    parameters.dueDate = dueDate
-    input = input.replace(dueDateExp, '')
+  if (input.includes('^')){
+    let dueDateExp, dueDate
+    try{
+      [dueDateExp, dueDate] = dueDatePatt.exec(input)
+      parameters.dueDate = dueDate
+      input = input.replace(dueDateExp, '')
+    }
+    catch (e) {
+      parameters.dueDate = false
+    }
   }
-  if (/#(\d+)/g.test(input)){
-    let [listExp, listTitle] = listPatt.exec(input)
-    parameters.listTitle = listTitle
-    input = input.replace(listExp, '')
+  if (input.includes('#')){
+    try {
+      let [listExp, listTitle] = listPatt.exec(input)
+      parameters.listTitle = listTitle
+      input = input.replace(listExp, '')
+    } catch (e) {
+      parameters.listTitle = false
+    }
   }
-  if (/=(\d+)/g.test(input)){
-    let [estimateExp, estimate] = estimatePatt.exec(input)
-    parameters.estimate = estimate
-    input = input.replace(estimateExp, '')
+  if (input.includes('=')){
+    try {
+      let [estimateExp, estimate] = estimatePatt.exec(input)
+      parameters.estimate = estimate
+      input = input.replace(estimateExp, '')
+    } catch (e) {
+      parameters.estimate = false
+    }
 
   }
 
   parameters.title = input;
-
-  console.log('params', parameters)
 
   return parameters
 }
@@ -239,9 +250,9 @@ const addEstimatePrompt = () => {
 }
 
 const addListPrompt = async () => {
-  let lists = getLists()
+  let lists = await getLists()
 
-  console.log('lists')
+
 
   const inputContainer = document.querySelector('.task-add__input-container')
 
@@ -249,6 +260,10 @@ const addListPrompt = async () => {
 
 
   listPrompt.classList.add('task-add__input-prompt')
+
+  if (lists.length === 0) {
+    listPrompt.innerText = 'Type in the name for a new list!'
+  }
 
   lists.forEach(list => {
     listPrompt.appendChild(makeListOption(list))
@@ -259,7 +274,7 @@ const addListPrompt = async () => {
 
 const makeListOption = (list) => {
   let listId = list.id
-  let title = list.List.title
+  let title = list.title
 
   let listEl = document.createElement('div')
   listEl.id = `listOption-${listId}`;
@@ -279,7 +294,7 @@ const makeListOption = (list) => {
 const removePrompts = () => {
   const inputContainer = document.querySelector('.task-add__input-container')
 
-  while (inputContainer.childNodes.length > 1) {
+  while (inputContainer.childNodes.length > 2) {
     inputContainer.removeChild(inputContainer.lastChild)
   }
 }
@@ -324,12 +339,12 @@ const validateInput = async (input) => {
     errors.push('Please make sure to provide estimate in integer of minutes. (30 minutes would be "30")')
   }
   if (input.listTitle !== undefined ) {
-    if (input.listTitle === '' || !listPatt.test(input.listTitle)) {
+    if (input.listTitle === false || !listPatt.test(input.listTitle)) {
       errors.push('Please provide title of list.')
     } else {
-      let lists = getLists()
+      let lists = await getLists()
 
-      let listTitles = lists.map(list => list.List.title);
+      let listTitles = lists.map(list => list.title);
 
       if (!listTitles.includes(input.listTitle)) {
         await createNewList(input.listTitle)
@@ -337,35 +352,43 @@ const validateInput = async (input) => {
     }
   }
 
-  console.log(errors)
-
   return errors
 
 }
 
 const createNewList = async (title) => {
+  // console.log('\n Attempting to create new list')
   let body = {
-    title: title
+    title: title,
+    _csrf: document.querySelector('#csrf').value
   }
+
+  // console.log('list body:', body)
 
   let options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body
+    body: JSON.stringify(body)
   }
-
-  let res = await fetch('/lists', options).catch(e=>alert(e))
+  try {
+    let res = await fetch('/lists', options)
+    if (!res.ok) throw res
+    // else console.log('success in posting?')
+  } catch (err) {
+    // console.log('hit error when creating list')
+    console.error(err)
+  }
 }
 
 
-const getListId = (listTitle) => {
-  let lists = getLists();
+const getListId = async (listTitle) => {
+  let lists = await getLists();
 
   for (let i = 0; i < lists.length; i++) {
     let list = lists[i];
-    if (list.List.title === listTitle) {
+    if (list.title === listTitle) {
       return list.id
     }
   }

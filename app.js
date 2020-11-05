@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require('cors')
 
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(sessionSecret));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors({origin: 'http://localhost:8080'}))
 
 const store = new SequelizeStore({
   db: sequelize,
@@ -48,7 +50,7 @@ store.sync();
 app.use(restoreUser)
 app.use('/', indexRouter);
 app.use('/app', appRouter);
-app.use('/tasks',taskRouter)
+app.use('/tasks',taskRouter);
 app.use('/users', usersRouter);
 app.use("/lists", listsRouter);
 

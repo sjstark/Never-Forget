@@ -236,3 +236,21 @@ button {
   background-color: #dddddd;
   cursor: pointer;
 }
+
+.task-add__errors {
+  /* box-sizing: border-box; */
+  background-color: lightpink;
+  border: darkred;
+  border-radius: 3px;
+  width: 90%;
+  padding: 10px;
+  margin: 20px;
+
+}
+
+.task-add__errors > * {
+  width: 95%;
+  text-align: left;
+  color: darkred;
+  margin: 15px;
+}
