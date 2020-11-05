@@ -178,6 +178,9 @@ input {
   .logo {
     display:none;
   }
+  .avatar {
+    display:none;
+  }
 
   .invert-logo{
   visibility: visible;
