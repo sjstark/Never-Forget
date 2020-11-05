@@ -28,14 +28,15 @@ module.exports = {
       listId: {
         allowNull: true,
         type: Sequelize.INTEGER,
+        defaultValue: null
         //REFERENCE TO THE LIST TABLE IS LOCATED IN THE 'LIST' MIGRATION FILE
       },
       dueDate: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
       },
       estimate: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
       },
       createdAt: {
