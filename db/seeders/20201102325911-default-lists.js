@@ -15,14 +15,12 @@ module.exports = {
     let demoUser = await User.findOne({where: {email: "demo@user.com"}})
     return queryInterface.bulkInsert('Lists', [
       {
-        id: 1,
         title: 'Work',
         userId: demoUser.id,
         createdAt,
         updatedAt
       },
       {
-        id: 2,
         title: 'Personal',
         userId: demoUser.id,
         createdAt,
