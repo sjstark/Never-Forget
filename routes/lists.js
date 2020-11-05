@@ -9,16 +9,6 @@ const { Task, User, List } = db;
 /****************** VALIDATION AND ERROR CHECKS **************************/
 
 const validateList = [
-  // check("createdBy")
-  //   .exists({ checkFalsy: true })
-  //   .withMessage("Must have User ID.")
-  //   .custom((value) => {
-  //     return db.User.findOne({ where: { id: value } }).then((user) => {
-  //       if (!user) {
-  //         return Promise.reject("No user could be found");
-  //       }
-  //     });
-  //   }),
   check("title")
     .exists({ checkFalsy: true })
     .withMessage("Must provide a title."),
@@ -50,14 +40,15 @@ const notAuthorizedError = (listId) => {
 
 /***********************      ROUTES     *****************************/
 
+//GET ALL LISTS FOR A SPECIFIC USER
 router.get(
   "/",
   asyncHandler(async (req, res, next) => {
-    const userId = res.locals.user.id;
+    const loggedInUserId = res.locals.user.id;
 
     let allLists = await List.findAll({
       attributes: ["id", "title"],
-      where: { userId: userId },
+      where: { userId: loggedInUserId },
       // order: [["title", "DESC"]],
     });
 
@@ -65,56 +56,53 @@ router.get(
   })
 );
 
+//GET ALL TASKS FOR A SPECIFIC LIST
 router.get(
   "/:id(\\d+)",
   csrfProtection,
   asyncHandler(async (req, res, next) => {
-    console.log("hello");
-    const taskId = parseInt(req.params.id, 10);
-    let allTasks;
-    try {
-      allTasks = await Task.findAll({
-        include: [
-          {
-            model: User,
-            as: "user",
-            attributes: ["estimate", "createdBy", "isComplete"],
-          },
-        ],
+    const listId = parseInt(req.params.id, 10);
+
+    const loggedInUserId = res.locals.user.id;
+    const { userId: listUser } = await List.findOne({
+      where: { id: listId },
+    });
+
+    //check if user is accessing his own list
+    if (loggedInUserId !== listUser) {
+      next(notAuthorizedError(listId));
+    } else {
+      const allTasks = await Task.findAll({
         order: [["createdAt", "DESC"]],
-        attributes: ["title"],
+        attributes: ["title", "estimate", "isComplete", "dueDate"],
         where: {
-          listId: taskId,
+          listId,
         },
       });
-    } catch (error) {
-      console.error(error);
+
+      res.json({ allTasks });
     }
-    res.json({ allTasks });
   })
 );
 
+//THIS IS A ROUTE TO CREATE A LIST
 router.post(
   "/",
   csrfProtection,
   validateList,
   asyncHandler(async (req, res, next) => {
-    const userId = res.locals.user.id;
+    const loggedInUserId = res.locals.user.id;
     const { title } = req.body;
     // console.log('Hey, Im working here', title);
     const list = await List.build({
       title,
-      userId,
+      userId: loggedInUserId,
     });
 
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
-      try {
-        await list.save();
-      } catch (err) {
-        console.error(err);
-      }
+      await list.save();
       res.status(201).json({ list });
       //TODO implement AJAX here.
     } else {
@@ -125,21 +113,34 @@ router.post(
   })
 );
 
-router.put(
-  "/:id(\\d+)",
+// THIS IS A PUT ROUTE TO EDIT LIST TITLE
+router.post(
+  "/put/:id(\\d+)",
   csrfProtection,
   validateEditList,
   asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
-    const list = await List.findByPk(listId);
-    // const userId = req.session.auth.userId;
+    const loggedInUserId = res.locals.user.id;
+    const list = await List.findOne({
+      where: { id: listId },
+    });
 
-    if (list) {
-      // // CHECKS TO SEE IF USER HAS ACCESS TO THAT LIST
-      //MM: do we need to check if user has access to the list? presumably the user has already been authorized at this point?
+    //check if list exists
+    if (!list) {
+      next(listNotFoundError(listId));
+      return;
+    }
 
+    //destructure userId from list
+    const { userId: listUser } = await List.findOne({
+      where: { id: listId },
+    });
+
+    // // CHECKS TO SEE IF USER HAS ACCESS TO THAT LIST
+    if (loggedInUserId !== listUser) {
+      next(notAuthorizedError(listId));
+    } else {
       //CHECKS FOR ERRORS AND UPDATES
-
       const validatorErrors = validationResult(req);
 
       if (validatorErrors.isEmpty()) {
@@ -152,25 +153,39 @@ router.put(
         const errors = validatorErrors.array().map((error) => error.msg);
         next(errors);
       }
-    } else {
-      next(listNotFoundError(listId));
     }
   })
 );
 
-router.delete(
-  "/:id(\\d+)",
+//THIS IS A DELETE ROUTE TO REMOVE A LIST
+router.post(
+  "/delete/:id(\\d+)",
   validateList,
   asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
-    const list = await List.findByPk(listId);
+    const loggedInUserId = res.locals.user.id;
+    const list = await List.findOne({
+      where: { id: listId },
+    });
 
-    if (list) {
-      await list.destroy();
-      //TODO implement AJAX
-      res.status(204).end();
-    } else {
+    //check if list exists
+    if (!list) {
       next(listNotFoundError(listId));
+      return;
+    }
+
+    //destructure userId from list
+    const { userId: listUser } = await List.findOne({
+      where: { id: listId },
+    });
+
+    //CHECKS TO SEE IF USER AUTHORIZED TO DELETE THAT LIST
+    if (loggedInUserId !== listUser) {
+      next(notAuthorizedError(listId));
+    } else {
+      await list.destroy();
+      res.status(204).end();
+      //TODO implement some AJAX
     }
   })
 );
