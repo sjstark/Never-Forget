@@ -28,8 +28,8 @@ module.exports = {
       listId: {
         allowNull: true,
         type: Sequelize.INTEGER,
-        defaultValue: null
-        //REFERENCE TO THE LIST TABLE IS LOCATED IN THE 'LIST' MIGRATION FILE
+        defaultValue: null,
+        references: { model: "Lists" },
       },
       dueDate: {
         allowNull: true,

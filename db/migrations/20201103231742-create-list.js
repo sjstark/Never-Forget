@@ -30,13 +30,6 @@ module.exports = {
           type: Sequelize.DATE,
         },
       })
-      .then(() =>
-        queryInterface.changeColumn("Tasks", "listId", {
-          allowNull: true,
-          type: Sequelize.INTEGER,
-          references: { model: "Lists" },
-        })
-      );
   },
   down: async (queryInterface, Sequelize) => {
     // await queryInterface.removeConstraint("Tasks", "Tasks_listId_fkey");
