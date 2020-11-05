@@ -25,12 +25,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },
-      listId: {
-        allowNull: true,
-        type: Sequelize.INTEGER,
-        defaultValue: null,
-        references: { model: "Lists" },
-      },
+
       dueDate: {
         allowNull: true,
         type: Sequelize.DATE,

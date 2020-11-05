@@ -30,9 +30,18 @@ module.exports = {
           type: Sequelize.DATE,
         },
       })
+      .then(() => {
+        queryInterface.addColumn('Tasks', 'listId', {
+          allowNull: true,
+          type: Sequelize.INTEGER,
+          defaultValue: null,
+          references: { model: "Lists" },
+        }
+        )
+      })
   },
   down: async (queryInterface, Sequelize) => {
-    // await queryInterface.removeConstraint("Tasks", "Tasks_listId_fkey");
+    await queryInterface.removeColumn("Tasks", "listId");
     return queryInterface.dropTable("Lists");
   },
 };
