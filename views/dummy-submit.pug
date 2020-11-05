@@ -8,7 +8,7 @@ html(lang="en")
         div
             h1 POST request for tasks
             form(action="/tasks", method="post")
-                input(type='hidden' name='_csurf' value = csrfToken)
+                input(type='hidden' name='_csrf' value = csrfToken)
                 label Title
                 input(name='title' type='text')
                 label ListId
@@ -18,11 +18,11 @@ html(lang="en")
                 label dueDate
                 input(type='date' name='dueDate')
                 button(type="submit") Submit Post Request
-        
+
         div
             h1 PUT request for tasks
-            form(action="/tasks/1", method="put")
-                input(type='hidden' name='_csurf' value = csrfToken)
+            form(action="/tasks/9", method="post")
+                input(type='hidden' name='_csrf' value = csrfToken)
                 label Title
                 input(name='title' type='text')
                 label ListId
@@ -31,4 +31,17 @@ html(lang="en")
                 input(type="text" name='estimate')
                 label dueDate
                 input(type='date' name='dueDate')
+                button#thisButton(type="submit") Submit Post Request
+        div
+            h1 DELETE request for tasks
+            form(action="/tasks/delete/9", method="post")
+                input(type='hidden' name='_csrf' value = csrfToken)
+                button#thisButton(type="submit") Submit Post Request
+        div
+            h1 POST request for lists
+            form(action="/lists", method="post")
+                input(type='hidden' name='_csrf' value = csrfToken)
+                label Title
+                input(name='title' type='text')
                 button(type="submit") Submit Post Request
+        script(src="/javascripts/dummy-submit.js" type="module" defer)
