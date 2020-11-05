@@ -37,4 +37,11 @@ html(lang="en")
             form(action="/tasks/delete/9", method="post")
                 input(type='hidden' name='_csrf' value = csrfToken)
                 button#thisButton(type="submit") Submit Post Request
+        div
+            h1 POST request for lists
+            form(action="/lists", method="post")
+                input(type='hidden' name='_csrf' value = csrfToken)
+                label Title
+                input(name='title' type='text')
+                button(type="submit") Submit Post Request
         script(src="/javascripts/dummy-submit.js" type="module" defer)

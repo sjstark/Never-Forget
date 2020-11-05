@@ -1,4 +1,7 @@
 "use strict";
+
+const { query } = require("express");
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface
@@ -13,6 +16,11 @@ module.exports = {
           allowNull: false,
           type: Sequelize.STRING(50),
         },
+        userId: {
+          allowNull: false,
+          type: Sequelize.INTEGER,
+          references: { model: "Users" },
+        },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
@@ -22,7 +30,7 @@ module.exports = {
           type: Sequelize.DATE,
         },
       })
-      .then(
+      .then(() =>
         queryInterface.changeColumn("Tasks", "listId", {
           allowNull: true,
           type: Sequelize.INTEGER,
@@ -30,7 +38,8 @@ module.exports = {
         })
       );
   },
-  down: (queryInterface, Sequelize) => {
+  down: async (queryInterface, Sequelize) => {
+    // await queryInterface.removeConstraint("Tasks", "Tasks_listId_fkey");
     return queryInterface.dropTable("Lists");
   },
 };
