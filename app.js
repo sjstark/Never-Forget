@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require('cors')
 
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -16,6 +17,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const taskRouter = require("./routes/tasks");
 const listsRouter = require("./routes/lists");
+const appRouter = require("./routes/app-router");
 
 const app = express();
 
@@ -28,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(sessionSecret));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors({origin: 'http://localhost:8080'}))
 
 const store = new SequelizeStore({
   db: sequelize,
@@ -44,10 +47,11 @@ app.use(
 );
 store.sync();
 
-app.use(restoreUser);
-app.use("/", indexRouter);
-app.use("/tasks", taskRouter);
-app.use("/users", usersRouter);
+app.use(restoreUser)
+app.use('/', indexRouter);
+app.use('/app', appRouter);
+app.use('/tasks',taskRouter);
+app.use('/users', usersRouter);
 app.use("/lists", listsRouter);
 
 // catch 404 and forward to error handler

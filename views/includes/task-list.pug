@@ -6,8 +6,10 @@ link(rel='stylesheet' href='/stylesheets/task-list.css')
   .menubar-item Completed
 .task-add__container
   form()
+    .task-add__errors-container
     .task-add__input-container
-      input.task-add__input-field(id='taskInput' name='taskInput' placeholder="Add a task...")
+      input#csrf(type='hidden' name='_csrf' value = csrfToken)
+      input.task-add__input-field(autocomplete="off" id='taskInput' name='taskInput' placeholder="Add a task...")
     .task-add__options
       .task-add__options-modifiers
         div.task-add__due-date(title='Add Due Date')
@@ -19,7 +21,7 @@ link(rel='stylesheet' href='/stylesheets/task-list.css')
       button.task-add__submit#add-task Add Task
 .task-list__container
   .task-list__tasks
-    - var tasks = [{title:"Enroll in App Academy"},{title:"Do my homework"},]
+    //- - var tasks = [{title:"Enroll in App Academy"},{title:"Do my homework"},]
     if tasks
       each task in tasks
         +task-item(task)
@@ -28,19 +30,5 @@ link(rel='stylesheet' href='/stylesheets/task-list.css')
     while n < 40
       - n++
       - blankTask = {title: ''}
-      +task-item(blankTask)
-
-
-
-
-
-//- head
-//-         meta(charset="UTF-8")
-//-         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-//-         title = #{title}
-//-     body
-
-//-         if allTasks
-//-             each task in allTasks
-//-                 div
-//-                     p #{task.title}, #{task.estimate}
+      //- +task-item(blankTask)
+      .task-list__task-item-placeholder
