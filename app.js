@@ -12,17 +12,10 @@ const sequelize = db.sequelize;
 const { sessionSecret } = require("./config");
 const { restoreUser } = require("./auth");
 
-<<<<<<< HEAD
-const appRouter = require('./routes/app-router')
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const taskRouter = require('./routes/tasks')
-=======
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const taskRouter = require("./routes/tasks");
 const listsRouter = require("./routes/lists");
->>>>>>> master
 
 const app = express();
 

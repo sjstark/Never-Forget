@@ -12,31 +12,6 @@ const { Task, User } = db;
 /****************** VALIDATION AND ERROR CHECKS **************************/
 
 const validateTask = [
-<<<<<<< HEAD
-
-    check("title")
-        .exists(({ checkFalsy: true}))
-        .withMessage('Must provide a title.'),
-
-    check('estimate')
-        .exists({checkFalsy: true})
-        .withMessage('Estimate cannot be null')
-        .isLength({min: 0})
-
-    //TODO: VALIDATE LIST ID IF IT EXISTS
-]
-
-const validateEditTask = [
-    check("title")
-        .exists(({ checkFalsy: true}))
-        .withMessage('Must provide a title.'),
-
-    check('estimate')
-        .exists({checkFalsy: true})
-        .withMessage('Estimate cannot be null')
-        .isLength({min: 0})
-]
-=======
   check("title")
     .exists({ checkFalsy: true })
     .withMessage("Must provide a title."),
@@ -59,7 +34,6 @@ const validateEditTask = [
     .withMessage("Estimate cannot be null")
     .isLength({ min: 0 }),
 ];
->>>>>>> master
 
 const taskNotFoundError = (id) => {
   const error = new Error(`Task with id of ${id} not found`);
@@ -85,21 +59,12 @@ router.get(
   asyncHandler(async (req, res) => {
     const userId = req.session.auth.userId;
     let allTasks = await Task.findAll({
-<<<<<<< HEAD
-        include: [{ model: User, as: "user", attributes:["email"]}],
-        order: [["createdAt", "DESC"]],
-        attributes: ["title", "id", "estimate"],
-        where: {
-            "createdBy": userId
-        }
-=======
       include: [{ model: User, as: "user", attributes: ["email"] }],
       order: [["createdAt", "DESC"]],
       attributes: ["title"],
       where: {
         createdBy: userId,
       },
->>>>>>> master
     });
     console.log("hit5");
     res.json({ allTasks });
@@ -132,18 +97,6 @@ router.post(
     //TODO add user ID
     const userId = req.session.auth.userId;
 
-<<<<<<< HEAD
-    console.log("/n/n/n/Post request went through/n/n")
-
-    const {title, listId, estimate, dueDate} = req.body;
-    const task = await Task.build(
-        {createdBy: userId,
-         title,
-         listId,
-         estimate,
-         dueDate,
-          });
-=======
     console.log("/n/n/n/Post request went through/n/n");
 
     const { title, listId, estimate, dueDate } = req.body;
@@ -154,7 +107,6 @@ router.post(
       estimate,
       dueDate,
     });
->>>>>>> master
 
     const validatorErrors = validationResult(req);
 
@@ -185,14 +137,9 @@ router.post(
     if (task) {
       // CHECKS TO SEE IF USER HAS ACCESS TO THAT TASK
 
-<<<<<<< HEAD
-        // CHECKS TO SEE IF USER HAS ACCESS TO THAT TASK
-
-=======
       if (task.createdBy !== userId) {
         next(notAuthorizedError(taskId));
       }
->>>>>>> master
 
       //CHECKS FOR ERRORS AND UPDATES
 
@@ -208,28 +155,15 @@ router.post(
         // }
         res.status(201).json({ task });
         //TODO Implement AJAX
-<<<<<<< HEAD
-
-        } else {
-            const errors = validatorErrors.array().map((error) => error.msg);
-            console.error(errors);
-        }
-=======
       } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         console.error(errors);
       }
->>>>>>> master
     } else {
       next(taskNotFoundError(taskId));
     }
-<<<<<<< HEAD
-
-}));
-=======
   })
 );
->>>>>>> master
 
 router.post(
   "/delete/:id(\\d+)",
@@ -250,18 +184,6 @@ router.post(
     } else {
       next(notAuthorizedError(taskId));
     }
-<<<<<<< HEAD
-
-}));
-
-
-router.get('/dummy-submit', csrfProtection, asyncHandler(async(req,res,next) => {
-    res.render('dummy-submit', {csrfToken: req.csrfToken()})
-}))
-
-
-module.exports = router
-=======
   })
 );
 
@@ -274,4 +196,3 @@ router.get(
 );
 
 module.exports = router;
->>>>>>> master
