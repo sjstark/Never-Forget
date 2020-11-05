@@ -60,7 +60,7 @@ router.get(
     let allTasks = await Task.findAll({
       include: [{ model: User, as: "user", attributes: ["email"] }],
       order: [["createdAt", "DESC"]],
-      attributes: ["title"],
+      attributes: ['id', "title"], //Added Id so that we can select a task from our list display
       where: {
         createdBy: userId,
       },
@@ -120,6 +120,18 @@ router.post(
       next(errors);
       //TODO implement AJAX here.
     }
+  })
+);
+
+router.get(
+  "/:id(\\d+)",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const taskId = parseInt(req.params.id, 10)
+    const userId = req.session.auth.userId;
+    let task = await Task.findByPk(taskId);
+    console.log('found task:', task)
+    res.json( task );
   })
 );
 
