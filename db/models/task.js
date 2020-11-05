@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: false,
       },
-      listId: { type: DataTypes.INTEGER, allowNull: true },
-      dueDate: { type: DataTypes.DATE, allowNull: false },
-      estimate: { type: DataTypes.INTEGER, allowNull: false },
+      listId: { type: DataTypes.INTEGER, allowNull: true, defaultValue: null},
+      dueDate: { type: DataTypes.DATE, allowNull: true },
+      estimate: { type: DataTypes.INTEGER, allowNull: true },
     },
     {}
   );
