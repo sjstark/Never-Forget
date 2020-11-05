@@ -10,18 +10,27 @@ export const showTaskDetails = async (e) => {
 
   let taskId = taskDiv.id.slice(5)
 
-  let task = getTaskById(taskId)
+  let task = await getTaskById(taskId)
 
-  showTaskDetails(task)
+  displayDetails(task)
 }
 
 
-const showTaskDetails = (task) => {
+const displayDetails = (task) => {
+  const taskTitleEl = document.querySelector('.task-details__task-title')
+  const taskModifiersContainer = document.querySelector('.task-details__details-container-modifiers')
+  const taskListContainer = document.querySelector('.task-details__details-container-list')
+  const detailsDiv = document.querySelector('.details')
 
+  if (!detailsDiv.className.includes('details--shown')) {
+    detailsDiv.classList.add('details--shown')
+  }
+
+  taskTitleEl.innerHTML = task.title
 }
 
 
-const getTaskById = (taskId) => {
+const getTaskById = async (taskId) => {
   let res = await fetch(`/tasks/${taskId}`)
   let task = await res.json();
 
