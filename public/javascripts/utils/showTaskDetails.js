@@ -53,12 +53,17 @@ const displayDetails = (task) => {
   document.querySelector('.task-details__task-isComplete').innerHTML = task.isComplete
 
   document.querySelectorAll('i.far.fa-edit').forEach(el => {
-    el.addEventListener('click', (e) => {
+    el.addEventListener('mouseover', (e) => {
       e.stopPropagation()
+      e.target.style.color = "blue";
+
+      setTimeout(function() {
+        e.target.style.color = "";
+      }, 500);
       let editContainer = e.target.parentElement.parentElement
       createInputField(editContainer)
     })
-  })
+  }, false);
 }
 
 const createInputField = (editContainer) => {
