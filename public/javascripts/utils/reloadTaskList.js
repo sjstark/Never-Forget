@@ -15,7 +15,12 @@ export const reloadTaskList = async () => {
 
   let route = "/tasks";
   if (listId) {
-    route = `/lists/${listId}`;
+    if (listId.startsWith('search:')){
+      let searchInput = listId.slice(7)
+      route = `/tasks/search?includes=${encodeURI(searchInput)}`
+    } else {
+      route = `/lists/${listId}`
+    }
   }
 
   let res = await fetch(route);
@@ -60,6 +65,20 @@ const createTaskItem = (task) => {
   <div class="task-list__task-select"></div>
   <span class="task-list__task-title">${task.title}</span>`;
 
-  taskItem.addEventListener("click", showTaskDetails);
-  return taskItem;
-};
+  taskItem.addEventListener('click', (e) => {
+
+    e.stopPropagation();
+
+    let taskDiv
+    if (e.target.className !== 'task-list__task-item') {
+      taskDiv = e.target.parentElement
+    } else {
+      taskDiv = e.target
+    }
+
+    let taskId = taskDiv.id.slice(5)
+
+    showTaskDetails(taskId)
+  })
+  return taskItem
+}
