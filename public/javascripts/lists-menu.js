@@ -1,5 +1,7 @@
+import { reloadTaskList } from "./utils/reloadTaskList.js";
 
 // document.addEventListener('DOMContentLoaded', async ()=> {
+
 
 //     //-------ADD LISTS THAT THE PERSON CAN ACCESS IN THE DOM------//
 //     await loadLists()
@@ -45,6 +47,17 @@ export const treeView = () => {
         })
     })
 
+
+
+    //Find add button in DOM
+    let addButton = document.querySelector('.add-list-button');
+    addButton.onclick = async (event) => {
+        event.stopPropagation()
+
+        await addLists()
+
+    }
+
 }
 
 export const emphasisText = () => { // <-- add loadLostsHelperFunc
@@ -58,10 +71,15 @@ export const emphasisText = () => { // <-- add loadLostsHelperFunc
 
     textList.forEach(el => {
         // console.log('reached for each emphasisText')
-        el.addEventListener('click', ()=> {
+        el.addEventListener('click', (e)=> {
+
+            if (el.id !== 'caret-dropdown') {
+                localStorage.setItem("never-forget-currentList", el.id)
+                reloadTaskList();
+            }
             // console.log('reached event listener')
             emphasisHelperFunction(textList, el)
-            // loadListsHelperFunc() 
+            // loadListsHelperFunc()
         })
     })
 }
@@ -86,7 +104,7 @@ export const loadLists = async() => {
     //Finding list of lists in menu and clearing it
     let listTree = document.querySelector('#add-lists-here')
     listTree.innerHTML = '';
-    
+
 
     //Adding lists to tree
     objArray.forEach(list => {
@@ -95,11 +113,18 @@ export const loadLists = async() => {
         htmlList.classList.add('list-menu-flex')
         htmlList.id = list.id
         htmlList.innerHTML = `
-        ${list.title} 
+        ${list.title}
         <span class="listCount" id='${list.id}'></span>
         <span class='list-edit-carrot'>V</span>`
-        listTree.appendChild(htmlList) 
-    }) 
+
+        htmlList.querySelector('.list-edit-carrot')
+            .onclick = async(e)=> {
+                e.stopPropagation();
+                await handleCarrotClick(list, htmlList)
+            }
+
+        listTree.appendChild(htmlList)
+    })
 }
 
 export const countTotalTasks = async() => {
@@ -148,47 +173,58 @@ export const countListTasks = async() => {
     })
 }
 
-export const addLists = () => {
-    //Find add button in DOM
-    let addButton = document.querySelector('.add-list-button');
+export const addLists = (modalType = 'create', list) => {
+
+
     let modal = document.querySelector('.add-lists-modal-container');
     let submitButton = document.querySelector('.add-list-submit');
+    let input = modal.querySelector('input[type="text"]')
     let closeButton = document.querySelector('.add-list-close')
 
+    input.placeholder = 'Enter title for list'
+
+    console.log('hit2')
+
+    console.log(modalType, list)
+
+    if (modalType === 'edit') {
+        console.log('hit3')
+        input.value = list.title
+    }
+
+    modal.classList.add('add-lists-modal-container--shown')
+
     //Add event listener to make modal appear
-    addButton.addEventListener('click', (event) => {
-        event.stopPropagation()
 
-        modal.classList.add('add-lists-modal-container--shown')
-
-        
-    })  
 
     //After user submits new list, hide modal and update list menu
-    submitButton.addEventListener('click', async (event)=> {
+
+    submitButton.onclick = async (event)=> {
 
         event.stopPropagation()
 
         let title = document.querySelector('#add-list-title').value
         let csrfForm = document.querySelector('#add-list-csrf').value
+        if (modalType === 'create') {
+            await submitForm(title, csrfForm)
+        } else {
+            await submitEditForm(list.id, title, csrfForm)
+        }
 
-        await submitForm(title,csrfForm)
-       
         modal.classList.remove('add-lists-modal-container--shown');
         await loadLists()
         await countListTasks()
+        await emphasisText()
 
         //reset modal value
         document.querySelector('#add-list-title').value = ''
-
-
-    })
+    }
 
     //Add event listener for closing the modal
     closeButton.addEventListener('click', ()=> {
         modal.classList.remove('add-lists-modal-container--shown')
          //reset modal value
-         document.querySelector('#add-list-title').value = ''
+        document.querySelector('#add-list-title').value = ''
     })
 
 };
@@ -197,5 +233,62 @@ const submitForm = async(title, csrfToken) => {
     const body = {title, _csrf:csrfToken}
     const options = {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}
     let res = await fetch('/lists', options);
-    
+
+}
+
+const submitEditForm = async(id, title, csrfToken) => {
+    const body = {title, _csrf:csrfToken}
+    const options = {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}
+    let res = await fetch(`/lists/${id}`, options);
+
+}
+
+
+const handleCarrotClick = async(list, htmlList) => {
+
+    htmlList.appendChild(createCarrotDropdown(list))
+
+}
+
+
+const createCarrotDropdown = (list) => {
+    let listOptionsContainer = document.createElement('div')
+    listOptionsContainer.className = 'list-edit-options-container'
+
+    let editOption = document.createElement('div')
+    editOption.className = 'list-edit-option'
+    editOption.innerText = 'Edit List Title'
+    editOption.onclick = async (e)=> {
+        e.stopPropagation()
+        listOptionsContainer.remove()
+        await addLists('edit', list)
+    }
+
+    let deleteOption = document.createElement('div')
+    deleteOption.className = 'list-delete-option'
+    deleteOption.innerText = 'Delete List'
+    deleteOption.onclick = async (e) => {
+        e.stopPropagation()
+        listOptionsContainer.remove()
+        if(confirm(`Are you sure you want to delete list ${list.title} and all tasks within it?`)) {
+            await fetch(`/lists/${list.id}`, {method: 'DELETE'})
+            if (localStorage.getItem('never-forget-currentList') === list.id) localStorage.setItem('never-forget-currentList', null)
+            await loadLists()
+            await countListTasks()
+        }
+    }
+
+    let closeOption = document.createElement('div')
+    closeOption.className = 'list-close-option'
+    closeOption.innerText = 'Close'
+    closeOption.onclick = async (e) => {
+        e.stopPropagation()
+        listOptionsContainer.remove()
+    }
+
+    listOptionsContainer.appendChild(editOption)
+    listOptionsContainer.appendChild(deleteOption)
+    listOptionsContainer.appendChild(closeOption)
+
+    return listOptionsContainer
 }

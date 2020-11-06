@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   await countListTasks()
 
-  await addLists()
+  // await addLists()
 
 
 })

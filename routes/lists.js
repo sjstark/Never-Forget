@@ -74,7 +74,7 @@ router.get(
     } else {
       const allTasks = await Task.findAll({
         order: [["createdAt", "DESC"]],
-        attributes: ["title", "estimate", "createdBy", "isComplete", 'dueDate', 'listId'],
+        attributes: ['id', "title", "estimate", "createdBy", "isComplete", 'dueDate', 'listId'],
         where: {
           listId,
         },
@@ -114,8 +114,8 @@ router.post(
 );
 
 // THIS IS A PUT ROUTE TO EDIT LIST TITLE
-router.post(
-  "/put/:id(\\d+)",
+router.put(
+  "/:id(\\d+)",
   csrfProtection,
   validateEditList,
   asyncHandler(async (req, res, next) => {
@@ -158,8 +158,8 @@ router.post(
 );
 
 //THIS IS A DELETE ROUTE TO REMOVE A LIST
-router.post(
-  "/delete/:id(\\d+)",
+router.delete(
+  "/:id(\\d+)",
   validateList,
   asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
