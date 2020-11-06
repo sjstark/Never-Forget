@@ -3,6 +3,10 @@
     justify-content: flex-end;
 }
 
+.close-container:hover {
+    cursor: pointer;
+}
+
 .close-button{
     font-size: 13px;
     color: gray;
@@ -64,6 +68,7 @@
 
 .far.fa-edit{
     font-size: 13px;
+    margin: 5px;
 }
 
 .far.fa-edit i::before{
@@ -71,3 +76,21 @@
 
 }
 
+.task-details__delete-button {
+    width: 80px;
+    box-sizing: border-box;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    margin:30px auto;
+}
+
+.task-details__delete-button:hover {
+    cursor: pointer;
+    box-shadow: inset 0 -2px 0 black;
+}
