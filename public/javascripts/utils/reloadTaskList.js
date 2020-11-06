@@ -38,6 +38,20 @@ const createTaskItem = (task) => {
   <div class="task-list__task-select"></div>
   <span class="task-list__task-title">${task.title}</span>`
 
-  taskItem.addEventListener('click', showTaskDetails)
+  taskItem.addEventListener('click', (e) => {
+
+    e.stopPropagation();
+
+    let taskDiv
+    if (e.target.className !== 'task-list__task-item') {
+      taskDiv = e.target.parentElement
+    } else {
+      taskDiv = e.target
+    }
+
+    let taskId = taskDiv.id.slice(5)
+
+    showTaskDetails(taskId)
+  })
   return taskItem
 }

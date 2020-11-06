@@ -42,6 +42,7 @@
   margin: 10px 10px 10px -5px;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
+  position: relative;
 }
 
 .details{
