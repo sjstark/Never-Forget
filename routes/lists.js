@@ -168,8 +168,8 @@ router.put(
 //THIS IS A DELETE ROUTE TO REMOVE A LIST
 router.delete(
   "/:id(\\d+)",
-  validateList,
   asyncHandler(async (req, res, next) => {
+    console.log("\n\n\n\n we got here \n\n\n\n");
     const listId = parseInt(req.params.id, 10);
     const loggedInUserId = res.locals.user.id;
     const list = await List.findOne({
@@ -183,16 +183,16 @@ router.delete(
     }
 
     //destructure userId from list
-    const { userId: listUser } = await List.findOne({
-      where: { id: listId },
-    });
+    const { userId: listUser } = list;
 
     //CHECKS TO SEE IF USER AUTHORIZED TO DELETE THAT LIST
     if (loggedInUserId !== listUser) {
       next(notAuthorizedError(listId));
     } else {
       const listTasks = await Task.findAll({ where: { listId } });
-      await listTasks.destroy();
+      listTasks.forEach(async (task) => {
+        await task.destroy();
+      });
       await list.destroy();
 
       res.status(204).end();

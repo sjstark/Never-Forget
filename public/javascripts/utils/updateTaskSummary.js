@@ -1,4 +1,4 @@
-export const updateTaskSummary = (tasks) => {
+export const updateTaskSummary = async (tasks) => {
   //overwrite innerHTML of the incompleted container with the incompleted tasks num
   const taskCountContainer = document.querySelector(".task-num");
 
