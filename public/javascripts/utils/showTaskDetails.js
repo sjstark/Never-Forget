@@ -1,16 +1,7 @@
 import {reloadTaskList} from './reloadTaskList.js'
+import { getLists, getListId, getListTitle } from './list-utils.js'
 
-export const showTaskDetails = async (e) => {
-  e.stopPropagation();
-
-  let taskDiv
-  if (e.target.className !== 'task-list__task-item') {
-    taskDiv = e.target.parentElement
-  } else {
-    taskDiv = e.target
-  }
-
-  let taskId = taskDiv.id.slice(5)
+export const showTaskDetails = async (taskId) => {
 
   let task = await getTaskById(taskId)
 
@@ -19,13 +10,13 @@ export const showTaskDetails = async (e) => {
   const closeButton = document.querySelector('.close-button')
   const deleteButton = document.querySelector('.task-details__delete-button')
 
-  closeButton.addEventListener('click', (e) => {
+  closeButton.onclick = (e) => {
     e.stopPropagation();
     const detailsDiv = document.querySelector('.details')
     detailsDiv.classList.remove('details--shown')
-  })
+  }
 
-  deleteButton.addEventListener('click', async (e) => {
+  deleteButton.onclick = async (e) => {
     if (confirm(`Are you sure you'd like to delete this task?\nTask Title: ${task.title}`)) {
       await deleteTask(taskId)
 
@@ -33,50 +24,258 @@ export const showTaskDetails = async (e) => {
 
       document.querySelector('.details').classList.remove('details--shown')
     }
-  })
+  }
 
 }
 
 
-const displayDetails = (task) => {
-  document.querySelector('.task-details__task-id').innerHTML = task.id
-  const taskTitleEl = document.querySelector('.task-details__task-title')
+const displayDetails = async (task) => {
+
   const detailsDiv = document.querySelector('.details')
+  const taskIdEl = document.querySelector('.task-details__task-id')
+
+  let editFields = document.querySelectorAll('.editField')
+  editFields.forEach( el => {
+    el.remove();
+  })
+
+  let oldInputs = document.querySelectorAll('.kill-me')
+  oldInputs.forEach( el => {
+    el.remove();
+  })
+
+
+  // const taskTitleEl = document.querySelector('.task-details__task-title')
+  const taskTitleEl = document.createElement('span')
+  taskTitleEl.classList.add('task-details__task-title')
+  taskTitleEl.classList.add('editField')
+  document.querySelector('#task-title-edit').prepend(taskTitleEl)
+
+
+  // const dueDateField = document.querySelector('.task-details__task-dueDate')
+  const dueDateField = document.createElement('span')
+  dueDateField.classList.add('task-details__task-dueDate')
+  dueDateField.classList.add('editField')
+  document.querySelector('#task-dueDate-edit').prepend(dueDateField)
+
+  // const estimateField = document.querySelector('.task-details__task-estimate')
+  const estimateField = document.createElement('span')
+  estimateField.classList.add('task-details__task-estimate')
+  estimateField.classList.add('editField')
+  document.querySelector('#task-estimate-edit').prepend(estimateField)
+
+  // const listTitleField = document.querySelector('.task-details__task-listTitle')
+  const listTitleField = document.createElement('span')
+  listTitleField.classList.add('task-details__task-listTitle')
+  listTitleField.classList.add('editField')
+  document.querySelector('.listContainer').prepend(listTitleField)
+
+  const isCompleteField = document.querySelector('.isComplete-checkbox')
+  // const isCompleteField = document.createElement('span')
+  // isCompleteField.classList.add('task-details__task-title')
+  // isCompleteField.classList.add('editField')
+  // document.querySelector('#task-title-edit').prepend(isCompleteField)
+
+  // console.log(`\nRendering task:\n`, task)
+
+  taskIdEl.innerText = task.id
+
+  taskTitleEl.innerText = task.title
+
+  dueDateField.innerText = task.dueDate ? formatISODatetoString(task.dueDate) : "none"
+  estimateField.innerText = task.estimate ? task.estimate : "none"
+
+  listTitleField.innerText = task.listId ? await getListTitle(task.listId) : "none"
+  listTitleField.id = task.listId
+
+  isCompleteField.checked = task.isComplete ? true : false;
+
+
+  createInputEventListeners()
 
   if (!detailsDiv.className.includes('details--shown')) {
     detailsDiv.classList.add('details--shown')
   }
-  taskTitleEl.innerHTML = task.title
-  document.querySelector('.task-details__task-dueDate').innerHTML = task.dueDate ? task.dueDate : "none"
-  document.querySelector('.task-details__task-estimate').innerHTML = task.estimate ? task.estimate : "none"
-  document.querySelector('.task-details__task-listId').innerHTML = task.listId ? task.listId : "none"
-  document.querySelector('.task-details__task-isComplete').innerHTML = task.isComplete
 
-  document.querySelectorAll('i.far.fa-edit').forEach(el => {
-    el.addEventListener('mouseover', (e) => {
-      e.stopPropagation()
-      e.target.style.color = "blue";
+  // document.querySelectorAll('.editContainer').forEach(el => {
+  //   el.addEventListener('click', (e) => {
+  //     console.log('line 58 target', e.target)
+  //     let target = e.target
+  //     while (target.className !== "editContainer") target = target.parentElement
 
-      setTimeout(function() {
-        e.target.style.color = "";
-      }, 500);
-      let editContainer = e.target.parentElement.parentElement
-      createInputField(editContainer)
-    })
-  }, false);
+
+  //     createInputField(target)
+
+  //   })
+  // }, false);
+
+  // document.querySelector('.listContainer')
+}
+
+const createInputEventListeners = () => {
+  let taskIdEl = document.querySelector('.task-details__task-id')
+  let taskId = taskIdEl.innerHTML
+  let editContainers = document.querySelectorAll('.editContainer')
+  let listContainer = document.querySelector('.listContainer')
+  let isCompleteInput = document.querySelector('.isComplete-checkbox')
+
+
+  editContainers.forEach( container => {
+
+    container.onclick = handleClickEvent
+  })
+
+  isCompleteInput.onclick = () => submitChange(taskId, 'isComplete', isCompleteInput.checked)
+
+  listContainer.onclick = handleListClickEvent
+}
+
+const handleListClickEvent = (e) => {
+  e.stopPropagation()
+  //get final target in case of bubbling
+
+  let target = e.target
+  while (target !== document) {
+    if (target.className.includes('listContainer')) {
+      // Want target to equal div that is edit container above
+      // console.log('creating input for:', target)
+      createListDropdown(target)
+      return
+    }
+
+    target = target.parentElement
+  }
+
+}
+
+const handleClickEvent = (e) => {
+  e.stopPropagation()
+  //get final target in case of bubbling
+
+  let target = e.target
+  while (target !== document) {
+    if (target.className.includes('editContainer')) {
+      // Want target to equal div that is edit container above
+      // console.log('creating input for:', target)
+      createInputField(target)
+      return
+    }
+
+    target = target.parentElement
+  }
+
+}
+
+const formatISODatetoString = (date) => {
+  date = new Date(date)
+  let dt = date.getDate()
+  if (dt < 10) {
+    dt = '0' + dt
+  }
+
+  let month = date.getMonth() + 1;
+  if (month < 10) {
+    month = '0' + month
+  }
+
+  return month + '/' + dt + '/' + date.getFullYear()
+}
+
+const formatStringtoISODate = (date) => {
+  let arr = date.split('/')
+
+  let d = new Date(arr[2], arr[0] - 1, arr[1])
+
+  return d
+}
+
+
+const createListDropdown = async (listContainer) => {
+  listContainer.onclick = null;
+
+  let editField = listContainer.querySelector('.editField')
+  let selectField = document.createElement('select')
+  // console.log('field:', editField)
+
+  // console.log(selectField)
+  selectField.classList.add('kill-me')
+  let lists = await getLists();
+
+  let nullOption = document.createElement('option')
+  nullOption.value = 'null';
+  nullOption.innerText = 'none'
+  selectField.appendChild(nullOption)
+
+  lists.forEach( list => {
+    selectField.appendChild(createListOption(list))
+  })
+
+  selectField.value = editField.id
+
+  // let newListOption = document.createElement('option')
+  // newListOption.value = 'NEWLIST';
+  // newListOption.innerText = 'Create List'
+  // selectField.appendChild(newListOption)
+
+
+  selectField.addEventListener('change', async (e) => {
+    let taskIdEl = document.querySelector('.task-details__task-id')
+    let taskId = taskIdEl.innerHTML
+
+    // if (e.target.value === 'Create List') {
+
+    //   let inputField = document.createElement('input')
+
+    //   inputField.id = listTitle
+    //   inputField.placeholder = 'Enter list title'
+
+    //   inputField.addEventListener('focusout', async (e) => {
+
+    //     let value = e.target.value
+    //     await submitChange(taskId, 'listId', value)
+    //   })
+    //   inputField.addEventListener('keyup', async (e) => {
+    //     if (e.key === 'Enter') {
+    //       let value = e.target.value
+    //       await submitChange(taskId, 'listId', value)
+    //     }
+    //   })
+
+    //   // listContainer.replaceChild(inputField, selectField)
+
+    //   inputField.focus();
+    // } else {
+      await submitChange(taskId, 'listId', e.target.value)
+    // }
+  })
+
+  listContainer.replaceChild(selectField, editField)
+}
+
+const createListOption = (list) => {
+  let option = document.createElement('option')
+  option.value = list.id;
+  option.innerText = list.title
+  return option
 }
 
 const createInputField = (editContainer) => {
+  let taskIdEl = document.querySelector('.task-details__task-id')
+  let taskId = taskIdEl.innerHTML
   let editField = editContainer.querySelector('.editField')
   let inputField = document.createElement('input')
+
   inputField.value = editField.innerText
   inputField.id = editField.className.split(' ')[0].slice(19)
   inputField.classList.add(editField.className.split(' ')[0])
+  inputField.classList.add('kill-me')
 
-  inputField.addEventListener('focusout', submitChange)
+  inputField.addEventListener('focusout', async (e) => {
+    await submitChange(taskId, inputField.id, inputField.value)
+  })
   inputField.addEventListener('keyup', async (e) => {
     if (e.key === 'Enter') {
-      await submitChange(e)
+      await submitChange(taskId, inputField.id, inputField.value)
     }
   })
 
@@ -85,61 +284,52 @@ const createInputField = (editContainer) => {
   inputField.focus();
 }
 
-const submitChange = async (e) => {
+const submitChange = async (taskId, property, value) => {
 
-  const task = {
-    id: parseInt(document.querySelector('.task-details__task-id').innerHTML, 10),
-    title: document.querySelector('.task-details__task-title').innerHTML,
-    dueDate: document.querySelector('.task-details__task-dueDate').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-dueDate').innerHTML, 10) : null,
-    estimate: document.querySelector('.task-details__task-estimate').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-estimate').innerHTML, 10) : null,
-    listId: document.querySelector('.task-details__task-listId').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-listId').innerHTML, 10) : null,
-    isComplete: document.querySelector('.task-details__task-isComplete').innerHTML,
-  }
+  if (value === 'none' || value === '' || value === '0') value = null;
 
-  console.log('changing!', e.target.value)
+  if (property === 'dueDate' && value) value = formatStringtoISODate(value)
 
-  let inputValue = e.target.value
-  if (inputValue === 'none') inputValue = null;
+  if (property === 'listId' && value) {value = parseInt(value, 10)}
 
-  task[e.target.id] = inputValue
+  // }
 
-  await updateTask(task)
+  let task = await updateTask(taskId, property, value)
 
 
-  let editField = document.createElement('span')
-  editField.innerText = inputValue !== null ? inputValue : 'none'
-  editField.classList.add(`task-details__task-${e.target.id}`)
-  editField.classList.add('editField')
-
-  console.log(e.target.parentElement)
-  console.log(editField)
-  console.log(e.target)
-
-  e.target.parentElement.replaceChild(editField, e.target)
-
-  console.log(editField.parentElement)
 
   reloadTaskList();
+  displayDetails(task)
 
 }
 
-const updateTask = async ({id, title, dueDate, estimate, listId, isComplete}) => {
+const updateTask = async (taskId, property, value) => {
   let _csrf = document.querySelector('#csrf').value
 
   let body = {
-    title, dueDate, estimate, listId, isComplete, _csrf
+    _csrf
   }
 
+  // console.log(`Setting ${property} to ${value}`)
+  body[property] = value;
+
   let options = {
-    method: 'PUT',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
   }
 
-  let res = await fetch(`/tasks/${id}`, options)
+  let res = await fetch(`/tasks/${taskId}`, options)
   if (!res.ok) alert('there was an error updating!')
+
+  let resBody = await res.json();
+
+  // console.log(`Update on ${taskId}'s ${property} to ${value} returned: ${resBody}`)
+  // console.log(resBody)
+
+  return resBody.task
 }
 
 const getTaskById = async (id) => {

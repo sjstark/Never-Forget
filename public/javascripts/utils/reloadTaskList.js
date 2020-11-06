@@ -8,15 +8,24 @@ export const reloadTaskList = async () => {
   const taskList = document.querySelector('.task-list__tasks')
 
   let listId = localStorage.getItem('never-forget-currentList') ? localStorage.getItem('never-forget-currentList') : null;
+
   if (listId === 'null') listId = null;
 
   let route = '/tasks'
   if (listId) {
-    route = `/lists/${listId}`
+    if (listId.startsWith('search:')){
+      let searchInput = listId.slice(7)
+      route = `/tasks/search?includes=${encodeURI(searchInput)}`
+    } else {
+      route = `/lists/${listId}`
+    }
   }
 
   let res = await fetch(route)
   let body = await res.json();
+
+
+  console.log(body)
 
   let tasks = body.allTasks
 
@@ -38,6 +47,20 @@ const createTaskItem = (task) => {
   <div class="task-list__task-select"></div>
   <span class="task-list__task-title">${task.title}</span>`
 
-  taskItem.addEventListener('click', showTaskDetails)
+  taskItem.addEventListener('click', (e) => {
+
+    e.stopPropagation();
+
+    let taskDiv
+    if (e.target.className !== 'task-list__task-item') {
+      taskDiv = e.target.parentElement
+    } else {
+      taskDiv = e.target
+    }
+
+    let taskId = taskDiv.id.slice(5)
+
+    showTaskDetails(taskId)
+  })
   return taskItem
 }
