@@ -80,7 +80,7 @@ const displayDetails = (task) => {
 
   taskTitleEl.innerText = task.title
 
-  dueDateField.innerText = task.dueDate ? formatDate(task.dueDate) : "none"
+  dueDateField.innerText = task.dueDate ? formatISODatetoString(task.dueDate) : "none"
   estimateField.innerText = task.estimate ? task.estimate : "none"
   listTitleField.innerText = task.listId ? task.listId : "none"
 
@@ -141,7 +141,7 @@ const handleClickEvent = (e) => {
 
 }
 
-const formatDate = (date) => {
+const formatISODatetoString = (date) => {
   date = new Date(date)
   let dt = date.getDate()
   if (dt < 10) {
@@ -156,7 +156,13 @@ const formatDate = (date) => {
   return month + '/' + dt + '/' + date.getFullYear()
 }
 
+const formatStringtoISODate = (date) => {
+  let arr = date.split('/')
 
+  let d = new Date(arr[2], arr[0] - 1, arr[1])
+
+  return d
+}
 
 
 const createListDropdown = async (listContainer) => {
@@ -242,6 +248,8 @@ const createInputField = (editContainer) => {
 const submitChange = async (taskId, property, value) => {
 
   if (value === 'none' || value === '' || value === '0') value = null;
+
+  if (property === 'dueDate') value = formatStringtoISODate(value)
 
   let task = await updateTask(taskId, property, value)
 
