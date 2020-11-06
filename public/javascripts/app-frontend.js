@@ -4,6 +4,7 @@ import {
   emphasisText,
   loadLists,
   treeView,
+  addLists,
 } from "./lists-menu.js";
 
 import { reloadTaskList } from "./utils/reloadTaskList.js";

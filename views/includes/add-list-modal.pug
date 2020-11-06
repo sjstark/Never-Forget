@@ -1,0 +1,9 @@
+link(rel='stylesheet' href='/stylesheets/add-lists-modal.css')
+
+h2 Add List Name
+
+//- form(action="lists/", method="post")
+div
+    input(type="hidden", name="_csrf" id='add-list-csrf' value= csrfToken)
+    input(type="text", name="title" id='add-list-title')
+    div.add-list-submit Submit

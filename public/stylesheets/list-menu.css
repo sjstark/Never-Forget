@@ -51,17 +51,10 @@
     width:100%;
 }
 
-.add-list-modal {
-    /* display: none; */
-    position: fixed;
-    z-index: 1;
-    left: 25%;
-    top: 50%;
-    width: 25%;
-    height: 25%;
-    overflow: auto;
-    background-color: plum;
-}
+
+
+
+
 
 /* UNORDERED LISTS  */
 
