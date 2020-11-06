@@ -18,8 +18,11 @@ export const updateTaskSummary = (tasks) => {
 
   let estimatedTime = 0;
   tasks.forEach((task) => {
-    estimatedTime += task.estimate;
+    if (!task.isComplete) {
+      estimatedTime += task.estimate;
+    }
   });
+
   if (estimatedTime < 99) {
     estimatedTimeContainer.innerHTML = estimatedTime + "min";
   } else {
