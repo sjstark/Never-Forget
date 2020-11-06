@@ -10,13 +10,13 @@ export const showTaskDetails = async (taskId) => {
   const closeButton = document.querySelector('.close-button')
   const deleteButton = document.querySelector('.task-details__delete-button')
 
-  closeButton.addEventListener('click', (e) => {
+  closeButton.onclick = (e) => {
     e.stopPropagation();
     const detailsDiv = document.querySelector('.details')
     detailsDiv.classList.remove('details--shown')
-  })
+  }
 
-  deleteButton.addEventListener('click', async (e) => {
+  deleteButton.onclick = async (e) => {
     if (confirm(`Are you sure you'd like to delete this task?\nTask Title: ${task.title}`)) {
       await deleteTask(taskId)
 
@@ -24,7 +24,7 @@ export const showTaskDetails = async (taskId) => {
 
       document.querySelector('.details').classList.remove('details--shown')
     }
-  })
+  }
 
 }
 
@@ -109,14 +109,20 @@ const displayDetails = (task) => {
 }
 
 const createInputEventListeners = () => {
+  let taskIdEl = document.querySelector('.task-details__task-id')
+  let taskId = taskIdEl.innerHTML
   let editContainers = document.querySelectorAll('.editContainer')
   let listContainer = document.querySelector('.listContainer')
-  let isCompleteContainer = document.querySelector('.isComplete-container')
+  let isCompleteInput = document.querySelector('.isComplete-checkbox')
+
 
   editContainers.forEach( container => {
 
     container.onclick = handleClickEvent
   })
+
+  isCompleteInput.onclick = () => submitChange(taskId, 'isComplete', isCompleteInput.checked)
+
 }
 
 const handleClickEvent = (e) => {
@@ -249,7 +255,7 @@ const submitChange = async (taskId, property, value) => {
 
   if (value === 'none' || value === '' || value === '0') value = null;
 
-  if (property === 'dueDate') value = formatStringtoISODate(value)
+  if (property === 'dueDate' && value) value = formatStringtoISODate(value)
 
   let task = await updateTask(taskId, property, value)
 
@@ -267,6 +273,7 @@ const updateTask = async (taskId, property, value) => {
     _csrf
   }
 
+  // console.log(`Setting ${property} to ${value}`)
   body[property] = value;
 
   let options = {

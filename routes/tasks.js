@@ -194,18 +194,18 @@ router.patch(
       }
 
 
-      let { title, estimate, listId, dueDate } = req.body;
-
+      let { title, estimate, listId, dueDate, isComplete} = req.body;
 
 
       title = title === undefined ? task.title : title;
       estimate = estimate === undefined ? task.estimate : estimate;
       listId = listId === undefined ? task.listId : listId;
       dueDate = dueDate === undefined ? task.dueDate : dueDate;
+      isComplete = isComplete === undefined ? task.isComplete : isComplete;
 
 
 
-      await task.update({ title, estimate, listId, dueDate });
+      await task.update({ title, estimate, listId, dueDate, isComplete });
       // task.title = title;
       // task.estimate = estimate;
       // task.dueDate = dueDate
