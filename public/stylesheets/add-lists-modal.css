@@ -63,9 +63,11 @@
   }
   
   .add-lists-modal-contents {
-    width: 80%;
-    max-width: 800px;
-    height: 80%;
+
+    width: 40%;
+    max-width: 500px;
+    height: 40%;
+    max-height: 300px;
     position: relative;
   
     margin:auto;
@@ -74,10 +76,55 @@
   
     border-radius: 10px;
     padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
   
   }
-  
-  .add-lists-modal-contents > h1 {
-    margin: 10px;
-  
+
+  .add-lists-modal-contents > div {
+    margin: 5px;
+    padding: 5px;
   }
+
+  .add-list-modal-submit-close {
+      display: flex;
+      justify-content: flex-start;
+  }
+
+  .add-list-submit { 
+      width: 80px; 
+      box-sizing: border-box; 
+      background-color: purple; 
+      color: whitesmoke; 
+      padding: 10px; 
+      border-radius: 3px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      margin: 20px auto; 
+      margin-right: 5px;
+      /* border: solid 1px black; */
+    } 
+
+  .add-list-close { 
+    width: 80px; 
+    box-sizing: border-box; 
+    background-color: plum; 
+    color: whitesmoke; 
+    padding: 10px; 
+    border-radius: 3px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 20px auto; 
+    margin-left: 5px;
+    /* border: solid 1px black; */
+  } 
+
+  /* .add-list-submit:hover, .add-list-close:hover {
+      outline: 1px rgba(0,0,0);
+  } */

@@ -153,6 +153,7 @@ export const addLists = () => {
     let addButton = document.querySelector('.add-list-button');
     let modal = document.querySelector('.add-lists-modal-container');
     let submitButton = document.querySelector('.add-list-submit');
+    let closeButton = document.querySelector('.add-list-close')
 
     //Add event listener to make modal appear
     addButton.addEventListener('click', (event) => {
@@ -177,6 +178,17 @@ export const addLists = () => {
         await loadLists()
         await countListTasks()
 
+        //reset modal value
+        document.querySelector('#add-list-title').value = ''
+
+
+    })
+
+    //Add event listener for closing the modal
+    closeButton.addEventListener('click', ()=> {
+        modal.classList.remove('add-lists-modal-container--shown')
+         //reset modal value
+         document.querySelector('#add-list-title').value = ''
     })
 
 };
