@@ -89,22 +89,24 @@ h6 {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.sum-footer {
-  position: fixed;
-  bottom: 30px;
-  left: 650px;
-  right: 0;
-  width: 35%;
-  z-index: 999;
+footer {
+  align-self: flex-end;
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  transform: translateX(10px);
 }
 
-.footer__text {
-  color: #8b8b94;
+.footer__text{
+  color: #8B8B94;
   font-size: 14px;
 }
 
-.footer__social-links {
-  color: #8b8b94;
+.footer__social-links{
+  color: #8B8B94;
   margin-left: 200px;
   margin-top: 10px;
   /* border: 1px solid black; */
