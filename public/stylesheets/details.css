@@ -154,3 +154,8 @@
 .isComplete-container > input:hover {
     cursor: pointer;
 }
+
+.listContainer:hover {
+    cursor: pointer;
+    color: purple
+}

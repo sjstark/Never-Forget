@@ -1,5 +1,5 @@
 import {reloadTaskList} from './reloadTaskList.js'
-import { getLists, getListId } from './list-utils.js'
+import { getLists, getListId, getListTitle } from './list-utils.js'
 
 export const showTaskDetails = async (taskId) => {
 
@@ -29,7 +29,7 @@ export const showTaskDetails = async (taskId) => {
 }
 
 
-const displayDetails = (task) => {
+const displayDetails = async (task) => {
 
   const detailsDiv = document.querySelector('.details')
   const taskIdEl = document.querySelector('.task-details__task-id')
@@ -76,13 +76,17 @@ const displayDetails = (task) => {
   // isCompleteField.classList.add('editField')
   // document.querySelector('#task-title-edit').prepend(isCompleteField)
 
+  // console.log(`\nRendering task:\n`, task)
+
   taskIdEl.innerText = task.id
 
   taskTitleEl.innerText = task.title
 
   dueDateField.innerText = task.dueDate ? formatISODatetoString(task.dueDate) : "none"
   estimateField.innerText = task.estimate ? task.estimate : "none"
-  listTitleField.innerText = task.listId ? task.listId : "none"
+
+  listTitleField.innerText = task.listId ? await getListTitle(task.listId) : "none"
+  listTitleField.id = task.listId
 
   isCompleteField.checked = task.isComplete ? true : false;
 
@@ -152,7 +156,7 @@ const handleClickEvent = (e) => {
   while (target !== document) {
     if (target.className.includes('editContainer')) {
       // Want target to equal div that is edit container above
-      console.log('creating input for:', target)
+      // console.log('creating input for:', target)
       createInputField(target)
       return
     }
@@ -191,7 +195,9 @@ const createListDropdown = async (listContainer) => {
 
   let editField = listContainer.querySelector('.editField')
   let selectField = document.createElement('select')
-  selectField.value = editField.innerText === 'none' ? null : editField.innerText
+  // console.log('field:', editField)
+
+  // console.log(selectField)
   selectField.classList.add('kill-me')
   let lists = await getLists();
 
@@ -204,13 +210,15 @@ const createListDropdown = async (listContainer) => {
     selectField.appendChild(createListOption(list))
   })
 
+  selectField.value = editField.id
+
   // let newListOption = document.createElement('option')
   // newListOption.value = 'NEWLIST';
   // newListOption.innerText = 'Create List'
   // selectField.appendChild(newListOption)
 
 
-  selectField.addEventListener('change', (e) => {
+  selectField.addEventListener('change', async (e) => {
     let taskIdEl = document.querySelector('.task-details__task-id')
     let taskId = taskIdEl.innerHTML
 
@@ -237,7 +245,7 @@ const createListDropdown = async (listContainer) => {
 
     //   inputField.focus();
     // } else {
-      submitChange(taskId, 'listId', e.target.value)
+      await submitChange(taskId, 'listId', e.target.value)
     // }
   })
 
@@ -282,7 +290,7 @@ const submitChange = async (taskId, property, value) => {
 
   if (property === 'dueDate' && value) value = formatStringtoISODate(value)
 
-  // if (property === 'l') {
+  if (property === 'listId' && value) {value = parseInt(value, 10)}
 
   // }
 
@@ -317,6 +325,9 @@ const updateTask = async (taskId, property, value) => {
   if (!res.ok) alert('there was an error updating!')
 
   let resBody = await res.json();
+
+  // console.log(`Update on ${taskId}'s ${property} to ${value} returned: ${resBody}`)
+  // console.log(resBody)
 
   return resBody.task
 }

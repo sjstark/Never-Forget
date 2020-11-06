@@ -47,3 +47,14 @@ export const getLists = async () => {
 
   return lists;
 }
+
+export const getListTitle = async (listId) => {
+  let lists = await getLists();
+
+  for (let i = 0; i < lists.length; i++) {
+    let list = lists[i];
+    if (list.id === listId) {
+      return list.title
+    }
+  }
+}
