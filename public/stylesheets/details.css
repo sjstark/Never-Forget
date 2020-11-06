@@ -1,0 +1,96 @@
+.close-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-container:hover {
+    cursor: pointer;
+}
+
+.close-button{
+    font-size: 13px;
+    color: gray;
+}
+.fas.fa-times{
+    margin-left: 3px;
+    margin-right: 4px;
+    font-size: 11px;
+    color: gray;
+}
+.task-details__title-container{
+    margin-left: 20px;
+    width: 300px;
+}
+
+.task-details__details-container{
+    /* border: 1px solid black; */
+    padding-left: 35px;
+    color: gray;
+    /* font-size: 13px; */
+}
+
+.task-details__details-due-container{
+    margin-top: 20px;
+    /* font-size: 5px; */
+
+}
+.task-details__task-dueDate.editField{
+    margin-left: 65px;
+}
+
+.task-details__details-estimate-container{
+    margin-top: 5px;
+    font-size: 5px;
+}
+.task-details__task-estimate.editField{
+    margin-left: 31px;
+}
+
+.task-details__details-list-container{
+    margin-top: 20px;
+}
+
+.task-details__task-listId.editField{
+    margin-left: 72px;
+}
+.task-details__completed-container{
+    margin-top: 6px;
+}
+.task-details__task-isComplete.editField{
+    margin-left: 15px;
+}
+
+.task-details__delete-container{
+    margin-left: 35px;
+    margin-top: 6px;
+    color: gray;
+}
+
+.far.fa-edit{
+    font-size: 13px;
+    margin: 5px;
+}
+
+.far.fa-edit i::before{
+
+
+}
+
+.task-details__delete-button {
+    width: 80px;
+    box-sizing: border-box;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    margin:30px auto;
+}
+
+.task-details__delete-button:hover {
+    cursor: pointer;
+    box-shadow: inset 0 -2px 0 black;
+}
