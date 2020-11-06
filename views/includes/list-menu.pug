@@ -1,0 +1,29 @@
+link(rel='stylesheet' href='/stylesheets/list-menu.css')
+
+div
+    img(src='/images/logo.png' width="175")
+
+div.inbox-div
+    //- p Inbox
+    ul.list-tree
+        li <span class='caret caret-down'></span> Inbox
+        div.nested-div
+            ul.nested
+                li.list-menu-flex All Tasks <span class='allTaskCount'>1</span>
+                li Trash
+
+
+div.lists-div
+    ul.list-tree
+        li <span class='caret caret-down'></span> <div class="list-menu-flex"> Lists <span class='add-list'>+</span></div>
+        div.nested-div
+            ul.nested <!--TODO:  -->
+                li.list-menu-flex Personal <span class="listCount" id='Personal'>1</span>
+                li.list-menu-flex Work <span class="listCount" id='Work'>1</span>
+
+div.peanut-div 
+    img(src="/images/peanut.png")
+    div.github-blurb 
+        a(href="https://github.com/sjstark/Never-Forget") Checkout our code here!
+
+script(src="../javascripts/lists-menu.js" type='module' defer)
