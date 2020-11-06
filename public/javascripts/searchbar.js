@@ -15,13 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   searchInput.addEventListener('keyup', async (e) => {
-    console.log('key:', e.key)
     if (e.key === 'Escape') {
       clearSearchInput(e);
       return
     }
 
-    if (e.key === 'Return') {
+    if (e.key === 'Enter') {
       let searchInput = e.target.value
       let tasks = await findTasksWithSearch(searchInput)
       console.log(tasks)
@@ -38,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const findTasksWithSearch = async (include = '', exclude = '') => {
 
-
-
+  let res = await fetch(`/tasks/search?includes=${encodeURI(include)}&excludes=${decodeURI(exclude)}`)
+  let tasks = await res.json();
+  return tasks
 }
