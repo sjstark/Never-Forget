@@ -176,10 +176,10 @@ router.put(
 );
 
 
+// if any validations are needed for patch, it would just be to verify that format for date is right
 router.patch(
   "/:id(\\d+)",
   csrfProtection,
-  validateEditTask,
   asyncHandler(async (req, res, next) => {
     console.log("-------------------------------");
     const taskId = parseInt(req.params.id, 10);
@@ -193,30 +193,28 @@ router.patch(
         next(notAuthorizedError(taskId));
       }
 
-      //CHECKS FOR ERRORS AND UPDATES
 
-      const validatorErrors = validationResult(req);
-      if (validatorErrors.isEmpty()) {
-        const { title, estimate, listId, dueDate } = req.body;
+      let { title, estimate, listId, dueDate } = req.body;
 
-        title = title === 'undefinded' ? task.title : title;
-        estimate = estimate === 'undefinded' ? task.estimate : estimate;
-        listId = listId === 'undefinded' ? task.listId : listId;
-        dueDate = dueDate === 'undefinded' ? task.dueDate : title;
 
-        await task.update({ title, estimate, listId, dueDate });
-        // task.title = title;
-        // task.estimate = estimate;
-        // task.dueDate = dueDate
-        // if (listId) {
-        //     task.listId = listId
-        // }
-        res.status(201).json({ task });
-        //TODO Implement AJAX
-      } else {
-        const errors = validatorErrors.array().map((error) => error.msg);
-        console.error(errors);
-      }
+
+      title = title === undefined ? task.title : title;
+      estimate = estimate === undefined ? task.estimate : estimate;
+      listId = listId === undefined ? task.listId : listId;
+      dueDate = dueDate === undefined ? task.dueDate : dueDate;
+
+
+
+      await task.update({ title, estimate, listId, dueDate });
+      // task.title = title;
+      // task.estimate = estimate;
+      // task.dueDate = dueDate
+      // if (listId) {
+      //     task.listId = listId
+      // }
+      res.status(201).json({ task });
+      //TODO Implement AJAX
+
     } else {
       next(taskNotFoundError(taskId));
     }

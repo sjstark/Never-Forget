@@ -7,11 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   localStorage.setItem('never-forget-currentList', null)
 
-  /*
-  treeView();
-  highlighting();
-  selector(reloadTaskList);
-  */
 
 /******************************************************************************/
 /********************* GET ALL TASKS FOR USER ON LOAD *************************/
