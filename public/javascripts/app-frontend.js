@@ -1,23 +1,19 @@
-
 import {
   countTotalTasks,
   countListTasks,
   emphasisText,
   loadLists,
-  treeView
-} from './lists-menu.js'
+  treeView,
+} from "./lists-menu.js";
 
-
-
-import {reloadTaskList} from "./utils/reloadTaskList.js"
-import {createNewList, getListId, getLists } from "./utils/list-utils.js"
+import { reloadTaskList } from "./utils/reloadTaskList.js";
+import { createNewList, getListId, getLists } from "./utils/list-utils.js";
 
 //import {treeView, highlighting, selector }from "./menufrontend.js"
 
 document.addEventListener("DOMContentLoaded", async () => {
   localStorage.setItem("never-forget-currentList", null);
   localStorage.setItem("never-forget-viewIncomplete", 1);
-
 
   /******************************************************************************/
   /********************* GET ALL TASKS FOR USER ON LOAD *************************/
@@ -146,22 +142,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
     }
-  })
+  });
 
   await loadLists();
 
-  treeView()
+  treeView();
 
-  emphasisText()
+  emphasisText();
 
-  await countTotalTasks()
+  await countTotalTasks();
 
-  await countListTasks()
-
-
-})
-
-
+  await countListTasks();
+});
 
 /******************************************************************************/
 /***************************** PARSE TASK INPUT *******************************/
@@ -350,6 +342,5 @@ const validateInput = async (input) => {
     }
   }
 
-  return errors
-
-}
+  return errors;
+};
