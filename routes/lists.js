@@ -114,8 +114,8 @@ router.post(
 );
 
 // THIS IS A PUT ROUTE TO EDIT LIST TITLE
-router.post(
-  "/put/:id(\\d+)",
+router.put(
+  "/:id(\\d+)",
   csrfProtection,
   validateEditList,
   asyncHandler(async (req, res, next) => {

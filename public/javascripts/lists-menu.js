@@ -47,6 +47,17 @@ export const treeView = () => {
         })
     })
 
+
+
+    //Find add button in DOM
+    let addButton = document.querySelector('.add-list-button');
+    addButton.onclick = async (event) => {
+        event.stopPropagation()
+
+        await addLists()
+
+    }
+
 }
 
 export const emphasisText = () => { // <-- add loadLostsHelperFunc
@@ -163,20 +174,28 @@ export const countListTasks = async() => {
     })
 }
 
-export const addLists = (modalType = 'create') => {
-    //Find add button in DOM
-    let addButton = document.querySelector('.add-list-button');
+export const addLists = (modalType = 'create', list) => {
+
+
     let modal = document.querySelector('.add-lists-modal-container');
     let submitButton = document.querySelector('.add-list-submit');
+    let input = modal.querySelector('input[type="text"]')
+
+    input.placeholder = 'Enter title for list'
+
+    console.log('hit2')
+
+    console.log(modalType, list)
+
+    if (modalType === 'edit') {
+        console.log('hit3')
+        input.value = list.title
+    }
+
+    modal.classList.add('add-lists-modal-container--shown')
 
     //Add event listener to make modal appear
-    addButton.addEventListener('click', (event) => {
-        event.stopPropagation()
 
-        modal.classList.add('add-lists-modal-container--shown')
-
-
-    })
 
     //After user submits new list, hide modal and update list menu
     submitButton.addEventListener('click', async (event)=> {
@@ -185,15 +204,16 @@ export const addLists = (modalType = 'create') => {
 
         let title = document.querySelector('#add-list-title').value
         let csrfForm = document.querySelector('#add-list-csrf').value
-        if (modalTyppe = 'create') {
-            await submitForm(title,csrfForm)
+        if (modalType = 'create') {
+            await submitForm(title, csrfForm)
         } else {
-            await submitEditForm(title,csrfForm)
+            await submitEditForm(list.id, title, csrfForm)
         }
 
         modal.classList.remove('add-lists-modal-container--shown');
         await loadLists()
         await countListTasks()
+        await emphasisText()
 
     })
 
@@ -205,6 +225,14 @@ const submitForm = async(title, csrfToken) => {
     let res = await fetch('/lists', options);
 
 }
+
+const submitEditForm = async(id, title, csrfToken) => {
+    const body = {title, _csrf:csrfToken}
+    const options = {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}
+    let res = await fetch('/lists', options);
+
+}
+
 
 const handleCarrotClick = async(list, htmlList) => {
 
@@ -223,7 +251,7 @@ const createCarrotDropdown = (list) => {
     editOption.onclick = async (e)=> {
         e.stopPropagation()
         listOptionsContainer.remove()
-        await createListEditForm(list)
+        await addLists('edit', list)
     }
 
     let deleteOption = document.createElement('div')
