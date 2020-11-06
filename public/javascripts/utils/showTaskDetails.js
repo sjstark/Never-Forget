@@ -52,16 +52,11 @@ const displayDetails = (task) => {
   document.querySelector('.task-details__task-listId').innerHTML = task.listId ? task.listId : "none"
   document.querySelector('.task-details__task-isComplete').innerHTML = task.isComplete
 
-  document.querySelectorAll('i.far.fa-edit').forEach(el => {
-    el.addEventListener('mouseover', (e) => {
-      e.stopPropagation()
-      e.target.style.color = "blue";
-
-      setTimeout(function() {
-        e.target.style.color = "";
-      }, 500);
-      let editContainer = e.target.parentElement.parentElement
-      createInputField(editContainer)
+  document.querySelectorAll('.editContainer').forEach(el => {
+    el.addEventListener('click', (e) => {
+      let target = e.target
+      while (target.className !== "editContainer") target = target.parentElement
+      createInputField(target)
     })
   }, false);
 }
@@ -99,7 +94,7 @@ const submitChange = async (e) => {
   console.log('changing!', e.target.value)
 
   let inputValue = e.target.value
-  if (inputValue === 'none') inputValue = null;
+  if (inputValue === 'none' || inputValue === '' || inputValue === '0') inputValue = null;
 
   task[e.target.id] = inputValue
 

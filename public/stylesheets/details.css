@@ -18,8 +18,9 @@
     color: gray;
 }
 .task-details__title-container{
+    display: inline-block;
     margin-left: 20px;
-    width: 300px;
+    /* width: 300px; */
 }
 
 .task-details__details-container{
@@ -27,38 +28,50 @@
     padding-left: 35px;
     color: gray;
     /* font-size: 13px; */
+
+    max-width: 300px;
+
+}
+
+.task-details__details-section-modifiers {
+    display:flex;
+    flex-direction: column;
 }
 
 .task-details__details-due-container{
     margin-top: 20px;
     /* font-size: 5px; */
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 
 }
-.task-details__task-dueDate.editField{
-    margin-left: 65px;
-}
+
 
 .task-details__details-estimate-container{
     margin-top: 5px;
     font-size: 5px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-.task-details__task-estimate.editField{
-    margin-left: 31px;
-}
+
 
 .task-details__details-list-container{
     margin-top: 20px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.task-details__task-listId.editField{
-    margin-left: 72px;
-}
+
 .task-details__completed-container{
     margin-top: 6px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-.task-details__task-isComplete.editField{
-    margin-left: 15px;
-}
+
 
 .task-details__delete-container{
     margin-left: 35px;
@@ -69,11 +82,6 @@
 .far.fa-edit{
     font-size: 13px;
     margin: 5px;
-}
-
-.far.fa-edit i::before{
-
-
 }
 
 .task-details__delete-button {
@@ -93,4 +101,47 @@
 .task-details__delete-button:hover {
     cursor: pointer;
     box-shadow: inset 0 -2px 0 black;
+}
+
+.editContainer > span:last-child {
+    padding: 1px 3px;
+}
+
+.editField {
+    padding: 1px 3px;
+}
+
+.editContainer:hover .editField {
+    cursor: text;
+    border: 1px solid grey;
+    border-right: 1px solid grey;
+    box-sizing: border-box;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.editContainer:hover span:last-child {
+    cursor: text;
+    border: 1px solid grey;
+    background-color: lightgray;
+    color: grey;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.editContainer > input {
+    box-sizing: border-box;
+    border:none;
+    outline: none;
+    width: 100px;
+    text-align: right;
+    border: 1px solid purple;
+    border-radius: 3px;
+}
+
+.task-details__title-container .editContainer > input {
+    text-align: left;
+    width: 200px;
+    border: 1px solid purple;
+    border-radius: 3px;
 }
