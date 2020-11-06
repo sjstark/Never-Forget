@@ -1,4 +1,4 @@
-export const updateTaskSummary = (tasks) => {
+export const updateTaskSummary = async (tasks) => {
   //overwrite innerHTML of the incompleted container with the incompleted tasks num
   const taskCountContainer = document.querySelector(".task-num");
 
@@ -29,5 +29,26 @@ export const updateTaskSummary = (tasks) => {
     //hours with one decimal
     let hours = Math.floor((estimatedTime / 60) * 10) / 10;
     estimatedTimeContainer.innerHTML = `${hours}hrs`;
+  }
+
+  //THIS CHANGES LIST TITLE
+  let listId = localStorage.getItem("never-forget-currentList");
+  let listTitleContainer = document.querySelector(".all-tas");
+
+  if (listId === "null") {
+    listTitleContainer.innerHTML = "All Tasks";
+  } else if (listId.startsWith("search:")) {
+    listTitleContainer.innerHTML = `Task results for: "${listId.slice(7)}"`;
+  } else {
+    //fetch the user's lists
+    const res = await fetch("/lists");
+    let resObj = await res.json();
+    let listArray = resObj.allLists;
+
+    //filter for the targeted list
+    const currentList = listArray.filter((list) => {
+      return list.id == listId;
+    });
+    listTitleContainer.innerHTML = currentList[0].title;
   }
 };

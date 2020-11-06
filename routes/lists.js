@@ -74,7 +74,15 @@ router.get(
     } else {
       const allTasks = await Task.findAll({
         order: [["createdAt", "DESC"]],
-        attributes: ['id', "title", "estimate", "createdBy", "isComplete", 'dueDate', 'listId'],
+        attributes: [
+          "id",
+          "title",
+          "estimate",
+          "createdBy",
+          "isComplete",
+          "dueDate",
+          "listId",
+        ],
         where: {
           listId,
         },
@@ -160,7 +168,6 @@ router.put(
 //THIS IS A DELETE ROUTE TO REMOVE A LIST
 router.delete(
   "/:id(\\d+)",
-  validateList,
   asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
     const loggedInUserId = res.locals.user.id;
@@ -175,15 +182,18 @@ router.delete(
     }
 
     //destructure userId from list
-    const { userId: listUser } = await List.findOne({
-      where: { id: listId },
-    });
+    const { userId: listUser } = list;
 
     //CHECKS TO SEE IF USER AUTHORIZED TO DELETE THAT LIST
     if (loggedInUserId !== listUser) {
       next(notAuthorizedError(listId));
     } else {
+      const listTasks = await Task.findAll({ where: { listId } });
+      listTasks.forEach(async (task) => {
+        await task.destroy();
+      });
       await list.destroy();
+
       res.status(204).end();
       //TODO implement some AJAX
     }
