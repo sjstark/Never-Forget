@@ -62,7 +62,7 @@ const createTaskItem = (task) => {
   taskItem.id = `Task-${task.id}`;
   taskItem.innerHTML = `
   <div class="task-list__task-bar"></div>
-  <div class="task-list__task-select"></div>
+  <input type="checkbox" name="item check="checked">
   <span class="task-list__task-title">${task.title}</span>`;
 
   taskItem.addEventListener('click', (e) => {
