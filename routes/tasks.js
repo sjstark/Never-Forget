@@ -60,7 +60,7 @@ router.get(
     let allTasks = await Task.findAll({
       include: [{ model: User, as: "user", attributes: ["email"] }],
       order: [["createdAt", "DESC"]],
-      attributes: ["title"],
+      attributes: ['id', "title"], //Added Id so that we can select a task from our list display
       where: {
         createdBy: userId,
       },
@@ -123,7 +123,18 @@ router.post(
   })
 );
 
-router.post(
+router.get(
+  "/:id(\\d+)",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const taskId = parseInt(req.params.id, 10)
+    const userId = req.session.auth.userId;
+    let task = await Task.findByPk(taskId);
+    res.json( task );
+  })
+);
+
+router.put(
   "/:id(\\d+)",
   csrfProtection,
   validateEditTask,
@@ -164,9 +175,9 @@ router.post(
   })
 );
 
-router.post(
-  "/delete/:id(\\d+)",
-  validateTask,
+router.delete(
+  "/:id(\\d+)",
+  csrfProtection,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
@@ -193,5 +204,9 @@ router.get(
     res.render("dummy-submit", { csrfToken: req.csrfToken() });
   })
 );
+
+// router.get('/search?:searchTerm(\\w+)', async () =>{
+//   Task.findAll()
+// })
 
 module.exports = router;
