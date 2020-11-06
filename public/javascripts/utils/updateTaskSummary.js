@@ -23,8 +23,8 @@ export const updateTaskSummary = (tasks) => {
   if (estimatedTime < 99) {
     estimatedTimeContainer.innerHTML = estimatedTime + "min";
   } else {
-    let hours = Math.floor(estimatedTime / 60);
-    let minutes = estimatedTime % 60;
-    estimatedTimeContainer.innerHTML = `${hours}:${minutes}hrs`;
+    //hours with one decimal
+    let hours = Math.floor((estimatedTime / 60) * 10) / 10;
+    estimatedTimeContainer.innerHTML = `${hours}hrs`;
   }
 };
