@@ -74,7 +74,15 @@ router.get(
     } else {
       const allTasks = await Task.findAll({
         order: [["createdAt", "DESC"]],
-        attributes: ['id', "title", "estimate", "createdBy", "isComplete", 'dueDate', 'listId'],
+        attributes: [
+          "id",
+          "title",
+          "estimate",
+          "createdBy",
+          "isComplete",
+          "dueDate",
+          "listId",
+        ],
         where: {
           listId,
         },
@@ -183,7 +191,10 @@ router.delete(
     if (loggedInUserId !== listUser) {
       next(notAuthorizedError(listId));
     } else {
+      const listTasks = await Task.findAll({ where: { listId } });
+      await listTasks.destroy();
       await list.destroy();
+
       res.status(204).end();
       //TODO implement some AJAX
     }

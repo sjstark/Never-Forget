@@ -38,24 +38,20 @@ export const updateTaskSummary = async (tasks) => {
   let listId = localStorage.getItem("never-forget-currentList");
   let listTitleContainer = document.querySelector(".all-tas");
 
-  console.log("we got here");
-
   if (listId === "null") {
     listTitleContainer.innerHTML = "All Tasks";
   } else if (listId.startsWith("search:")) {
     listTitleContainer.innerHTML = `Task results for: "${listId.slice(7)}"`;
-  } else if (typeof listId === "number") {
+  } else {
     //fetch the user's lists
     const res = await fetch("/lists");
-    let resObj = res.json();
+    let resObj = await res.json();
     let listArray = resObj.allLists;
 
     //filter for the targeted list
     const currentList = listArray.filter((list) => {
-      return list.id === listId;
+      return list.id == listId;
     });
-    listTitleContainer.innerHTML = currentList.title;
-  } else {
-    listTitleContainer.innerHTML = "Unkown List";
+    listTitleContainer.innerHTML = currentList[0].title;
   }
 };
