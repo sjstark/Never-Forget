@@ -135,3 +135,9 @@
   margin: 10px;
 
 }
+
+.fas.fa-sign-out-alt{
+  visibility: visible;
+  animation: fade-in .3s;
+  cursor: pointer;
+}
