@@ -106,6 +106,13 @@ export const loadLists = async() => {
         ${list.title}
         <span class="listCount" id='${list.id}'></span>
         <span class='list-edit-carrot'>V</span>`
+
+        htmlList.querySelector('.list-edit-carrot')
+            .onclick = async(e)=> {
+                e.stopPropagation();
+                await handleCarrotClick(list, htmlList)
+            }
+
         listTree.appendChild(htmlList)
     })
 }
@@ -156,7 +163,7 @@ export const countListTasks = async() => {
     })
 }
 
-export const addLists = () => {
+export const addLists = (modalType = 'create') => {
     //Find add button in DOM
     let addButton = document.querySelector('.add-list-button');
     let modal = document.querySelector('.add-lists-modal-container');
@@ -178,8 +185,11 @@ export const addLists = () => {
 
         let title = document.querySelector('#add-list-title').value
         let csrfForm = document.querySelector('#add-list-csrf').value
-
-        await submitForm(title,csrfForm)
+        if (modalTyppe = 'create') {
+            await submitForm(title,csrfForm)
+        } else {
+            await submitEditForm(title,csrfForm)
+        }
 
         modal.classList.remove('add-lists-modal-container--shown');
         await loadLists()
@@ -194,4 +204,53 @@ const submitForm = async(title, csrfToken) => {
     const options = {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}
     let res = await fetch('/lists', options);
 
+}
+
+const handleCarrotClick = async(list, htmlList) => {
+
+    htmlList.appendChild(createCarrotDropdown(list))
+
+}
+
+
+const createCarrotDropdown = (list) => {
+    let listOptionsContainer = document.createElement('div')
+    listOptionsContainer.className = 'list-edit-options-container'
+
+    let editOption = document.createElement('div')
+    editOption.className = 'list-edit-option'
+    editOption.innerText = 'Edit List Title'
+    editOption.onclick = async (e)=> {
+        e.stopPropagation()
+        listOptionsContainer.remove()
+        await createListEditForm(list)
+    }
+
+    let deleteOption = document.createElement('div')
+    deleteOption.className = 'list-delete-option'
+    deleteOption.innerText = 'Delete List'
+    deleteOption.onclick = async (e) => {
+        e.stopPropagation()
+        listOptionsContainer.remove()
+        if(confirm(`Are you sure you want to delete list ${list.title} and all tasks within it?`)) {
+            await fetch(`/lists/${list.id}`, {method: 'DELETE'})
+            if (localStorage.getItem('never-forget-currentList') === list.id) localStorage.setItem('never-forget-currentList', null)
+            await loadLists()
+            await countListTasks()
+        }
+    }
+
+    let closeOption = document.createElement('div')
+    closeOption.className = 'list-close-option'
+    closeOption.innerText = 'Close'
+    closeOption.onclick = async (e) => {
+        e.stopPropagation()
+        listOptionsContainer.remove()
+    }
+
+    listOptionsContainer.appendChild(editOption)
+    listOptionsContainer.appendChild(deleteOption)
+    listOptionsContainer.appendChild(closeOption)
+
+    return listOptionsContainer
 }

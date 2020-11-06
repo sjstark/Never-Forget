@@ -158,8 +158,8 @@ router.post(
 );
 
 //THIS IS A DELETE ROUTE TO REMOVE A LIST
-router.post(
-  "/delete/:id(\\d+)",
+router.delete(
+  "/:id(\\d+)",
   validateList,
   asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
