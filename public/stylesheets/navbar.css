@@ -1,5 +1,6 @@
-.navbar{
-  background-color: #8125B9;
+.navbar {
+  box-sizing: border-box;
+  background-color: #8125b9;
   display: flex;
   justify-content: space-around;
   position: fixed;
@@ -8,7 +9,7 @@
   z-index: 50;
 }
 
-.navbar.navbar--app{
+.navbar.navbar--app {
   display: flex;
   justify-content: space-between;
 }
@@ -20,76 +21,76 @@
   min-width: 300px;
 }
 
-.navbar__item{
+.navbar__item {
   margin: auto 20px;
 
-  color: #CDBFEA;
+  color: #cdbfea;
   text-decoration: none;
   font-size: 14px;
   font-weight: bold;
 }
 
-.navbar__item:hover{
-  color: #FFFFFF;
-  transition: .3s;
-  border-color: #FFFFFF;
+.navbar__item:hover {
+  color: #ffffff;
+  transition: 0.3s;
+  border-color: #ffffff;
 }
 
-.navbar__item-button{
+.navbar__item-button {
   justify-self: flex-start;
-  background: none ;
+  background: none;
   border: none;
 }
 
-.navbar__item-primary{
+.navbar__item-primary {
   box-sizing: content-box;
   padding: 5px 10px;
-  border: 2px solid #CDBFEA;
+  border: 2px solid #cdbfea;
   border-radius: 5px;
   font-size: 18px;
 }
 
-.navbar__menu-button{
+.navbar__menu-button {
   justify-self: flex-start;
-  background: none ;
+  background: none;
   border: none;
   padding: 5px 10px;
 }
 
-.navbar__menu-button:hover{
-  background-color: rgba(0,0,0,.25);
+.navbar__menu-button:hover {
+  background-color: rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
 
-i{
+i {
   font-size: 24px;
 }
 
-.navbar__search-container{
-  width: 75%
+.navbar__search-container {
+  width: 75%;
 }
 
-.navbar__search-label{
-  background-color: rgba(255,255,255,.2);
+.navbar__search-label {
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   display: flex;
   align-items: center;
   width: 40%;
-  transition: .3s;
+  transition: 0.3s;
 }
 
-.navbar__search-input{
+.navbar__search-input {
   background: none;
   border: none;
-  width:100%;
+  width: 100%;
 }
 
-.navbar__search-icon{
-  color: #CDBFEA;
+.navbar__search-icon {
+  color: #cdbfea;
   padding: 5px;
 }
 
 .navbar__menu-button:focus,
-.navbar__search-input:focus{
-  outline:none;
+.navbar__search-input:focus {
+  outline: none;
 }

@@ -72,7 +72,6 @@ export const emphasisText = () => { // <-- add loadLostsHelperFunc
     textList.forEach(el => {
         // console.log('reached for each emphasisText')
         el.addEventListener('click', (e)=> {
-            console.log('emphasizing:', el)
 
             if (el.id !== 'caret-dropdown') {
                 localStorage.setItem("never-forget-currentList", el.id)
@@ -180,6 +179,7 @@ export const addLists = (modalType = 'create', list) => {
     let modal = document.querySelector('.add-lists-modal-container');
     let submitButton = document.querySelector('.add-list-submit');
     let input = modal.querySelector('input[type="text"]')
+    let closeButton = document.querySelector('.add-list-close')
 
     input.placeholder = 'Enter title for list'
 
@@ -198,13 +198,14 @@ export const addLists = (modalType = 'create', list) => {
 
 
     //After user submits new list, hide modal and update list menu
-    submitButton.addEventListener('click', async (event)=> {
+
+    submitButton.onclick = async (event)=> {
 
         event.stopPropagation()
 
         let title = document.querySelector('#add-list-title').value
         let csrfForm = document.querySelector('#add-list-csrf').value
-        if (modalType = 'create') {
+        if (modalType === 'create') {
             await submitForm(title, csrfForm)
         } else {
             await submitEditForm(list.id, title, csrfForm)
@@ -215,6 +216,15 @@ export const addLists = (modalType = 'create', list) => {
         await countListTasks()
         await emphasisText()
 
+        //reset modal value
+        document.querySelector('#add-list-title').value = ''
+    }
+
+    //Add event listener for closing the modal
+    closeButton.addEventListener('click', ()=> {
+        modal.classList.remove('add-lists-modal-container--shown')
+         //reset modal value
+        document.querySelector('#add-list-title').value = ''
     })
 
 };
@@ -229,7 +239,7 @@ const submitForm = async(title, csrfToken) => {
 const submitEditForm = async(id, title, csrfToken) => {
     const body = {title, _csrf:csrfToken}
     const options = {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}
-    let res = await fetch('/lists', options);
+    let res = await fetch(`/lists/${id}`, options);
 
 }
 

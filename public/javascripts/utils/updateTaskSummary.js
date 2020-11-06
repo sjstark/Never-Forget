@@ -1,8 +1,5 @@
-// import db from "../../../db/models";
-// const { List } = db;
-
-export const updateTaskSummary = async (tasks) => {
-  //create and append element for tasks field
+export const updateTaskSummary = (tasks) => {
+  //overwrite innerHTML of the incompleted container with the incompleted tasks num
   const taskCountContainer = document.querySelector(".task-num");
 
   let completedTasks = tasks.filter((task) => {
@@ -11,12 +8,12 @@ export const updateTaskSummary = async (tasks) => {
   let incompleteTasks = tasks.length - completedTasks.length;
   taskCountContainer.innerHTML = incompleteTasks;
 
-  //create and append element for completed field
+  //overwrite innerHTML of the completed container with the completed tasks num
   const tasksCompletedContainer = document.querySelector(".task-num-completed");
 
   tasksCompletedContainer.innerHTML = completedTasks.length;
 
-  //create and append element for estimated field
+  //overwrite innerHTML of the estimated time container with the estimated time for incomplete tasks
   const estimatedTimeContainer = document.querySelector(".task-time");
 
   let estimatedTime = 0;

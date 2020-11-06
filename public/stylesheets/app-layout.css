@@ -1,7 +1,7 @@
-.main-content{
-  background-color: #EDDAF4;
-  height:100%;
-  width:100%;
+.main-content {
+  background-color: #eddaf4;
+  height: 100%;
+  width: 100%;
   position: absolute;
   padding-top: 54px;
 
@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-.list-menu{
+.list-menu {
   height: 100%;
   grid-column: 1 / 2;
   grid-row: 1 / 2;
@@ -21,9 +21,7 @@
   padding-right: 10px;
 }
 
-
-
-.task-list{
+.task-list {
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   background-color: white;
@@ -33,17 +31,17 @@
   /* overflow: hidden; */
 }
 
-.summary{
+.summary {
   grid-column: 3 / 4;
   grid-row: 1 / 2;
-  background-color: rgba(255,255,255,.4);
+  background-color: rgba(255, 255, 255, 0.4);
   margin: 10px 10px 10px -5px;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
   position: relative;
 }
 
-.details{
+.details {
   /* visibility: hidden; */
   grid-column: 3 / 4;
   grid-row: 1 / 2;
@@ -70,8 +68,7 @@
   height: 100%;
   position: absolute;
 
-
-  background-color: rgba(0,0,0,.6);
+  background-color: rgba(0, 0, 0, 0.6);
 
   display: flex;
   justify-content: center;
@@ -80,10 +77,9 @@
   /* animation: fade-out .3s; */
 }
 
-
 .search-results-container--shown {
   visibility: visible;
-  animation: fade-in .3s;
+  animation: fade-in 0.3s;
   cursor: pointer;
 }
 
@@ -120,22 +116,41 @@
   height: 80%;
   position: relative;
 
-  margin:auto;
+  margin: auto;
 
   background-color: whitesmoke;
 
   border-radius: 10px;
   padding: 20px;
-
 }
 
 .search-results > h1 {
   margin: 10px;
-
 }
 
-.fas.fa-sign-out-alt{
+.fas.fa-sign-out-alt {
   visibility: visible;
-  animation: fade-in .3s;
+  animation: fade-in 0.3s;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .summary {
+    visibility: hidden;
+  }
+
+  .task-list {
+    grid-column: 2 / span 2;
+    grid-row: 1 / 2;
+    background-color: white;
+    margin-top: 10px;
+    margin-right: 15px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .details--shown {
+    grid-column: 2 / span 2;
+    margin-right: 15px;
+    padding-right: 10px;
+  }
 }
