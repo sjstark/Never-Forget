@@ -179,6 +179,7 @@ export const addLists = (modalType = 'create', list) => {
     let modal = document.querySelector('.add-lists-modal-container');
     let submitButton = document.querySelector('.add-list-submit');
     let input = modal.querySelector('input[type="text"]')
+    let closeButton = document.querySelector('.add-list-close')
 
     input.placeholder = 'Enter title for list'
 
@@ -215,7 +216,16 @@ export const addLists = (modalType = 'create', list) => {
         await countListTasks()
         await emphasisText()
 
+        //reset modal value
+        document.querySelector('#add-list-title').value = ''
     }
+
+    //Add event listener for closing the modal
+    closeButton.addEventListener('click', ()=> {
+        modal.classList.remove('add-lists-modal-container--shown')
+         //reset modal value
+        document.querySelector('#add-list-title').value = ''
+    })
 
 };
 
