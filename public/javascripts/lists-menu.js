@@ -44,7 +44,7 @@ export const treeView = () => {
             caret.classList.toggle('caret-down')
         })
     })
- 
+
 }
 
 export const emphasisText = () => {
