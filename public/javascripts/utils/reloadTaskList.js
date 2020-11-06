@@ -24,7 +24,6 @@ export const reloadTaskList = async () => {
   let tasks = body.allTasks;
 
   //update task summary
-  console.log(tasks);
   updateTaskSummary(tasks);
 
   let viewIncomplete = parseInt(

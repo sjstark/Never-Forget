@@ -14,7 +14,7 @@ i.far.fa-calendar-alt {
 .task-box {
   display: flex;
   margin-top: 2px;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   border-radius: 5px;
   height: 100px;
   width: 205px;
@@ -25,7 +25,7 @@ i.far.fa-calendar-alt {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  background: #dbe8f6;
+  background: #e2c4ed;
   margin-left: 3px;
   padding: 6px 13px;
   line-height: 100%;
@@ -40,7 +40,7 @@ i.far.fa-calendar-alt {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  background: #dbe8f6;
+  background: #e2c4ed;
   margin-left: 3px;
   padding: 6px 7px;
   line-height: 100%;
@@ -63,6 +63,7 @@ h6 {
 }
 
 .all-tas {
+  margin-left: 2px;
   font-size: 16px;
   font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Helvetica, Arial, clean, sans-serif, "Apple Color Emoji",
