@@ -1,95 +1,112 @@
-
-.summary-box{
-    width: 250px;
-    margin-left: 30px;
-    margin-top: 40px;
-
+.summary-box {
+  width: 250px;
+  margin-left: 30px;
+  margin-top: 40px;
 }
-i.fas.fa-rss{
-    font-size: 13px;
-    margin: 0 7px 3px 0;
+i.fas.fa-rss {
+  font-size: 13px;
+  margin: 0 7px 3px 0;
 }
-i.far.fa-calendar-alt{
-    font-size: 13px;
-    margin: 0;
-
+i.far.fa-calendar-alt {
+  font-size: 13px;
+  margin: 0;
 }
-.task-box{
-    justify-items: start;
-    margin-top: 2px;
-    margin-left: 5px;
-    border-radius: 5px;
-    height: 100px;
-    width: 205px;
+.task-box {
+  display: flex;
+  margin-top: 2px;
+  /* margin-left: 5px; */
+  border-radius: 5px;
+  height: 100px;
+  width: 205px;
 }
 
-.task-count{
-    overflow: hidden;
-    vertical-align: top;
-    display:inline-block;
-    background: #dbe8f6;
-    margin-left: 3px;
-    padding: 9px 13px;
-    line-height: 100%;
-    border-radius: 5px;
-    height: 40px;
-    width: 50px;
+.task-count {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background: #e2c4ed;
+  margin-left: 3px;
+  padding: 6px 13px;
+  line-height: 100%;
+  border-radius: 5px;
+  height: 45px;
+  width: 50px;
 }
 
-.task-completed{
-    overflow: hidden;
-    vertical-align: top;
-    display:inline-block;
-    background: #dbe8f6;
-    margin-left: 3px;
-    padding: 9px 7px;
-    line-height: 100%;
-    border-radius: 5px;
-    height: 40px;
-    width: 70px;
-    text-align: bottom;
-}
-.all-tas{
-    font-size: 16px;
-    font-family:BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Helvetica,Arial,clean,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"!important;
-
+.task-completed,
+.task-time-estimate {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background: #e2c4ed;
+  margin-left: 3px;
+  padding: 6px 7px;
+  line-height: 100%;
+  border-radius: 5px;
+  height: 45px;
+  width: 70px;
+  text-align: bottom;
 }
 
-.tas{
-    font-size: 10px;
-    padding-top: 2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
+h6 {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Helvetica, Arial, clean, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
 
-.comp{
-    font-size: 10px;
-    text-align: left;
-    padding-top: 2px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
+.task-num-completed {
+  opacity: 0.6;
 }
 
-footer {
-    align-self: flex-end;
-    position: absolute;
-    bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 95%;
-    transform: translateX(10px);
+.all-tas {
+  margin-left: 2px;
+  font-size: 16px;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Helvetica, Arial, clean, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
 
-  .footer__text{
-    color: #8B8B94;
-    font-size: 14px;
-  }
+.tas,
+.time {
+  margin: 0;
+  font-size: 0.7rem;
+  padding-top: 2px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
 
-  .footer__social-links{
-    color: #8B8B94;
-    margin-left: 200px;
-    margin-top: 10px;
-    /* border: 1px solid black; */
-    font-size: 20px;
-  }
+.comp {
+  margin: 0;
+  font-size: 10px;
+  text-align: left;
+  padding-top: 2px;
+  opacity: 0.6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.sum-footer {
+  position: fixed;
+  bottom: 30px;
+  left: 650px;
+  right: 0;
+  width: 35%;
+  z-index: 999;
+}
+
+.footer__text {
+  color: #8b8b94;
+  font-size: 14px;
+}
+
+.footer__social-links {
+  color: #8b8b94;
+  margin-left: 200px;
+  margin-top: 10px;
+  /* border: 1px solid black; */
+  font-size: 20px;
+}

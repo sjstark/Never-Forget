@@ -48,7 +48,7 @@ function emphasisText() {
     textList.forEach(el => {
         // console.log('reached for each emphasisText')
         el.addEventListener('click', ()=> {
-            console.log('reached event listener')
+            // console.log('reached event listener')
             emphasisHelperFunction(textList, el)
         })
     })
@@ -59,6 +59,6 @@ function emphasisHelperFunction(textList, el) {
         // console.log('reached for each helper function')
         item.classList.remove('list-tree-li--emphasis')
     })
-    console.log('got to end of helper function')
+    // console.log('got to end of helper function')
     el.classList.add('list-tree-li--emphasis')
 }

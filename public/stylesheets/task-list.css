@@ -5,14 +5,13 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: #aaaaaa;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 button {
-  border:none;
+  border: none;
   background: none;
 }
-
 
 /******************************************************************************/
 /******************** INCOMPLETE/COMPLETE FORMATTING **************************/
@@ -20,7 +19,7 @@ button {
 
 .menubar {
   margin-top: 30px;
-  border-bottom: 1px dotted rgba(0,0,0,.1);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: flex-end;
 }
@@ -31,23 +30,27 @@ button {
 
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  color: #8125B9;
+  color: #8125b9;
+  cursor: default;
+}
+
+.menubar-item:not(.menubar-item--active) {
+  cursor: pointer;
 }
 
 .menubar-item--active {
-  border: 1px dotted rgba(0,0,0,.1);
+  border: 1px dotted rgba(0, 0, 0, 0.1);
   border-bottom: none;
   background-color: white;
   color: black;
 }
-
 
 /******************************************************************************/
 /*********************** TASK CREATION FORMATTING *****************************/
 /******************************************************************************/
 
 .task-add__container {
-  border-bottom: 1px dotted rgba(0,0,0,.1);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
 }
 
 .task-add__input-container {
@@ -61,15 +64,11 @@ button {
 
   width: 100%;
   padding: 10px;
-
-
-
 }
 
 .task-add__input-field:focus {
   outline: none;
-  border: 1px solid #8125B9
-
+  border: 1px solid #8125b9;
 }
 
 .task-add__options {
@@ -84,11 +83,11 @@ button {
   justify-content: space-between;
 }
 
-.task-add__options-modifiers>div {
+.task-add__options-modifiers > div {
   margin: 5px;
 }
 
-.task-add__container i:hover{
+.task-add__container i:hover {
   color: black;
   cursor: pointer;
 }
@@ -100,36 +99,28 @@ button {
 }
 
 .task-add__due-date {
-
 }
 
 .task-add__list {
-
 }
 
 .task-add__estimate {
-
 }
 
 .task-add__submit {
-
   box-sizing: border-box;
-  background-color: #8125B9;
+  background-color: #8125b9;
   color: white;
   border-radius: 5px;
   border: none;
   padding: 10px 20px;
   margin: 5px;
-
 }
 
 .task-add__submit:hover {
   box-shadow: inset 0 -2px 0 rgb(177, 107, 107);
   cursor: pointer;
 }
-
-
-
 
 /******************************************************************************/
 /************************* TASK LIST FORMATTING *******************************/
@@ -140,40 +131,40 @@ button {
   height: 100%;
 }
 
-.task-list__task-item{
+.task-list__task-item {
   position: relative;
   width: 100%;
   min-height: 20px;
-  border-bottom: 1px dotted rgba(0,0,0,.1);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
   padding: 2px;
 
   display: flex;
   align-items: center;
 }
-.task-list__task-item-placeholder{
+.task-list__task-item-placeholder {
   position: relative;
   width: 100%;
   min-height: 30px;
-  border-bottom: 1px dotted rgba(0,0,0,.1);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
   padding: 2px;
 
   display: flex;
   align-items: center;
 }
 
-.task-list__task-item:hover{
+.task-list__task-item:hover {
   background-color: lightyellow;
   cursor: pointer;
 }
 
-.task-list__task-bar{
+.task-list__task-bar {
   background-color: lightgrey;
   width: 3px;
-  min-height:25px;
+  min-height: 25px;
   margin-left: 5px;
 }
 
-.task-list__task-select{
+.task-list__task-select {
   margin-left: 5px;
 
   width: 12px;
@@ -182,12 +173,11 @@ button {
   border-radius: 2px;
 }
 
-.task-list__task-title{
+.task-list__task-title {
   margin-left: 5px;
   font-size: 14px;
-  color: #555555
+  color: #555555;
 }
-
 
 /******************************************************************************/
 /*********************** INPUT PROMPTS FORMATTING *****************************/
@@ -204,7 +194,6 @@ button {
 
   position: absolute;
 
-
   transform: translateX() translateY(10px);
 
   /* display: flex;
@@ -214,16 +203,15 @@ button {
 }
 
 .task-add__input-prompt::before {
-  content: '';
+  content: "";
   position: absolute;
-  left:50%;
+  left: 50%;
   bottom: 100%;
   width: 0;
   height: 0;
   border-left: 8px solid transparent;
   border-bottom: 10px solid #aaaaaa;
   border-right: 8px solid transparent;
-
 }
 
 .task-add__input-option {
@@ -245,7 +233,6 @@ button {
   width: 90%;
   padding: 10px;
   margin: 20px;
-
 }
 
 .task-add__errors > * {
