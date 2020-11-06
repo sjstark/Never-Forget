@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "per-env",
-    "start:development": "node -r dotenv/config ./bin/www",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
     "start:production": "node ./bin/www"
   },
   "dependencies": {
