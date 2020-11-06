@@ -60,7 +60,7 @@ router.get(
     let allTasks = await Task.findAll({
       include: [{ model: User, as: "user", attributes: ["email"] }],
       order: [["createdAt", "DESC"]],
-      attributes: ['id', "title"], //Added Id so that we can select a task from our list display
+      attributes: ["id", "title", "estimate",  "isComplete"], //Added Id so that we can select a task from our list display
       where: {
         createdBy: userId,
       },
