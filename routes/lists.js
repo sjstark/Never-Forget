@@ -169,7 +169,6 @@ router.put(
 router.delete(
   "/:id(\\d+)",
   asyncHandler(async (req, res, next) => {
-    console.log("\n\n\n\n we got here \n\n\n\n");
     const listId = parseInt(req.params.id, 10);
     const loggedInUserId = res.locals.user.id;
     const list = await List.findOne({
