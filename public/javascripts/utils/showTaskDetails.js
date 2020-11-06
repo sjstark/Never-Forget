@@ -1,4 +1,5 @@
 import {reloadTaskList} from './reloadTaskList.js'
+import { getLists, getListId } from './list-utils.js'
 
 export const showTaskDetails = async (e) => {
   e.stopPropagation();
@@ -50,15 +51,69 @@ const displayDetails = (task) => {
   document.querySelector('.task-details__task-dueDate').innerHTML = task.dueDate ? task.dueDate : "none"
   document.querySelector('.task-details__task-estimate').innerHTML = task.estimate ? task.estimate : "none"
   document.querySelector('.task-details__task-listId').innerHTML = task.listId ? task.listId : "none"
-  document.querySelector('.task-details__task-isComplete').innerHTML = task.isComplete
+  // document.querySelector('.task-details__task-isComplete').innerHTML = task.isComplete
 
   document.querySelectorAll('.editContainer').forEach(el => {
     el.addEventListener('click', (e) => {
       let target = e.target
       while (target.className !== "editContainer") target = target.parentElement
+
+
       createInputField(target)
+
     })
   }, false);
+
+  document.querySelector('.listContainer')
+}
+
+const createListDropdown = async (listContainer) => {
+
+  let editField = editContainer.querySelector('.editField')
+  let selectField = document.createElement('select')
+  selectField.value = editField.innerText === 'none' ? null : editField.innerText
+  let lists = await getLists();
+
+  let nullOption = document.createElement('option')
+  option.value = 'null';
+  option.innerText = 'none'
+  selectField.appendChild(nullOption)
+  lists.forEach( list => {
+    selectField.appendChild(createListOption(list))
+  })
+  let newListOption = document.createElement('option')
+  option.value = 'NEWLIST';
+  option.innerText = 'Create List'
+  selectField.appendChild(newListOption)
+
+  selectField.addEventListener('change', (e) => {
+    if (e.target.value === 'Create List') {
+
+      let inputField = document.createElement('input')
+
+      inputField.id = listTitle
+      inputField.placeholder = 'Enter list title'
+
+      inputField.addEventListener('focusout', submitChange)
+      inputField.addEventListener('keyup', async (e) => {
+        if (e.key === 'Enter') {
+          await submitChange(e)
+        }
+      })
+
+      editContainer.replaceChild(inputField, selectField)
+
+      inputField.focus();
+    } else {
+      submitChange(e)
+    }
+  })
+}
+
+const createListOption = (list) => {
+  let option = document.createElement('option')
+  option.value = list.id;
+  option.innerText = list.title
 }
 
 const createInputField = (editContainer) => {
@@ -82,39 +137,36 @@ const createInputField = (editContainer) => {
 
 const submitChange = async (e) => {
 
-  const task = {
-    id: parseInt(document.querySelector('.task-details__task-id').innerHTML, 10),
-    title: document.querySelector('.task-details__task-title').innerHTML,
-    dueDate: document.querySelector('.task-details__task-dueDate').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-dueDate').innerHTML, 10) : null,
-    estimate: document.querySelector('.task-details__task-estimate').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-estimate').innerHTML, 10) : null,
-    listId: document.querySelector('.task-details__task-listId').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-listId').innerHTML, 10) : null,
-    isComplete: document.querySelector('.task-details__task-isComplete').innerHTML,
-  }
+  // const task = {
+  //   id: parseInt(document.querySelector('.task-details__task-id').innerHTML, 10),
+  //   title: document.querySelector('.task-details__task-title').innerHTML,
+  //   dueDate: document.querySelector('.task-details__task-dueDate').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-dueDate').innerHTML, 10) : null,
+  //   estimate: document.querySelector('.task-details__task-estimate').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-estimate').innerHTML, 10) : null,
+  //   listId: document.querySelector('.task-details__task-listId').innerHTML !== 'none' ? parseInt(document.querySelector('.task-details__task-listId').innerHTML, 10) : null,
+  //   isComplete: document.querySelector('.task-details__task-isComplete').innerHTML,
+  // }
 
-  console.log('changing!', e.target.value)
+  // console.log('changing!', e.target.value)
 
-  let inputValue = e.target.value
-  if (inputValue === 'none' || inputValue === '' || inputValue === '0') inputValue = null;
+  // let inputValue = e.target.value
+  // if (inputValue === 'none' || inputValue === '' || inputValue === '0') inputValue = null;
 
-  task[e.target.id] = inputValue
+  // task[e.target.id] = inputValue
 
-  await updateTask(task)
+  // task = await updateTask(task)
 
 
-  let editField = document.createElement('span')
-  editField.innerText = inputValue !== null ? inputValue : 'none'
-  editField.classList.add(`task-details__task-${e.target.id}`)
-  editField.classList.add('editField')
+  // let editField = document.createElement('span')
+  // editField.innerText = inputValue !== null ? inputValue : 'none'
+  // editField.classList.add(`task-details__task-${e.target.id}`)
+  // editField.classList.add('editField')
 
-  console.log(e.target.parentElement)
-  console.log(editField)
-  console.log(e.target)
 
-  e.target.parentElement.replaceChild(editField, e.target)
+  // e.target.parentElement.replaceChild(editField, e.target)
 
-  console.log(editField.parentElement)
 
-  reloadTaskList();
+  // reloadTaskList();
+  // displayDetails(task)
 
 }
 

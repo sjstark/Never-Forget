@@ -120,8 +120,9 @@
     border-bottom-left-radius: 3px;
 }
 
+
 .editContainer:hover span:last-child {
-    cursor: text;
+    cursor: pointer;
     border: 1px solid grey;
     background-color: lightgray;
     color: grey;
@@ -144,4 +145,12 @@
     width: 200px;
     border: 1px solid purple;
     border-radius: 3px;
+}
+
+.isComplete-container > input {
+    margin-right: 10px;
+}
+
+.isComplete-container > input:hover {
+    cursor: pointer;
 }

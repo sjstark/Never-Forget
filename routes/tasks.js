@@ -175,6 +175,54 @@ router.put(
   })
 );
 
+
+router.patch(
+  "/:id(\\d+)",
+  csrfProtection,
+  validateEditTask,
+  asyncHandler(async (req, res, next) => {
+    console.log("-------------------------------");
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+    const userId = req.session.auth.userId;
+
+    if (task) {
+      // CHECKS TO SEE IF USER HAS ACCESS TO THAT TASK
+
+      if (task.createdBy !== userId) {
+        next(notAuthorizedError(taskId));
+      }
+
+      //CHECKS FOR ERRORS AND UPDATES
+
+      const validatorErrors = validationResult(req);
+      if (validatorErrors.isEmpty()) {
+        const { title, estimate, listId, dueDate } = req.body;
+
+        title = title === 'undefinded' ? task.title : title;
+        estimate = estimate === 'undefinded' ? task.estimate : estimate;
+        listId = listId === 'undefinded' ? task.listId : listId;
+        dueDate = dueDate === 'undefinded' ? task.dueDate : title;
+
+        await task.update({ title, estimate, listId, dueDate });
+        // task.title = title;
+        // task.estimate = estimate;
+        // task.dueDate = dueDate
+        // if (listId) {
+        //     task.listId = listId
+        // }
+        res.status(201).json({ task });
+        //TODO Implement AJAX
+      } else {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        console.error(errors);
+      }
+    } else {
+      next(taskNotFoundError(taskId));
+    }
+  })
+);
+
 router.delete(
   "/:id(\\d+)",
   csrfProtection,
