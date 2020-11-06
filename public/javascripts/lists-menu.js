@@ -1,5 +1,7 @@
+import { reloadTaskList } from "./utils/reloadTaskList.js";
 
 // document.addEventListener('DOMContentLoaded', async ()=> {
+
 
 //     //-------ADD LISTS THAT THE PERSON CAN ACCESS IN THE DOM------//
 //     await loadLists()
@@ -58,10 +60,16 @@ export const emphasisText = () => { // <-- add loadLostsHelperFunc
 
     textList.forEach(el => {
         // console.log('reached for each emphasisText')
-        el.addEventListener('click', ()=> {
+        el.addEventListener('click', (e)=> {
+            console.log('emphasizing:', el)
+
+            if (el.id !== 'caret-dropdown') {
+                localStorage.setItem("never-forget-currentList", el.id)
+                reloadTaskList();
+            }
             // console.log('reached event listener')
             emphasisHelperFunction(textList, el)
-            // loadListsHelperFunc() 
+            // loadListsHelperFunc()
         })
     })
 }
@@ -86,7 +94,7 @@ export const loadLists = async() => {
     //Finding list of lists in menu and clearing it
     let listTree = document.querySelector('#add-lists-here')
     listTree.innerHTML = '';
-    
+
 
     //Adding lists to tree
     objArray.forEach(list => {
@@ -95,11 +103,11 @@ export const loadLists = async() => {
         htmlList.classList.add('list-menu-flex')
         htmlList.id = list.id
         htmlList.innerHTML = `
-        ${list.title} 
+        ${list.title}
         <span class="listCount" id='${list.id}'></span>
         <span class='list-edit-carrot'>V</span>`
-        listTree.appendChild(htmlList) 
-    }) 
+        listTree.appendChild(htmlList)
+    })
 }
 
 export const countTotalTasks = async() => {
@@ -160,8 +168,8 @@ export const addLists = () => {
 
         modal.classList.add('add-lists-modal-container--shown')
 
-        
-    })  
+
+    })
 
     //After user submits new list, hide modal and update list menu
     submitButton.addEventListener('click', async (event)=> {
@@ -172,7 +180,7 @@ export const addLists = () => {
         let csrfForm = document.querySelector('#add-list-csrf').value
 
         await submitForm(title,csrfForm)
-       
+
         modal.classList.remove('add-lists-modal-container--shown');
         await loadLists()
         await countListTasks()
@@ -185,5 +193,5 @@ const submitForm = async(title, csrfToken) => {
     const body = {title, _csrf:csrfToken}
     const options = {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}
     let res = await fetch('/lists', options);
-    
+
 }
