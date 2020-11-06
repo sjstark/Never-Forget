@@ -1,4 +1,12 @@
+import {reloadTaskList} from "./utils/reloadTaskList.js"
+import {createNewList, getListId, getLists } from "./utils/list-utils.js"
+
+//import {treeView, highlighting, selector }from "./menufrontend.js"
+
 document.addEventListener('DOMContentLoaded', async () => {
+
+  localStorage.setItem('never-forget-currentList', null)
+
 
 /******************************************************************************/
 /********************* GET ALL TASKS FOR USER ON LOAD *************************/
@@ -113,53 +121,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 })
 
 
-/******************************************************************************/
-/************************* BUILD TASK HTML ELEMENT ****************************/
-/******************************************************************************/
-
-const createTaskItem = (task) => {
-  let taskItem = document.createElement('div')
-  taskItem.classList.add('task-list__task-item')
-  taskItem.id = `Task-${task.id}`
-  taskItem.innerHTML = `
-  <div class="task-list__task-bar"></div>
-  <div class="task-list__task-select"></div>
-  <span class="task-list__task-title">${task.title}</span>`
-
-
-  return taskItem
-}
-
-
-const reloadTaskList = async (listId = null) => {
-  const taskList = document.querySelector('.task-list__tasks')
-
-  let route = '/tasks'
-  if (listId) {
-    route = `/lists/${listId}`
-  }
-
-  let res = await fetch(route)
-  let body = await res.json();
-
-  let tasks = body.allTasks
-
-  taskList.innerHTML = ''
-
-  // getTotalEstimate(tasks)
-
-  tasks.forEach(task => {
-    taskList.appendChild(createTaskItem(task))
-  })
-}
-
-const getLists = async () => {
-  let res = await fetch('/lists')
-  let body = await res.json();
-  let lists = body.allLists
-
-  return lists;
-}
 
 /******************************************************************************/
 /***************************** PARSE TASK INPUT *******************************/
@@ -354,42 +315,4 @@ const validateInput = async (input) => {
 
   return errors
 
-}
-
-const createNewList = async (title) => {
-  // console.log('\n Attempting to create new list')
-  let body = {
-    title: title,
-    _csrf: document.querySelector('#csrf').value
-  }
-
-  // console.log('list body:', body)
-
-  let options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  }
-  try {
-    let res = await fetch('/lists', options)
-    if (!res.ok) throw res
-    // else console.log('success in posting?')
-  } catch (err) {
-    // console.log('hit error when creating list')
-    console.error(err)
-  }
-}
-
-
-const getListId = async (listTitle) => {
-  let lists = await getLists();
-
-  for (let i = 0; i < lists.length; i++) {
-    let list = lists[i];
-    if (list.title === listTitle) {
-      return list.id
-    }
-  }
 }

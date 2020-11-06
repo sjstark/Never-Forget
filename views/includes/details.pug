@@ -1,0 +1,38 @@
+link(rel="stylesheet", href="./stylesheets/details.css")
+
+.task-details__task-id(style="visibility: hidden")
+.close-container
+  .close-button close
+    i.fas.fa-times
+.task-details__title-container
+  .editContainer#task-title-edit
+    //- span.task-details__task-title.editField
+    span.task-details__dueDate-edit
+          i.far.fa-edit
+.task-details__details-container
+  .task-details__details-section-modifiers
+    .task-details__details-due-container
+      span due
+      .editContainer#task-dueDate-edit
+        //- span.task-details__task-dueDate.editField
+        span.task-details__dueDate-edit
+          i.far.fa-edit
+    .task-details__details-estimate-container
+      span estimate
+      .editContainer#task-estimate-edit
+        //- span.task-details__task-estimate.editField
+        span.task-details__estimate-edit
+          i.far.fa-edit
+  .task-details__details-section-list
+    .task-details__details-list-container
+      span list
+      .listContainer
+        //- span.task-details__task-listTitle.editField
+        span.task-details__list-edit
+          i.far.fa-edit
+  .task-details__completed-container
+    span Complete?
+    .isComplete-container
+      input.isComplete-checkbox(type='checkbox')
+.task-details__delete-container
+  div.task-details__delete-button Delete

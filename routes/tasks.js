@@ -5,7 +5,7 @@ const { csrfProtection, asyncHandler } = require("./utils");
 // const { requireAuth } = require('../auth');
 const db = require("../db/models");
 
-const { Task, User } = db;
+const { Task, User, Sequelize } = db;
 // router.use(requireAuth);
 
 /****************** VALIDATION AND ERROR CHECKS **************************/
@@ -60,7 +60,7 @@ router.get(
     let allTasks = await Task.findAll({
       include: [{ model: User, as: "user", attributes: ["email"] }],
       order: [["createdAt", "DESC"]],
-      attributes: ["title"],
+      attributes: ['id', "title"], //Added Id so that we can select a task from our list display
       where: {
         createdBy: userId,
       },
@@ -123,7 +123,18 @@ router.post(
   })
 );
 
-router.post(
+router.get(
+  "/:id(\\d+)",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const taskId = parseInt(req.params.id, 10)
+    const userId = req.session.auth.userId;
+    let task = await Task.findByPk(taskId);
+    res.json( task );
+  })
+);
+
+router.put(
   "/:id(\\d+)",
   csrfProtection,
   validateEditTask,
@@ -164,9 +175,55 @@ router.post(
   })
 );
 
-router.post(
-  "/delete/:id(\\d+)",
-  validateTask,
+
+// if any validations are needed for patch, it would just be to verify that format for date is right
+router.patch(
+  "/:id(\\d+)",
+  csrfProtection,
+  asyncHandler(async (req, res, next) => {
+    console.log("-------------------------------");
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+    const userId = req.session.auth.userId;
+
+    if (task) {
+      // CHECKS TO SEE IF USER HAS ACCESS TO THAT TASK
+
+      if (task.createdBy !== userId) {
+        next(notAuthorizedError(taskId));
+      }
+
+
+      let { title, estimate, listId, dueDate, isComplete} = req.body;
+
+
+      title = title === undefined ? task.title : title;
+      estimate = estimate === undefined ? task.estimate : estimate;
+      listId = listId === undefined ? task.listId : listId;
+      dueDate = dueDate === undefined ? task.dueDate : dueDate;
+      isComplete = isComplete === undefined ? task.isComplete : isComplete;
+
+
+
+      await task.update({ title, estimate, listId, dueDate, isComplete });
+      // task.title = title;
+      // task.estimate = estimate;
+      // task.dueDate = dueDate
+      // if (listId) {
+      //     task.listId = listId
+      // }
+      res.status(201).json({ task });
+      //TODO Implement AJAX
+
+    } else {
+      next(taskNotFoundError(taskId));
+    }
+  })
+);
+
+router.delete(
+  "/:id(\\d+)",
+  csrfProtection,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
@@ -186,6 +243,35 @@ router.post(
   })
 );
 
+// localhost:8080/tasks/search?includes=Include%20this&excludes=Not%20this
+// use encodeURI on the front end to create path queries
+// use decodeURI on the back end to decode path query sections
+router.get('/search', asyncHandler( async (req, res) => {
+  const userId = req.session.auth.userId;
+
+  let include, exclude;
+  if (req.query['includes']) {
+    include = decodeURI(req.query['includes'])
+  }
+
+  if (req.query['excludes']) {
+    exclude = decodeURI(req.query['excludes'])
+  }
+
+  let allTasks = await Task.findAll({
+    where: {
+      title: {
+        [Sequelize.Op.iLike]: '%'+include+'%',
+        [Sequelize.Op.notILike]: '%'+exclude+'%',
+      },
+      createdBy: userId
+    }
+  })
+
+  res.json({allTasks})
+
+}));
+
 router.get(
   "/dummy-submit",
   csrfProtection,
@@ -193,5 +279,9 @@ router.get(
     res.render("dummy-submit", { csrfToken: req.csrfToken() });
   })
 );
+
+// router.get('/search?:searchTerm(\\w+)', async () =>{
+//   Task.findAll()
+// })
 
 module.exports = router;

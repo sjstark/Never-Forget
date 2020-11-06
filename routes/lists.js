@@ -74,7 +74,7 @@ router.get(
     } else {
       const allTasks = await Task.findAll({
         order: [["createdAt", "DESC"]],
-        attributes: ["title", "estimate", "isComplete", "dueDate"],
+        attributes: ["title", "estimate", "createdBy", "isComplete", 'dueDate', 'listId'],
         where: {
           listId,
         },
