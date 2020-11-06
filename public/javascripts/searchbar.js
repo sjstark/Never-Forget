@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchInput.addEventListener('keyup', async (e) => {
     if (e.key === 'Escape') {
-      clearSearchInput(e);
+      e.target.value = ''
+      e.target.blur()
       return
     }
 

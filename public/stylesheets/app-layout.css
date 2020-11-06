@@ -78,13 +78,14 @@
   justify-content: center;
   align-items: center;
 
-  animation: fade-out .3s;
+  /* animation: fade-out .3s; */
 }
 
 
 .search-results-container--shown {
   visibility: visible;
   animation: fade-in .3s;
+  cursor: pointer;
 }
 
 @keyframes fade-in {
@@ -103,8 +104,13 @@
     opacity: 1;
   }
 
-  100% {
+  99% {
+    opacity: 0;
     visibility: visible;
+  }
+
+  100% {
+    visibility: hidden;
     opacity: 0;
   }
 }

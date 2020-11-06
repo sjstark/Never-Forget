@@ -9,8 +9,8 @@ html
         script(src="https://kit.fontawesome.com/e145510635.js" crossorigin="anonymous")
   body
     nav.navbar.navbar--app
-      button.navbar__item.navbar__menu-button#app-menu
-        i.fas.fa-bars
+      //- button.navbar__item.navbar__menu-button#app-menu
+      //-   i.fas.fa-bars
       .navbar__search-container
         label.navbar__search-label(for='searchBar')
           i.fas.fa-search.navbar__search-icon
@@ -27,7 +27,7 @@ html
         include includes/summary.pug
       div.details
         include includes/details.pug
-    .search-results-container
+    .search-results-container(title="Click to close search")
       .search-results
 
 
