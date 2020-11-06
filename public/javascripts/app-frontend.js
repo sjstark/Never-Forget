@@ -4,7 +4,8 @@ import {
   countListTasks,
   emphasisText,
   loadLists,
-  treeView
+  treeView,
+  addLists
 } from './lists-menu.js'
 
 
@@ -157,6 +158,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   await countTotalTasks()
 
   await countListTasks()
+
+  await addLists()
 
 
 })

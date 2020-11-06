@@ -47,7 +47,7 @@ export const treeView = () => {
 
 }
 
-export const emphasisText = () => {
+export const emphasisText = () => { // <-- add loadLostsHelperFunc
     let listMenu = document.querySelector('.list-menu');
 
     let texts = document.querySelectorAll('li');
@@ -61,6 +61,7 @@ export const emphasisText = () => {
         el.addEventListener('click', ()=> {
             // console.log('reached event listener')
             emphasisHelperFunction(textList, el)
+            // loadListsHelperFunc() 
         })
     })
 }
@@ -100,22 +101,6 @@ export const loadLists = async() => {
         listTree.appendChild(htmlList) 
     }) 
 }
-
-// async function addLists() {
-//     //Find add button in DOM
-//     let addButton = document.querySelector('.add-list-button');
-    
-//     addButton.addEventListener('click', (event) => {
-//         event.stopPropagation()
-
-//         addListsHelperFunction()
-//     })  
-
-// };
-
-// function addListsHelperFunction() {
-//     let route = 
-// }
 
 export const countTotalTasks = async() => {
     //Grab All Tasks span
@@ -163,4 +148,42 @@ export const countListTasks = async() => {
     })
 }
 
+export const addLists = () => {
+    //Find add button in DOM
+    let addButton = document.querySelector('.add-list-button');
+    let modal = document.querySelector('.add-lists-modal-container');
+    let submitButton = document.querySelector('.add-list-submit');
 
+    //Add event listener to make modal appear
+    addButton.addEventListener('click', (event) => {
+        event.stopPropagation()
+
+        modal.classList.add('add-lists-modal-container--shown')
+
+        
+    })  
+
+    //After user submits new list, hide modal and update list menu
+    submitButton.addEventListener('click', async (event)=> {
+
+        event.stopPropagation()
+
+        let title = document.querySelector('#add-list-title').value
+        let csrfForm = document.querySelector('#add-list-csrf').value
+
+        await submitForm(title,csrfForm)
+       
+        modal.classList.remove('add-lists-modal-container--shown');
+        await loadLists()
+        await countListTasks()
+
+    })
+
+};
+
+const submitForm = async(title, csrfToken) => {
+    const body = {title, _csrf:csrfToken}
+    const options = {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}
+    let res = await fetch('/lists', options);
+    
+}
