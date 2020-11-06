@@ -271,10 +271,12 @@ const createInputField = (editContainer) => {
   inputField.classList.add('kill-me')
 
   inputField.addEventListener('focusout', async (e) => {
+    //ADD VALIDATOR FUNCTION HERE
     await submitChange(taskId, inputField.id, inputField.value)
   })
   inputField.addEventListener('keyup', async (e) => {
     if (e.key === 'Enter') {
+      //ADD VALIDATOR FUNCTION HERE
       await submitChange(taskId, inputField.id, inputField.value)
     }
   })
