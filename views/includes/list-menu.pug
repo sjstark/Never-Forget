@@ -3,23 +3,32 @@ link(rel='stylesheet' href='/stylesheets/list-menu.css')
 div
     img(src='/images/logo.png' width="175")
 
+//- div.add-list-modal 
+//-     h2 Add a list
+//-     form()
+//-         label(name="What's your list name?")
+//-         input(type="text", name="add-list-modal-listName")
+//-         button(type="submit")
+        
+
 div.inbox-div
     //- p Inbox
     ul.list-tree
         li <span class='caret caret-down'></span> Inbox
         div.nested-div
             ul.nested
-                li.list-menu-flex All Tasks <span class='allTaskCount'>1</span>
+                li.list-menu-flex All Tasks <span class='allTaskCount'></span>
                 li Trash
 
 
 div.lists-div
     ul.list-tree
-        li <span class='caret caret-down'></span> <div class="list-menu-flex"> Lists <span class='add-list'>+</span></div>
+        li <span class='caret caret-down'></span> <div class="list-menu-flex"> Lists <span title='Add List' class='add-list-button'>+</span></div>
+        
         div.nested-div
-            ul.nested <!--TODO:  -->
-                li.list-menu-flex Personal <span class="listCount" id='Personal'>1</span>
-                li.list-menu-flex Work <span class="listCount" id='Work'>1</span>
+            ul(class = 'nested' id='add-lists-here') <!--TODO:  -->
+                //- li.list-menu-flex Personal <span class="listCount" id='Personal'>1</span>
+                //- li.list-menu-flex Work <span class="listCount" id='Work'>1</span>
 
 div.peanut-div 
     img(src="/images/peanut.png")

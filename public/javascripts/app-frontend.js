@@ -1,3 +1,14 @@
+
+import {
+  countTotalTasks,
+  countListTasks,
+  emphasisText,
+  loadLists,
+  treeView
+} from './lists-menu.js'
+
+
+
 import {reloadTaskList} from "./utils/reloadTaskList.js"
 import {createNewList, getListId, getLists } from "./utils/list-utils.js"
 
@@ -135,8 +146,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
     }
-  });
-});
+  })
+
+  await loadLists();
+
+  treeView()
+
+  emphasisText()
+
+  await countTotalTasks()
+
+  await countListTasks()
+
+
+})
+
+
 
 /******************************************************************************/
 /***************************** PARSE TASK INPUT *******************************/

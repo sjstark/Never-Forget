@@ -51,6 +51,18 @@
     width:100%;
 }
 
+.add-list-modal {
+    /* display: none; */
+    position: fixed;
+    z-index: 1;
+    left: 25%;
+    top: 50%;
+    width: 25%;
+    height: 25%;
+    overflow: auto;
+    background-color: plum;
+}
+
 /* UNORDERED LISTS  */
 
 ul.list-tree, ul.nested, .inbox-tree {
@@ -69,7 +81,6 @@ ul.list-tree, ul.nested, .inbox-tree {
     background-color: plum;
 }
 
-
 .nested {
     display: block;
 }
@@ -82,6 +93,11 @@ ul.list-tree, ul.nested, .inbox-tree {
 
 
 /* INNER ELEMENTS */
+
+.list-menu li, .list-menu span, .list-menu div {
+    font-size: 12px;
+}
+  
 
 .list-tree-li--emphasis {
     font-weight: bold;
@@ -111,21 +127,58 @@ ul.list-tree, ul.nested, .inbox-tree {
     transform: rotate(90deg);
 }
 
-.add-list {
+.add-list-button, .listCount, .list-edit-carrot, .allTaskCount  {
     color: purple;
-    background-color: plum;
+    background-color: #e2c4ed;
     /* font-size: 100px; */
     /* display: inline-block; */
     display: flex;
-    align-content: center;
-    justify-content: center;
+    justify-content: center; 
     width: 8%;
     height: 95%;
-    border: solid 1px purple;
+    border-radius: 2px;
 }
 
-.add-list:hover {
+.add-list-button:hover {
     background-color: purple;
     color: plum
 }
 
+.list-edit-carrot {
+    display: none;
+}
+
+
+.list-menu-flex:hover .listCount {
+    background-color: purple;
+    color: plum;
+    display: none;
+}
+
+.list-menu-flex:hover .list-edit-carrot{
+    display: inline-flex;
+    
+}
+
+.list-edit-carrot:hover {
+    font-weight: bold;
+    color: plum;
+    background-color: purple;
+}
+
+/* .add-list-button:hover .add-list-notification {
+    background-color: rgba(0, 0, 0, .6);
+    color: white;
+    position: relative;
+    display: inline-block;
+    /* width: 25%;
+    right: 25px;
+    top:100px;
+    text-align: center;
+    padding: 2px;
+    z-index: 1; */
+/* } */
+
+.add-list-notification {
+    display: none;
+} 
