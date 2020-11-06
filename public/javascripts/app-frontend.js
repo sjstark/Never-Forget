@@ -1,5 +1,11 @@
 
-
+import {
+  countTotalTasks,
+  countListTasks,
+  emphasisText,
+  loadLists,
+  treeView
+} from './lists-menu.js'
 
 
 
@@ -113,6 +119,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   })
 
+  await loadLists();
+
+  treeView()
+
+  emphasisText()
+
+  await countTotalTasks()
+
+  await countListTasks()
 
 
 })
@@ -398,3 +413,8 @@ const getListId = async (listTitle) => {
     }
   }
 }
+
+/******************************************************************************/
+/********************** ADD LIST/TASK NAVIGATION *************************/
+/******************************************************************************/
+

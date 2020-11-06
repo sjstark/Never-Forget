@@ -1,29 +1,29 @@
 
-document.addEventListener('DOMContentLoaded', async ()=> {
+// document.addEventListener('DOMContentLoaded', async ()=> {
 
-    //-------ADD LISTS THAT THE PERSON CAN ACCESS IN THE DOM------//
-    await loadLists()
-
-
-    // ------HANDLE TOGGLE FOR TREE VIEWS-----//
-    treeView()
+//     //-------ADD LISTS THAT THE PERSON CAN ACCESS IN THE DOM------//
+//     await loadLists()
 
 
-    //-------HANDLE EMPHASIS ON SELECTED LISTS AND SECTIONS------//
-    emphasisText()
+//     // ------HANDLE TOGGLE FOR TREE VIEWS-----//
+//     treeView()
 
 
-    // addLists()
-
-    await countTotalTasks()
-
-    await countListTasks()
+//     //-------HANDLE EMPHASIS ON SELECTED LISTS AND SECTIONS------//
+//     emphasisText()
 
 
-})
+//     // addLists()
+
+//     await countTotalTasks()
+
+//     await countListTasks()
 
 
-function treeView() {
+// })
+
+
+export const treeView = () => {
     let caretToggle = document.getElementsByClassName('caret');
 
     caretToggle = Array.from(caretToggle)
@@ -47,7 +47,7 @@ function treeView() {
  
 }
 
-function emphasisText() {
+export const emphasisText = () => {
     let listMenu = document.querySelector('.list-menu');
 
     let texts = document.querySelectorAll('li');
@@ -65,7 +65,7 @@ function emphasisText() {
     })
 }
 
-function emphasisHelperFunction(textList, el) {
+export const emphasisHelperFunction = (textList, el) => {
     textList.forEach(item => {
         // console.log('reached for each helper function')
         item.classList.remove('list-tree-li--emphasis')
@@ -74,7 +74,7 @@ function emphasisHelperFunction(textList, el) {
     el.classList.add('list-tree-li--emphasis')
 }
 
-async function loadLists() {
+export const loadLists = async() => {
     let route = '/lists'
 
     //Fetching and uppacking response
@@ -117,7 +117,7 @@ async function loadLists() {
 //     let route = 
 // }
 
-async function countTotalTasks() {
+export const countTotalTasks = async() => {
     //Grab All Tasks span
     let taskCount = document.querySelector('.allTaskCount');
     // console.log(taskCount)
@@ -137,7 +137,7 @@ async function countTotalTasks() {
     taskCount.innerText = count
 }
 
-async function countListTasks() {
+export const countListTasks = async() => {
     //Grab all lists count spans
     let listCounts = document.querySelectorAll('.listCount');
 
@@ -164,9 +164,3 @@ async function countListTasks() {
 }
 
 
-module.exports = {
-    countTotalTasks,
-    countListTasks,
-    emphasisHelperFunction,
-    loadLists
-}
