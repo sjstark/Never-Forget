@@ -20,6 +20,11 @@ export const updateTaskSummary = (tasks) => {
   tasks.forEach((task) => {
     estimatedTime += task.estimate;
   });
-
-  estimatedTimeContainer.innerHTML = estimatedTime + "min";
+  if (estimatedTime < 99) {
+    estimatedTimeContainer.innerHTML = estimatedTime + "min";
+  } else {
+    let hours = Math.floor(estimatedTime / 60);
+    let minutes = estimatedTime % 60;
+    estimatedTimeContainer.innerHTML = `${hours}:${minutes}hrs`;
+  }
 };

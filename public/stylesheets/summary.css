@@ -22,7 +22,6 @@ i.far.fa-calendar-alt {
 
 .task-count {
   overflow: hidden;
-  /* vertical-align: top; */
   display: flex;
   align-items: flex-start;
   flex-direction: column;
