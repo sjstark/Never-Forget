@@ -8,15 +8,24 @@ export const reloadTaskList = async () => {
   const taskList = document.querySelector('.task-list__tasks')
 
   let listId = localStorage.getItem('never-forget-currentList') ? localStorage.getItem('never-forget-currentList') : null;
+
   if (listId === 'null') listId = null;
 
   let route = '/tasks'
   if (listId) {
-    route = `/lists/${listId}`
+    if (listId.startsWith('search:')){
+      let searchInput = listId.slice(7)
+      route = `/tasks/search?includes=${encodeURI(searchInput)}`
+    } else {
+      route = `/lists/${listId}`
+    }
   }
 
   let res = await fetch(route)
   let body = await res.json();
+
+
+  console.log(body)
 
   let tasks = body.allTasks
 

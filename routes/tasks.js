@@ -258,7 +258,7 @@ router.get('/search', asyncHandler( async (req, res) => {
     exclude = decodeURI(req.query['excludes'])
   }
 
-  let tasks = await Task.findAll({
+  let allTasks = await Task.findAll({
     where: {
       title: {
         [Sequelize.Op.iLike]: '%'+include+'%',
@@ -268,7 +268,7 @@ router.get('/search', asyncHandler( async (req, res) => {
     }
   })
 
-  res.json(tasks)
+  res.json({allTasks})
 
 }));
 

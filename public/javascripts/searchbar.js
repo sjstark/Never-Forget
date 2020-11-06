@@ -1,4 +1,4 @@
-
+import { reloadTaskList } from './utils/reloadTaskList.js'
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -28,24 +28,28 @@ document.addEventListener('DOMContentLoaded', () => {
       let tasks = await findTasksWithSearch(searchInput)
 
 
+
       if (tasks.length === 0) {
         alert('No tasks were found with these parameters!')
         return
       }
 
-      searchResultsList.addEventListener('click', (e)=>e.stopPropagation())
+      localStorage.setItem('never-forget-currentList', `search:${searchInput}`)
+      reloadTaskList()
 
-      searchResultsContainer.addEventListener('click', (e) => {
-        searchResultsContainer.classList.remove('search-results-container--shown')
-      }, false)
+      // searchResultsList.addEventListener('click', (e)=>e.stopPropagation())
 
-      searchResultsList.innerHTML = '<h1>Search Results:</h1>'
+      // searchResultsContainer.addEventListener('click', (e) => {
+      //   searchResultsContainer.classList.remove('search-results-container--shown')
+      // }, false)
 
-      tasks.forEach( task => {
-        searchResultsList.appendChild(createSearchTaskItem(task))
-      })
+      // searchResultsList.innerHTML = '<h1>Search Results:</h1>'
 
-      searchResultsContainer.classList.add('search-results-container--shown')
+      // tasks.forEach( task => {
+      //   searchResultsList.appendChild(createSearchTaskItem(task))
+      // })
+
+      // searchResultsContainer.classList.add('search-results-container--shown')
     }
 
   })
