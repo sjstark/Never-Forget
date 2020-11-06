@@ -1,32 +1,25 @@
 export const updateTaskSummary = (tasks) => {
   //create and append element for tasks field
-  const taskCountContainer = document.querySelector(".task-count");
+  const taskCountContainer = document.querySelector(".task-num");
 
   let completedTasks = tasks.filter((task) => {
     return task.isComplete;
   });
   let incompleteTasks = tasks.length - completedTasks.length;
-  let incompleteH5 = document.createElement("h5");
-  incompleteH5.innerHTML = incompleteTasks;
-  taskCountContainer.appendChild(incompleteH5);
+  taskCountContainer.innerHTML = incompleteTasks;
 
   //create and append element for completed field
-  const tasksCompletedContainer = document.querySelector(".task-completed");
+  const tasksCompletedContainer = document.querySelector(".task-num-completed");
 
-  let completeH5 = document.createElement("h5");
-  completeH5.innerHTML = completedTasks.length;
-  tasksCompletedContainer.appendChild(completeH5);
+  tasksCompletedContainer.innerHTML = completedTasks.length;
 
   //create and append element for estimated field
-
-  const estimatedTimeContainer = document.querySelector(".task-time-estimate");
+  const estimatedTimeContainer = document.querySelector(".task-time");
 
   let estimatedTime = 0;
   tasks.forEach((task) => {
     estimatedTime += task.estimate;
   });
 
-  let timeH5 = document.createElement("h5");
-  timeH5.innerHTML = estimatedTime + "min";
-  estimatedTimeContainer.appendChild(timeH5);
+  estimatedTimeContainer.innerHTML = estimatedTime + "min";
 };
