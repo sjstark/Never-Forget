@@ -123,15 +123,30 @@ const createInputEventListeners = () => {
 
   isCompleteInput.onclick = () => submitChange(taskId, 'isComplete', isCompleteInput.checked)
 
+  listContainer.onclick = handleListClickEvent
+}
+
+const handleListClickEvent = (e) => {
+  e.stopPropagation()
+  //get final target in case of bubbling
+
+  let target = e.target
+  while (target !== document) {
+    if (target.className.includes('listContainer')) {
+      // Want target to equal div that is edit container above
+      // console.log('creating input for:', target)
+      createListDropdown(target)
+      return
+    }
+
+    target = target.parentElement
+  }
+
 }
 
 const handleClickEvent = (e) => {
   e.stopPropagation()
   //get final target in case of bubbling
-
-  // let key = e.target.className.split(' ')[0].slice(19)
-
-  // let target = document.querySelector(`.editContainer#task-${key}-edit`)
 
   let target = e.target
   while (target !== document) {
@@ -172,58 +187,68 @@ const formatStringtoISODate = (date) => {
 
 
 const createListDropdown = async (listContainer) => {
+  listContainer.onclick = null;
 
-  let editField = editContainer.querySelector('.editField')
+  let editField = listContainer.querySelector('.editField')
   let selectField = document.createElement('select')
   selectField.value = editField.innerText === 'none' ? null : editField.innerText
+  selectField.classList.add('kill-me')
   let lists = await getLists();
 
   let nullOption = document.createElement('option')
-  option.value = 'null';
-  option.innerText = 'none'
+  nullOption.value = 'null';
+  nullOption.innerText = 'none'
   selectField.appendChild(nullOption)
+
   lists.forEach( list => {
     selectField.appendChild(createListOption(list))
   })
-  let newListOption = document.createElement('option')
-  option.value = 'NEWLIST';
-  option.innerText = 'Create List'
-  selectField.appendChild(newListOption)
+
+  // let newListOption = document.createElement('option')
+  // newListOption.value = 'NEWLIST';
+  // newListOption.innerText = 'Create List'
+  // selectField.appendChild(newListOption)
+
 
   selectField.addEventListener('change', (e) => {
-    let taskId = parseInt(document.querySelector('.task-details__task-id').innerText, 10)
-    if (e.target.value === 'Create List') {
+    let taskIdEl = document.querySelector('.task-details__task-id')
+    let taskId = taskIdEl.innerHTML
 
-      let inputField = document.createElement('input')
+    // if (e.target.value === 'Create List') {
 
-      inputField.id = listTitle
-      inputField.placeholder = 'Enter list title'
+    //   let inputField = document.createElement('input')
 
-      inputField.addEventListener('focusout', async (e) => {
+    //   inputField.id = listTitle
+    //   inputField.placeholder = 'Enter list title'
 
-        let value = e.target.value
-        await submitChange(taskId, 'listId', value)
-      })
-      inputField.addEventListener('keyup', async (e) => {
-        if (e.key === 'Enter') {
-          let value = e.target.value
-          await submitChange(taskId, 'listId', value)
-        }
-      })
+    //   inputField.addEventListener('focusout', async (e) => {
 
-      editContainer.replaceChild(inputField, selectField)
+    //     let value = e.target.value
+    //     await submitChange(taskId, 'listId', value)
+    //   })
+    //   inputField.addEventListener('keyup', async (e) => {
+    //     if (e.key === 'Enter') {
+    //       let value = e.target.value
+    //       await submitChange(taskId, 'listId', value)
+    //     }
+    //   })
 
-      inputField.focus();
-    } else {
+    //   // listContainer.replaceChild(inputField, selectField)
+
+    //   inputField.focus();
+    // } else {
       submitChange(taskId, 'listId', e.target.value)
-    }
+    // }
   })
+
+  listContainer.replaceChild(selectField, editField)
 }
 
 const createListOption = (list) => {
   let option = document.createElement('option')
   option.value = list.id;
   option.innerText = list.title
+  return option
 }
 
 const createInputField = (editContainer) => {
@@ -256,6 +281,10 @@ const submitChange = async (taskId, property, value) => {
   if (value === 'none' || value === '' || value === '0') value = null;
 
   if (property === 'dueDate' && value) value = formatStringtoISODate(value)
+
+  // if (property === 'l') {
+
+  // }
 
   let task = await updateTask(taskId, property, value)
 
