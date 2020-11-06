@@ -36,6 +36,8 @@ const store = new SequelizeStore({
   db: sequelize,
 });
 
+let sessionLengthHours = 1;
+
 app.use(
   session({
     name: "never-forget.sid",
@@ -43,6 +45,7 @@ app.use(
     store,
     resave: false,
     saveUninitialized: false,
+    maxAge: sessionLengthHours * 60 * 60 * 1000
   })
 );
 store.sync();
