@@ -56,6 +56,8 @@
 }
 
 .details--shown {
+  margin-left: 5px;
+  margin-right: 5px;
   transform: translateX(0%);
   transition: 1s;
   transition-timing-function: ease-in-out;
