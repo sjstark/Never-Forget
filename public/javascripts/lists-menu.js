@@ -236,6 +236,8 @@ const handleCarrotClick = async (list, htmlList) => {
 };
 
 const createCarrotDropdown = (list) => {
+  let mainOptionsContainer = document.createElement("div");
+  mainOptionsContainer.className = "list-edit-options-main-container";
   let listOptionsContainer = document.createElement("div");
   listOptionsContainer.className = "list-edit-options-container";
 
@@ -264,7 +266,7 @@ const createCarrotDropdown = (list) => {
         localStorage.setItem("never-forget-currentList", null);
       await loadLists();
       await countListTasks();
-      emphasisText()
+      emphasisText();
     }
   };
 
@@ -279,6 +281,12 @@ const createCarrotDropdown = (list) => {
   listOptionsContainer.appendChild(editOption);
   listOptionsContainer.appendChild(deleteOption);
   listOptionsContainer.appendChild(closeOption);
+  mainOptionsContainer.appendChild(listOptionsContainer);
 
-  return listOptionsContainer;
+  mainOptionsContainer.addEventListener("mouseleave", (event) => {
+    let listParentNode = listOptionsContainer.parentElement;
+    listParentNode.removeChild(listOptionsContainer);
+    listParentNode.remove();
+  });
+  return mainOptionsContainer;
 };

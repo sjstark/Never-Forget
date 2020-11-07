@@ -1,162 +1,162 @@
 /* CONTAINERS */
 
-.lists-div{
-    border-top: 1px solid plum;
-    border-bottom: 1px solid plum;
-    padding: 10px 0px 0px 10px;
+.lists-div {
+  border-top: 1px solid plum;
+  border-bottom: 1px solid plum;
+  padding: 10px 0px 0px 10px;
 }
 
 .inbox-div {
-    padding: 10px 0px 0px 10px;
+  padding: 10px 0px 0px 10px;
 }
 
 .nested-div {
-    padding-left: 20px
+  padding-left: 20px;
 }
 
 .peanut-div {
-    position: absolute;
-    bottom:15px;
+  position: absolute;
+  bottom: 15px;
 }
 
 .github-blurb {
-    background-color:#fffd78;
-    width: 100px;
-    height: 60px;
-    position: absolute;
-    bottom: 40px;
-    left:45px;
-    padding: 3px;
-    border-radius: 5px;
+  background-color: #fffd78;
+  width: 100px;
+  height: 60px;
+  position: absolute;
+  bottom: 40px;
+  left: 45px;
+  padding: 3px;
+  border-radius: 5px;
 }
 
 .github-blurb:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0;
-    height: 0;
-    border: 10px solid transparent;
-    border-right-color: #fffd78;
-    border-left: 0;
-    border-bottom: 0;
-    margin-top: -5px;
-    margin-left: -10px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: #fffd78;
+  border-left: 0;
+  border-bottom: 0;
+  margin-top: -5px;
+  margin-left: -10px;
 }
 
 .list-menu-flex {
-    display: flex;
-    justify-content: space-between;
-    width:100%;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  width: 100%;
 }
-
-
-
-
-
 
 /* UNORDERED LISTS  */
 
-ul.list-tree, ul.nested, .inbox-tree {
-    list-style-type: none;
+ul.list-tree,
+ul.nested,
+.inbox-tree {
+  list-style-type: none;
 }
 
 .list-tree li {
-    margin-top: 3px;
-    margin-bottom: 3px;
-    cursor: pointer;
-    display: flex;
-    /* justify-content: space-between; */
+  padding: 2px 0px;
+  padding-left: 3px;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  /* justify-content: space-between; */
 }
 
 .list-tree li:hover {
-    background-color: plum;
+  background-color: plum;
 }
 
 .nested {
-    display: block;
+  display: block;
 }
-
 
 .nested--inactive {
-    display: none;
-
+  display: none;
 }
-
 
 /* INNER ELEMENTS */
 
-.list-menu li, .list-menu span, .list-menu div {
-    font-size: 12px;
+.list-menu li,
+.list-menu span,
+.list-menu div {
+  font-size: 12px;
 }
-  
 
 .list-tree-li--emphasis {
-    font-weight: bold;
-    color: purple;
+  font-weight: bold;
+  color: purple;
 }
 
 .github-blurb a {
-    text-decoration: none;
-    text-emphasis: bold;
-    font-size: 15px;
-    /* margin: 10px; */
+  text-decoration: none;
+  text-emphasis: bold;
+  font-size: 15px;
+  /* margin: 10px; */
 }
 
 .caret {
-    cursor: pointer;
-    /* position: relative; */
+  cursor: pointer;
+  /* position: relative; */
 }
 
 .caret::before {
-    content: "\25BA";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
+  content: "\25BA";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
 }
 
 .caret-down::before {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
-.add-list-button, .listCount, .list-edit-carrot, .allTaskCount  {
-    color: purple;
-    background-color: #e2c4ed;
-    /* font-size: 100px; */
-    /* display: inline-block; */
-    display: flex;
-    justify-content: center; 
-    width: 8%;
-    height: 95%;
-    border-radius: 2px;
+.add-list-button,
+.listCount,
+.list-edit-carrot,
+.allTaskCount {
+  color: purple;
+  background-color: #e2c4ed;
+  /* font-size: 100px; */
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
+  width: 8%;
+  height: 95%;
+  border-radius: 2px;
 }
 
 .add-list-button:hover {
-    background-color: purple;
-    color: plum
+  background-color: rgba(158, 48, 158, 0.5);
+  border-radius: 3px;
+  color: plum;
 }
 
 .list-edit-carrot {
-    display: none;
+  display: none;
 }
-
 
 .list-menu-flex:hover .listCount {
-    background-color: purple;
-    color: plum;
-    display: none;
+  background-color: rgba(158, 48, 158, 0.5);
+  color: plum;
+  display: none;
+  border-radius: 3px;
 }
 
-.list-menu-flex:hover .list-edit-carrot{
-    display: inline-flex;
-    
+.list-menu-flex:hover .list-edit-carrot {
+  display: inline-flex;
 }
 
 .list-edit-carrot:hover {
-    font-weight: bold;
-    color: plum;
-    background-color: purple;
+  font-weight: bold;
+  color: plum;
+  background-color: purple;
 }
 
 /* .add-list-button:hover .add-list-notification {
@@ -173,5 +173,43 @@ ul.list-tree, ul.nested, .inbox-tree {
 /* } */
 
 .add-list-notification {
-    display: none;
-} 
+  display: none;
+}
+
+/* LIST MENU OPTIONS */
+
+.list-edit-options-main-container {
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  right: 0;
+  border-radius: 3px;
+  visibility: visible;
+  max-width: 100px;
+  padding: 2px;
+  z-index: 20;
+}
+
+.list-edit-options-container {
+  /* position: absolute; */
+  box-sizing: border-box;
+  box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(158, 48, 158, 0.2);
+  background-color: #eddaf4;
+  justify-content: center;
+  width: 100px;
+  height: 65px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-edit-options-container > * {
+  padding: 2px 2px;
+  color: black;
+}
+.list-edit-options-container > *:hover {
+  background-color: rgba(158, 48, 158, 0.4);
+  border-radius: 3px;
+}
