@@ -61,11 +61,8 @@ export const reloadTaskList = async () => {
       taskList.appendChild(createTaskItem(task));
 
     });
-    console.log('Final:', taskList.offsetHeight)
 
   } else {
-
-    console.log('hite here')
 
     // Create Empty Task List Element
 
@@ -81,10 +78,12 @@ export const reloadTaskList = async () => {
     taskList.appendChild(emptyListTask)
   }
 
+  addFillerTasks()
 
+};
 
-
-
+const addFillerTasks = () => {
+  const taskList = document.querySelector(".task-list__tasks");
   let taskFillContainer = document.querySelector('.task-list__placeholder')
   let taskFill = document.createElement('div')
   taskFill.className = "task-list__task-item-placeholder"
@@ -94,16 +93,14 @@ export const reloadTaskList = async () => {
   if (taskList.offsetHeight < taskList.parentElement.offsetHeight) {
     let difference = () => taskList.parentElement.offsetHeight - (taskList.offsetHeight + taskFillContainer.offsetHeight)
     while (difference() > 0) {
-      console.log('adding filler')
       taskFillContainer.innerHTML += taskFill.outerHTML
     }
   } else {
     for (let i = 0; i < 5; i++) {
-      console.log('adding filler')
       taskFillContainer.innerHTML += taskFill.outerHTML
     }
   }
-};
+}
 
 const createTaskItem = (task) => {
   let taskItem = document.createElement("div");

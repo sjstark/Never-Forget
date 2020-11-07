@@ -142,6 +142,11 @@ button {
   align-items: center;
 }
 
+.task-list__placeholder {
+  position: relative;
+  margin-bottom: 100px;
+}
+
 .task-list__task-item-placeholder {
   position: relative;
   width: 100%;
