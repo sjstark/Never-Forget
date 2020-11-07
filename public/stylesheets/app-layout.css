@@ -148,7 +148,8 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
-  .details--shown {
+
+  .details {
     grid-column: 2 / span 2;
     margin-right: 15px;
     padding-right: 10px;
