@@ -59,11 +59,17 @@ app.use("/lists", listsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
+
+
   next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
+  if(err.status === 404){
+    res.render('404-page')
+   return;
+  }
   // set locals, only providing error in development
   res.locals.messages = err;
   res.locals.error = req.app.get("env") === "development" ? err : {};
