@@ -159,3 +159,29 @@
     cursor: pointer;
     color: purple
 }
+
+.task-details__errors {
+    display: none;
+    background-color: red;
+    color: whitesmoke;
+    box-sizing: border-box;
+
+}
+
+.task-details__errors--shown {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    -webkit-animation: error-fade 5s linear forwards;
+    animation: error-fade 5s linear forwards;
+}
+
+@-webkit-keyframes error-fade {
+    0%, 100% {opacity: 0;}
+    50% {opacity: 1;}
+}
+
+@keyframes error-fade {
+    0%, 100% {opacity: 0;}
+    50% {opacity: 1;}
+}

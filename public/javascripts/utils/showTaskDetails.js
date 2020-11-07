@@ -271,11 +271,13 @@ const createInputField = (editContainer) => {
   inputField.classList.add('kill-me')
 
   console.log(taskId, inputField.id, inputField.value)
+  console.log(typeof inputField.value)
 
   inputField.addEventListener('focusout', async (e) => {
     //ADD VALIDATOR FUNCTION HERE
 
-    let isValidOrErrors = validateCreateInputField(inputField.id, inputField.value)
+
+    let isValidOrErrors = validateCreateInputField(inputField.id, parseInt(inputField.value,10))
 
     if (isValidOrErrors === true) {
       await submitChange(taskId, inputField.id, inputField.value)
@@ -338,7 +340,27 @@ const validateCreateInputField = (inputFieldId, inputFieldValue) => {
 
 const inputFieldErrors = (errors) => {
   console.log(errors)
+
+  //If errors, then make error div appear with error message and 
+  //have it dissapear 
+
+  let errorDiv = document.querySelector('.task-details__errors');
+
+  for (let i = 0; i < errors.length; i++) {
+    let errorMessage = document.createTextNode(errors[i])
+    errorDiv.appendChild(errorMessage)
+
+  }
+
+  errorDiv.classList.add('task-details__errors--shown');
+
+  setTimeout(()=> {
+    errorDiv.classList.remove('task-details__errors--shown')
+    errorDiv.innerHTML = ''
+
+  },5000)
 }
+
 
 const submitChange = async (taskId, property, value) => {
 
