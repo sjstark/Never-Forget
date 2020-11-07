@@ -35,10 +35,14 @@ export const updateTaskSummary = async (tasks) => {
   let listId = localStorage.getItem("never-forget-currentList");
   let listTitleContainer = document.querySelector(".all-tas");
 
+  let webPageTitle
+
   if (listId === "null") {
     listTitleContainer.innerHTML = "All Tasks";
+    webPageTitle = `Never Forget - All Tasks`
   } else if (listId.startsWith("search:")) {
     listTitleContainer.innerHTML = `Task results for: "${listId.slice(7)}"`;
+    webPageTitle = `Never Forget - Search For: ${listId.slice(7)}`
   } else {
     //fetch the user's lists
     const res = await fetch("/lists");
@@ -50,5 +54,9 @@ export const updateTaskSummary = async (tasks) => {
       return list.id == listId;
     });
     listTitleContainer.innerHTML = currentList[0].title;
+    webPageTitle = `Never Forget - ${currentList[0].title}`
   }
+
+  // Set webpage title
+  document.querySelector('title').innerText = webPageTitle
 };
