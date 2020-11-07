@@ -108,7 +108,7 @@ const createTaskItem = (task) => {
   taskItem.id = `Task-${task.id}`;
   taskItem.innerHTML = `
   <div class="task-list__task-bar"></div>
-  <input type="checkbox" name="item check="checked">
+  <input type="checkbox">
   <span class="task-list__task-title">${task.title}</span>`;
 
   let checkBox = taskItem.querySelector('input[type = "checkbox"]')
