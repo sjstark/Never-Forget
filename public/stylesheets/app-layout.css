@@ -50,7 +50,7 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-left: 2px solid lightgrey;
-  transform: translateX(100%);
+  transform: translateX(110%);
   transition: 1s;
   transition-timing-function: ease-in-out;
 }
@@ -154,4 +154,5 @@
     margin-right: 15px;
     padding-right: 10px;
   }
+
 }
