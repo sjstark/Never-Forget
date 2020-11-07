@@ -54,6 +54,7 @@
   transform: translateX(110%);
   transition: 1s;
   transition-timing-function: ease-in-out;
+  z-index: 5;
 }
 
 .details--shown {
