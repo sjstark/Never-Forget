@@ -28,6 +28,7 @@
   margin-top: 10px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  z-index: 1;
   /* overflow: hidden; */
 }
 
