@@ -82,7 +82,7 @@ export const reloadTaskList = async () => {
 
 };
 
-const addFillerTasks = () => {
+export const addFillerTasks = () => {
   const taskList = document.querySelector(".task-list__tasks");
   let taskFillContainer = document.querySelector('.task-list__placeholder')
   let taskFill = document.createElement('div')
