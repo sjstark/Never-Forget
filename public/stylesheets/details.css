@@ -87,7 +87,7 @@
 .task-details__delete-button {
   width: 80px;
   box-sizing: border-box;
-  background-color: red;
+  background-color: rgb(225, 0, 0);
   color: white;
   padding: 10px;
   border-radius: 3px;
