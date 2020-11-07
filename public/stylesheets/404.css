@@ -1,20 +1,20 @@
-.peanuts {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  /* position: relative;
-  top: 200px; */
-  margin: auto;
-  height: 500px;
-  width: 800px;
-  border: 5px solid black;
+body {
+  background-image: url("/images/brokenCar.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .errFooter {
-  border: 1px solid black;
-  margin-top: 10px;
+  position: absolute;
+  padding-bottom: 1.5rem;
+  bottom: 0;
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-end;
+}
+
+.errImg {
+  margin: auto;
 }
