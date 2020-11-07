@@ -5,6 +5,7 @@
 
 .close-container:hover {
   cursor: pointer;
+
 }
 
 .close-button {
@@ -12,6 +13,12 @@
   padding-right: 10px;
   color: rgba(0, 0, 0, 0.6);
 }
+
+.close-button:hover {
+  color: black;
+}
+
+
 .fas.fa-times {
   margin-left: 3px;
   margin-right: 4px;
