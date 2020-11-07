@@ -1,20 +1,25 @@
 doctype html
 html
   head
-      block head
-        title="Never Forget"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
-        link(rel='stylesheet' href='/stylesheets/navbar.css')
-        link(rel="stylesheet", href='/stylesheets/404.css')
-        script(src="https://kit.fontawesome.com/e145510635.js" crossorigin="anonymous")
+    title="Never Forget"
+    link(rel='stylesheet' href='/stylesheets/reset.css')
+    link(rel='stylesheet' href='/stylesheets/navbar.css')
+    link(rel="stylesheet", href='/stylesheets/404.css')
+    script(src="https://kit.fontawesome.com/e145510635.js" crossorigin="anonymous")
 
 
   body
-    block content
-      nav.navbar
-       a(href="/")
-        img(src="/images/logo.png" width="120")
-
+    nav.navbar
+      a(href="/")
+        img(src="/images/logo.png" width="200")
+      .navbar__links
+        a.navbar__item.navbar__item-button(href="/users/login") Login
+        a.navbar__item.navbar__item-button(href="/users/demo") Demo
+        a.navbar__item.navbar__item-primary(href="/users/signup") Sign Up for Free
+    .backgroundImg
+      a(href="/")
+      img(src="/images/peanuts.png")
+  footer
     .errFooter
       span.footer__text &#169; 2020 Never Forget
       a.footer__social-links(href="https://github.com/sjstark/Never-Forget")

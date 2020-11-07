@@ -1,10 +1,14 @@
-body {
-  background-image: url("/images/peanuts.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  background-size: contain;
-  background-size: 52%;
+.backgroundImg {
+  display: flex;
+  position: relative;
+  top: 200px;
+  justify-content: center;
+}
+
+img {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
 }
 
 .errFooter {
