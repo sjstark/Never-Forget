@@ -270,17 +270,8 @@ const createCarrotDropdown = (list) => {
     }
   };
 
-  let closeOption = document.createElement("div");
-  closeOption.className = "list-close-option";
-  closeOption.innerText = "Close";
-  closeOption.onclick = async (e) => {
-    e.stopPropagation();
-    listOptionsContainer.remove();
-  };
-
   listOptionsContainer.appendChild(editOption);
   listOptionsContainer.appendChild(deleteOption);
-  listOptionsContainer.appendChild(closeOption);
   mainOptionsContainer.appendChild(listOptionsContainer);
 
   mainOptionsContainer.addEventListener("mouseleave", (event) => {
