@@ -1,8 +1,10 @@
 body {
-  background-image: url("/images/brokenCar.png");
+  background-image: url("/images/peanuts.png");
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
+  background-size: contain;
+  background-size: 52%;
 }
 
 .errFooter {
@@ -13,8 +15,4 @@ body {
   width: 100%;
   justify-content: space-around;
   align-items: flex-end;
-}
-
-.errImg {
-  margin: auto;
 }
