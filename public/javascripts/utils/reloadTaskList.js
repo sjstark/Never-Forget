@@ -31,22 +31,27 @@ export const reloadTaskList = async () => {
   //update task summary
   updateTaskSummary(tasks);
 
+
   let viewIncomplete = parseInt(
     localStorage.getItem("never-forget-viewIncomplete"),
     10
   );
 
   if (viewIncomplete) {
+
     tasks = tasks.filter((task) => {
       if (!task.isComplete) return true;
       else return false;
     });
   } else {
+
     tasks = tasks.filter((task) => {
       if (task.isComplete) return true;
       else return false;
     });
   }
+
+
 
   taskList.innerHTML = "";
   // getTotalEstimate(tasks)
