@@ -270,20 +270,74 @@ const createInputField = (editContainer) => {
   inputField.classList.add(editField.className.split(' ')[0])
   inputField.classList.add('kill-me')
 
+  console.log(taskId, inputField.id, inputField.value)
+
   inputField.addEventListener('focusout', async (e) => {
     //ADD VALIDATOR FUNCTION HERE
-    await submitChange(taskId, inputField.id, inputField.value)
+
+    let isValidOrErrors = validateCreateInputField(inputField.id, inputField.value)
+
+    if (isValidOrErrors === true) {
+      await submitChange(taskId, inputField.id, inputField.value)
+    } else {
+      inputFieldErrors(isValidOrErrors)
+    }
+
+
+    
   })
   inputField.addEventListener('keyup', async (e) => {
     if (e.key === 'Enter') {
-      //ADD VALIDATOR FUNCTION HERE
-      await submitChange(taskId, inputField.id, inputField.value)
+      let isValidOrErrors = validateCreateInputField(inputField.id, inputField.value)
+
+      if (isValidOrErrors === true) {
+        await submitChange(taskId, inputField.id, inputField.value)
+      } else {
+        inputFieldErrors(isValidOrErrors)
+      }
     }
   })
 
   editContainer.replaceChild(inputField, editField)
 
   inputField.focus();
+}
+
+
+const validateCreateInputField = (inputFieldId, inputFieldValue) => {
+  //Returns true if valid, returns the list of errors if invalid
+  const errors = []
+  const regexDate = new RegExp('^[0-9]{2}/[0-9]{2}/[0-9]{4}$')
+  
+  //Checks to see if due date is a valid date
+  if (inputFieldId === 'dueDate') {
+    if (regexDate.test(inputFieldValue) || inputFieldValue === 'none') {
+      // continue
+    } else {
+      errors.push("You must format your date to be mm/dd/yyyy")
+    }
+  }
+
+  //Checks to see if estimate is a valid number and not below zero
+  if (inputFieldId === 'estimate') {
+    if (Number.isInteger(inputFieldValue) && inputFieldValue >= 0) {
+      // continue
+    } else {
+      errors.push("You must provide a valid number and cannot be below zero")
+    }
+  }
+
+  if (errors.length > 0) {
+    return errors
+  } else {
+    return true
+  }
+
+}
+
+
+const inputFieldErrors = (errors) => {
+  console.log(errors)
 }
 
 const submitChange = async (taskId, property, value) => {
