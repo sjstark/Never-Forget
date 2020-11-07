@@ -138,6 +138,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         reloadTaskList();
         checkInputs();
+        await loadLists();
+        emphasisText();
+        await countListTasks();
       } catch (e) {
         console.error(e);
         return;
@@ -175,7 +178,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 const parseTaskInput = (input) => {
   const dueDatePatt = / *\^((0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/(20)\d\d)/g;
-  const listPatt = / #(\w+)/g;
+  const listPatt = / #([\w\s]+)/g;
   const estimatePatt = / =(\d+)/g;
 
   let parameters = {};
@@ -193,7 +196,7 @@ const parseTaskInput = (input) => {
   if (input.includes("#")) {
     try {
       let [listExp, listTitle] = listPatt.exec(input);
-      parameters.listTitle = listTitle;
+      parameters.listTitle = listTitle.trim();
       input = input.replace(listExp, "");
     } catch (e) {
       parameters.listTitle = false;
@@ -291,7 +294,7 @@ const removePrompts = () => {
 const checkInputs = () => {
   let input = taskInput.value;
 
-  const listPatt = /( #(\w*))$/;
+  const listPatt = /( #([\w\s]*))$/;
   const estimatePatt = /( =(\d*))$/;
   const dueDatePatt = /( \^([\d\/]*))$/;
 
@@ -311,7 +314,7 @@ const checkInputs = () => {
 
 const validateInput = async (input) => {
   const dueDatePatt = /((0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/(20)\d\d)/;
-  const listPatt = /(\w+)/;
+  const listPatt = /([\w\s]+)/;
   const estimatePatt = /(\d+)/;
 
   const errors = [];
