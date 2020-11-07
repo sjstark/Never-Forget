@@ -305,7 +305,7 @@ const submitChange = async (taskId, property, value) => {
 
 }
 
-const updateTask = async (taskId, property, value) => {
+export const updateTask = async (taskId, property, value) => {
   let _csrf = document.querySelector('#csrf').value
 
   let body = {
