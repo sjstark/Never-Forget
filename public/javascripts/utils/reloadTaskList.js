@@ -1,5 +1,6 @@
 import { showTaskDetails } from "./showTaskDetails.js";
 import { updateTaskSummary } from "./updateTaskSummary.js";
+import { handleChecking } from "./handle-task-checkbox.js";
 
 /******************************************************************************/
 /************************* BUILD TASK HTML ELEMENT ****************************/
@@ -31,7 +32,6 @@ export const reloadTaskList = async () => {
   //update task summary
   updateTaskSummary(tasks);
 
-
   let viewIncomplete = parseInt(
     localStorage.getItem("never-forget-viewIncomplete"),
     10
@@ -51,14 +51,58 @@ export const reloadTaskList = async () => {
     });
   }
 
+  if (tasks.length !== 0) {
+
+    // Build HTML Elements for all tasks
+
+    taskList.innerHTML = "";
+
+    tasks.forEach((task) => {
+      taskList.appendChild(createTaskItem(task));
+
+    });
+    console.log('Final:', taskList.offsetHeight)
+
+  } else {
+
+    console.log('hite here')
+
+    // Create Empty Task List Element
+
+    taskList.innerHTML = "";
+
+    let emptyListTask = document.createElement('div')
+
+    emptyListTask.classList.add("task-list__empty-task-item");
 
 
-  taskList.innerHTML = "";
-  // getTotalEstimate(tasks)
+    emptyListTask.innerHTML = `There are no tasks in this list!`;
 
-  tasks.forEach((task) => {
-    taskList.appendChild(createTaskItem(task));
-  });
+    taskList.appendChild(emptyListTask)
+  }
+
+
+
+
+
+  let taskFillContainer = document.querySelector('.task-list__placeholder')
+  let taskFill = document.createElement('div')
+  taskFill.className = "task-list__task-item-placeholder"
+
+  taskFillContainer.innerHTML = ''
+
+  if (taskList.offsetHeight < taskList.parentElement.offsetHeight) {
+    let difference = () => taskList.parentElement.offsetHeight - (taskList.offsetHeight + taskFillContainer.offsetHeight)
+    while (difference() > 0) {
+      console.log('adding filler')
+      taskFillContainer.innerHTML += taskFill.outerHTML
+    }
+  } else {
+    for (let i = 0; i < 5; i++) {
+      console.log('adding filler')
+      taskFillContainer.innerHTML += taskFill.outerHTML
+    }
+  }
 };
 
 const createTaskItem = (task) => {
@@ -69,6 +113,10 @@ const createTaskItem = (task) => {
   <div class="task-list__task-bar"></div>
   <input type="checkbox" name="item check="checked">
   <span class="task-list__task-title">${task.title}</span>`;
+
+  let checkBox = taskItem.querySelector('input[type = "checkbox"]')
+
+  handleChecking(checkBox, task)
 
   taskItem.addEventListener('click', (e) => {
 

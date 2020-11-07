@@ -141,6 +141,7 @@ button {
   display: flex;
   align-items: center;
 }
+
 .task-list__task-item-placeholder {
   position: relative;
   width: 100%;
@@ -150,6 +151,20 @@ button {
 
   display: flex;
   align-items: center;
+}
+
+.task-list__empty-task-item {
+  position: relative;
+  width: 100%;
+  min-height: 30px;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+  padding: 2px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .task-list__task-item:hover {
