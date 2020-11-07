@@ -186,7 +186,7 @@ export const addLists = (modalType = "create", list) => {
   submitButton.onclick = async (event) => {
     event.stopPropagation();
 
-    let title = document.querySelector("#add-list-title").value;
+    let title = document.querySelector("#add-list-title").value.trim();
     let csrfForm = document.querySelector("#add-list-csrf").value;
     if (modalType === "create") {
       await submitForm(title, csrfForm);
@@ -266,6 +266,7 @@ const createCarrotDropdown = (list) => {
         localStorage.setItem("never-forget-currentList", null);
       await loadLists();
       await countListTasks();
+      emphasisText();
     }
   };
 
