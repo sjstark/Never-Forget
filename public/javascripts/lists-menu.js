@@ -264,6 +264,7 @@ const createCarrotDropdown = (list) => {
         localStorage.setItem("never-forget-currentList", null);
       await loadLists();
       await countListTasks();
+      emphasisText()
     }
   };
 
