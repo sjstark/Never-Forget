@@ -284,6 +284,7 @@ const createInputField = (editContainer) => {
   editContainer.replaceChild(inputField, editField)
 
   inputField.focus();
+  inputField.select();
 }
 
 
