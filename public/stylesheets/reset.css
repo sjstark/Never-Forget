@@ -25,3 +25,8 @@ body, header, nav {
 h1 {
   font-size: 2rem;
 }
+
+::selection {
+  background: #e2c4ed;
+  color: purple
+}
