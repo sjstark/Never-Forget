@@ -1,18 +1,14 @@
-# Never-Forget
+# Never Forget
 
 <img src='./public/images/Index-Logo-Invert.png' align="center" alt="Never Forget logo" width="200">
+<br>
+<img src='https://img.shields.io/endpoint?url=https://runkit.io/sjstark/5fa816d4c2d8c9001d12167c/branches/master' >
 
-### Project Name/Intro
+**Never Forget** is an organization focused to-do list tracker web app that allows users to manage their day-to-day lives. Never Forget is a clone that uses [Remember the Milk](https://www.rememberthemilk.com/) as inpiration.
 
-- Describe very briefly but clearly what the project does.
-- State if it is out-of-the-box user-friendly, so it’s clear to the user.
-- List its most useful/innovative/noteworthy features.
-- State its goals/what problem(s) it solves.
-- Note and briefly describe any key concepts (technical, philosophical, or both) important to the user’s understanding.
-- Link to any supplementary blog posts or project main pages.
-- Note its development status.
-- Include badges.
-- If possible, include screenshots and demo videos.
+- Utilizes **PostgreSQL** and **Sequelize** to manage users, tasks, and lists to allow users to have private and personalized experiences.
+- Harnesses **RegEx** to parse user inputs and create validations for task creation.
+- Application page is handled with **AJAX** in full
 
 ### Core Technical Concepts/Inspiration
 
