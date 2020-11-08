@@ -8,6 +8,8 @@ const db = require("../db/models");
 const { Task, User, Sequelize } = db;
 // router.use(requireAuth);
 
+const {incrementTaskCount} = require('./stats')
+
 /****************** VALIDATION AND ERROR CHECKS **************************/
 
 const validateTask = [
@@ -15,12 +17,6 @@ const validateTask = [
     .exists({ checkFalsy: true })
     .withMessage("Must provide a title."),
 
-  // check("estimate")
-  //   .exists({ checkFalsy: true })
-  //   .withMessage("Estimate cannot be null")
-  //   .isLength({ min: 0 }),
-
-  //TODO: VALIDATE LIST ID IF IT EXISTS
 ];
 
 const validateEditTask = [
@@ -28,10 +24,6 @@ const validateEditTask = [
     .exists({ checkFalsy: true })
     .withMessage("Must provide a title."),
 
-  // check("estimate")
-  //   .exists({ checkFalsy: true })
-  //   .withMessage("Estimate cannot be null")
-  //   .isLength({ min: 0 }),
 ];
 
 const taskNotFoundError = (id) => {
@@ -65,28 +57,12 @@ router.get(
         createdBy: userId,
       },
     });
-    // console.log("hit5");
-    res.json({ allTasks });
-    // console.log(allTasks)
 
-    // res.render('dummy-all-tasks', {
-    //     title: 'Dummy',
-    //     allTasks,
-    //     csrfToken: req.csrfToken()
-    // })
+    res.json({ allTasks });
+
   })
 );
 
-// router.get('/:id(\\d+)', asyncHandler( async (req, res, next) => {
-//     const taskId = parseInt(req.params.id, 10);
-//     const task = await Task.findByPk(taskId);
-
-//     if (task) {
-//       res.json({task})
-//     } else {
-//         next(taskNotFoundError(taskId))
-//     }
-//   }))
 
 router.post(
   "/",
@@ -111,6 +87,9 @@ router.post(
 
     if (validatorErrors.isEmpty()) {
       await task.save();
+
+      // Add to tasks created count asyncronously
+      incrementTaskCount();
 
       res.status(201).json({ task });
       //TODO implement AJAX here.

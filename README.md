@@ -1,5 +1,7 @@
 # Never-Forget
 
+<img src='./public/images/Index-Logo-Invert.png' align="center" alt="Never Forget logo" width="200">
+
 ### Project Name/Intro
 
 - Describe very briefly but clearly what the project does.
