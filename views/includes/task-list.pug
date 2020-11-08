@@ -26,9 +26,9 @@ link(rel='stylesheet' href='/stylesheets/task-list.css')
       each task in tasks
         +task-item(task)
   .task-list__placeholder
-    - var n = 0
-    while n < 40
-      - n++
-      - blankTask = {title: ''}
-      //- +task-item(blankTask)
-      .task-list__task-item-placeholder
+    //- - var n = 0
+    //- while n < 40
+    //-   - n++
+    //-   - blankTask = {title: ''}
+    //-   //- +task-item(blankTask)
+    //-   .task-list__task-item-placeholder

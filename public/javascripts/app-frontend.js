@@ -7,12 +7,14 @@ import {
   addLists,
 } from "./lists-menu.js";
 
-import { reloadTaskList } from "./utils/reloadTaskList.js";
+import { reloadTaskList, addFillerTasks } from "./utils/reloadTaskList.js";
 import { createNewList, getListId, getLists } from "./utils/list-utils.js";
 
 //import {treeView, highlighting, selector }from "./menufrontend.js"
 
 document.addEventListener("DOMContentLoaded", async () => {
+  window.addEventListener('resize', addFillerTasks )
+
   localStorage.setItem("never-forget-currentList", null);
   localStorage.setItem("never-forget-viewIncomplete", 1);
 

@@ -98,15 +98,6 @@ button {
   position: relative;
 }
 
-.task-add__due-date {
-}
-
-.task-add__list {
-}
-
-.task-add__estimate {
-}
-
 .task-add__submit {
   box-sizing: border-box;
   background-color: #8125b9;
@@ -141,6 +132,12 @@ button {
   display: flex;
   align-items: center;
 }
+
+.task-list__placeholder {
+  position: relative;
+  margin-bottom: 100px;
+}
+
 .task-list__task-item-placeholder {
   position: relative;
   width: 100%;
@@ -150,6 +147,20 @@ button {
 
   display: flex;
   align-items: center;
+}
+
+.task-list__empty-task-item {
+  position: relative;
+  width: 100%;
+  min-height: 30px;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+  padding: 2px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .task-list__task-item:hover {
@@ -177,6 +188,26 @@ button {
   margin-left: 5px;
   font-size: 14px;
   color: #555555;
+}
+
+.task-deleted {
+  position: absolute;
+  /* width: 100%; */
+  min-height: 20px;
+  border: 1px dotted rgba(0, 0, 0, 0.1);
+  padding: 2px;
+
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 2;
+
+}
+
+.task-deleted--off{
+  transform: translateY(100vh);
+  transition: 1s cubic-bezier(0.330, -0.120, 0.560, 0.400);
+
 }
 
 /******************************************************************************/
