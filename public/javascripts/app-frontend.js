@@ -99,7 +99,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     parameters = parseTaskInput(input);
 
+
     const errors = await validateInput(parameters);
+
 
     if (errors.length > 0) {
       let errorsUL = document.createElement("ul");
@@ -179,9 +181,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 */
 
 const parseTaskInput = (input) => {
-  const dueDatePatt = / *\^((0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/(20)\d\d)/g;
-  const listPatt = / #([\w\s]+)/g;
-  const estimatePatt = / =(\d+)/g;
+  const dueDatePatt = /\*\^((0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/(20)\d\d)/g;
+  const listPatt = /#([\w\s]+)/g;
+  const estimatePatt = /=(\d+)/g;
 
   let parameters = {};
 
@@ -278,7 +280,12 @@ const makeListOption = (list) => {
 
   listEl.addEventListener("click", (e) => {
     e.stopPropagation();
-    taskInput.value += e.target.innerText + " ";
+    let splitInput = taskInput.value.split('#')
+
+    taskInput.value = splitInput[0] + "#" + e.target.innerText + ' '
+
+    taskInput.focus();
+    // taskInput.value += e.target.innerText + " ";
     checkInputs();
   });
 
@@ -296,7 +303,7 @@ const removePrompts = () => {
 const checkInputs = () => {
   let input = taskInput.value;
 
-  const listPatt = /( #([\w\s]*))$/;
+  const listPatt = /( #(\w*))$/;
   const estimatePatt = /( =(\d*))$/;
   const dueDatePatt = /( \^([\d\/]*))$/;
 
