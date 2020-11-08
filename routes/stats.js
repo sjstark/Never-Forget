@@ -9,6 +9,14 @@ const incrementTaskCount = async() => {
     where: {name: 'tasksCreated'}
   })
 
+  if (!taskCount) {
+    let count = {
+      name: 'tasksCreated',
+      valueInt: 1
+    }
+    taskCount = await db.Util.create(count)
+  }
+
   taskCount.valueInt ++
 
   await taskCount.save();
@@ -18,6 +26,14 @@ statsRouter.get('/tasks-created', asyncHandler(async (req, res) => {
   let taskCount = await db.Util.findOne({
     where: {name: 'tasksCreated'}
   })
+
+  if (!taskCount) {
+    let count = {
+      name: 'tasksCreated',
+      valueInt: 1
+    }
+    taskCount = await db.Util.create(count)
+  }
 
   return res.json({
     schemaVersion: 1,
