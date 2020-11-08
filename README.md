@@ -16,18 +16,18 @@ Here is a working live demo: [https://app-never-forget.herokuapp.com](https://ap
 ### Landing Page
 
 
-<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src='./resources/images/landing-page.png' >
+<img src='./resources/images/landing-page.png' >
 
 
 ### User Authentication
 
 #### Login
 
-<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src='./resources/images/login-page.png' >
+<img src='./resources/images/login-page.png' >
 
 #### Signup
 
-<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src='./resources/images/signup-page.png' >
+<img src='./resources/images/signup-page.png' >
 
 ### Application
 
@@ -35,25 +35,25 @@ Here is a working live demo: [https://app-never-forget.herokuapp.com](https://ap
 
 Upon load, users will see all tasks displayed as a list. Users can add new tasks with the input at the top of the list. Users can also mark tasks as complete with the checkbox.
 
-<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src="./resources/images/app-page-incomplete.png">
+<img src="./resources/images/app-page-incomplete.png">
 
 #### Task Details
 
 After clicking a specific task, a panel of task details appears. Users can change the properties of their task or delete a task from this panel.
 
-<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src="./resources/images/app-page-listdetails.png">
+<img src="./resources/images/app-page-listdetails.png">
 
 #### Lists
 
 Users can access the lists that tasks have been organized into from a panel on the left. New lists can be added, list names edited, and lists deleted with all associated tasks from this panel. In list view, a user can see a breakdown of tasks incomplete vs. tasks completed along with the estimated time to complete all incomplete tasks.
 
-<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src="./resources/images/app-page-listview.png">
+<img src="./resources/images/app-page-listview.png">
 
 #### Search
 
 Users can use the search bar in the top of the page to search all of their tasks with keywords or phrases
 
-<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src="./resources/images/app-page-search.png">
+<img src="./resources/images/app-page-search.png">
 
 
 ## Usage
@@ -114,7 +114,11 @@ If you'd like to request a new feature open up an issue [here](https://github.co
 
 ## Team
 
-<div style="display: grid; grid-template-columns: auto auto; " align="center">
+| [Brandon Perry](https://github.com/Brandon-Perry) | [Dez Adkins](https://github.com/dezadkins) | [Miguel Munoz](https://github.com/memg92) | [Sam Stark](https://github.com/sjstark) |
+|-|-|-|-|
+
+
+<!-- <div style="display: grid; grid-template-columns: auto auto; " align="center">
   <a href="https://github.com/Brandon-Perry">
     <div style="display: flex; align-items:center; width:200px; border: 1px solid rgba(0,0,0,.2);padding: 10px; margin: 5px;">
       <img src="https://avatars2.githubusercontent.com/u/49536689?s=460&u=c23db3acd3be3a8662c4b63388d8454c7ff62831&v=4" width="50" style="border-radius: 50%">
@@ -139,4 +143,4 @@ If you'd like to request a new feature open up an issue [here](https://github.co
       <span style="margin-left: 20px">Sam Stark</span>
     </div>
   </a>
-</div>
+</div> -->
