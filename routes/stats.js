@@ -23,7 +23,8 @@ statsRouter.get('/tasks-created', asyncHandler(async (req, res) => {
     schemaVersion: 1,
     label: 'Tasks Created',
     message: taskCount.valueInt,
-    color: '#8125B9',
+    labelColor: '#8125B9',
+    color: '#CDBFEA',
   })
 }))
 
