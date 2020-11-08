@@ -51,13 +51,13 @@ app.use(
 );
 store.sync();
 
+app.use('/stats', statsRouter)
 app.use(restoreUser)
 app.use('/', indexRouter);
 app.use('/app', appRouter);
 app.use('/tasks',taskRouter);
 app.use('/users', usersRouter);
 app.use("/lists", listsRouter);
-app.use('/stats', statsRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
