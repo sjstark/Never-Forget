@@ -1,8 +1,9 @@
 # Never Forget
 
-<img src='./public/images/Index-Logo-Invert.png' align="center" alt="Never Forget logo" width="200">
-<br>
-<img src='https://img.shields.io/endpoint?url=https://runkit.io/sjstark/5fa816d4c2d8c9001d12167c/branches/master' >
+<div align="center" style="display: flex; flex-direction:column; margin: 10px; ">
+<img src='./resources/images/Main-Logo.svg' align="center" alt="Never Forget logo" width="300">
+<img style="margin:20px; transform: translateX(20px)" src='https://img.shields.io/endpoint?url=https://runkit.io/sjstark/5fa816d4c2d8c9001d12167c/branches/master' >
+</div>
 
 **Never Forget** is an organization focused to-do list tracker web app that allows users to manage their day-to-day lives. Never Forget is a clone that uses [Remember the Milk](https://www.rememberthemilk.com/) as inpiration.
 
@@ -14,19 +15,45 @@ Here is a working live demo: [https://app-never-forget.herokuapp.com](https://ap
 
 ### Landing Page
 
+
+<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src='./resources/images/landing-page.png' >
+
+
 ### User Authentication
+
+#### Login
+
+<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src='./resources/images/login-page.png' >
+
+#### Signup
+
+<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src='./resources/images/signup-page.png' >
 
 ### Application
 
 #### Task List
 
+Upon load, users will see all tasks displayed as a list. Users can add new tasks with the input at the top of the list. Users can also mark tasks as complete with the checkbox.
+
+<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src="./resources/images/app-page-incomplete.png">
+
 #### Task Details
+
+After clicking a specific task, a panel of task details appears. Users can change the properties of their task or delete a task from this panel.
+
+<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src="./resources/images/app-page-listdetails.png">
 
 #### Lists
 
-#### List Summary
+Users can access the lists that tasks have been organized into from a panel on the left. New lists can be added, list names edited, and lists deleted with all associated tasks from this panel. In list view, a user can see a breakdown of tasks incomplete vs. tasks completed along with the estimated time to complete all incomplete tasks.
+
+<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src="./resources/images/app-page-listview.png">
 
 #### Search
+
+Users can use the search bar in the top of the page to search all of their tasks with keywords or phrases
+
+<img style="width:500px; box-shadow: 0px 0px 40px 0px rgba(0,0,0,.2); margin: 50px; border-radius: 10px;" src="./resources/images/app-page-search.png">
 
 
 ## Usage
