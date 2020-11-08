@@ -99,7 +99,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     parameters = parseTaskInput(input);
 
+    console.log(parameters)
+
     const errors = await validateInput(parameters);
+
+    console.log(errors)
 
     if (errors.length > 0) {
       let errorsUL = document.createElement("ul");
@@ -179,12 +183,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 */
 
 const parseTaskInput = (input) => {
-  const dueDatePatt = / *\^((0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/(20)\d\d)/g;
-  const listPatt = / #([\w\s]+)/g;
-  const estimatePatt = / =(\d+)/g;
+  const dueDatePatt = /\*\^((0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])\/(20)\d\d)/g;
+  const listPatt = /#([\w\s]+)/g;
+  const estimatePatt = /=(\d+)/g;
 
   let parameters = {};
 
+  console.log(input)
   if (input.includes("^")) {
     let dueDateExp, dueDate;
     try {
@@ -195,6 +200,7 @@ const parseTaskInput = (input) => {
       parameters.dueDate = false;
     }
   }
+  console.log(input)
   if (input.includes("#")) {
     try {
       let [listExp, listTitle] = listPatt.exec(input);
@@ -204,6 +210,7 @@ const parseTaskInput = (input) => {
       parameters.listTitle = false;
     }
   }
+  console.log(input)
   if (input.includes("=")) {
     try {
       let [estimateExp, estimate] = estimatePatt.exec(input);
@@ -213,6 +220,7 @@ const parseTaskInput = (input) => {
       parameters.estimate = false;
     }
   }
+  console.log(input)
 
   parameters.title = input;
 
