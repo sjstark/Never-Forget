@@ -18,6 +18,7 @@ const usersRouter = require("./routes/users");
 const taskRouter = require("./routes/tasks");
 const listsRouter = require("./routes/lists");
 const appRouter = require("./routes/app-router");
+const {statsRouter} = require('./routes/stats')
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use(
 );
 store.sync();
 
+app.use('/stats', statsRouter)
 app.use(restoreUser)
 app.use('/', indexRouter);
 app.use('/app', appRouter);
