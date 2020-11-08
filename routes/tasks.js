@@ -65,7 +65,7 @@ router.get(
         createdBy: userId,
       },
     });
-    console.log("hit5");
+    // console.log("hit5");
     res.json({ allTasks });
     // console.log(allTasks)
 
@@ -96,7 +96,7 @@ router.post(
     //TODO add user ID
     const userId = req.session.auth.userId;
 
-    console.log("\n\n\nPost request went through\n\n");
+    // console.log("\n\n\nPost request went through\n\n");
 
     const { title, listId, estimate, dueDate } = req.body;
     const task = await Task.build({
@@ -139,7 +139,7 @@ router.put(
   csrfProtection,
   validateEditTask,
   asyncHandler(async (req, res, next) => {
-    console.log("-------------------------------");
+    // console.log("-------------------------------");
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
     const userId = req.session.auth.userId;
@@ -181,7 +181,7 @@ router.patch(
   "/:id(\\d+)",
   csrfProtection,
   asyncHandler(async (req, res, next) => {
-    console.log("-------------------------------");
+    // console.log("-------------------------------");
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
     const userId = req.session.auth.userId;

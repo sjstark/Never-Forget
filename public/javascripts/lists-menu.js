@@ -168,12 +168,12 @@ export const addLists = (modalType = "create", list) => {
 
   input.placeholder = "Enter title for list";
 
-  console.log("hit2");
+  // console.log("hit2");
 
-  console.log(modalType, list);
+  // console.log(modalType, list);
 
   if (modalType === "edit") {
-    console.log("hit3");
+    // console.log("hit3");
     input.value = list.title;
   }
 

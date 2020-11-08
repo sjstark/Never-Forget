@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   })
 
-  const clearSearchInput = (e) => {
-    e.target.value = ''
-    e.target.blur()
-  }
+  // const clearSearchInput = (e) => {
+  //   e.target.value = ''
+  //   e.target.blur()
+  // }
 
 })
 
@@ -68,20 +68,18 @@ const findTasksWithSearch = async (include = '', exclude = '') => {
   return tasks
 }
 
-const createSearchTaskItem = (task) => {
-  let taskItem = document.createElement('div')
-  taskItem.classList.add('task-list__task-item')
-  taskItem.id = `Task-${task.id}`
-  taskItem.innerHTML = `
-  <div class="task-list__task-bar"></div>
-  <div class="task-list__task-select"></div>
-  <span class="task-list__task-title">${task.title}</span>`
+// const createSearchTaskItem = (task) => {
+//   let taskItem = document.createElement('div')
+//   taskItem.classList.add('task-list__task-item')
+//   taskItem.id = `Task-${task.id}`
+//   taskItem.innerHTML = `
+//   <div class="task-list__task-bar"></div>
+//   <div class="task-list__task-select"></div>
+//   <span class="task-list__task-title">${task.title}</span>`
 
-  taskItem.addEventListener('click', (e) => {
+//   taskItem.addEventListener('click', (e) => {
 
-    //TODO: Create a way to display this tasks' details on our page for editing
-    console.log(`hey we want details for task with id of ${task.id}`)
-  })
+//   })
 
-  return taskItem
-}
+//   return taskItem
+// }
