@@ -133,6 +133,10 @@ button {
   align-items: center;
 }
 
+.task-list__task-item > input {
+  cursor: pointer;
+}
+
 .task-list__placeholder {
   position: relative;
   margin-bottom: 100px;
