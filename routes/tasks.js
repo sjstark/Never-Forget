@@ -251,16 +251,4 @@ router.get('/search', asyncHandler( async (req, res) => {
 
 }));
 
-router.get(
-  "/dummy-submit",
-  csrfProtection,
-  asyncHandler(async (req, res, next) => {
-    res.render("dummy-submit", { csrfToken: req.csrfToken() });
-  })
-);
-
-// router.get('/search?:searchTerm(\\w+)', async () =>{
-//   Task.findAll()
-// })
-
 module.exports = router;
