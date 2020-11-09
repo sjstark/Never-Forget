@@ -1,9 +1,10 @@
 # Never Forget
 
-<div align="center" style="display: flex; flex-direction:column; margin: 10px; ">
+
 <img src='./resources/images/Index-Logo-Large.png' align="center" alt="Never Forget logo" width="300">
-<img style="margin:20px; transform: translateX(20px)" alt="" src='https://img.shields.io/endpoint?url=https://runkit.io/sjstark/5fa816d4c2d8c9001d12167c/branches/master'>
-</div>
+<br>
+<img align=center alt="" src='https://img.shields.io/endpoint?url=https://runkit.io/sjstark/5fa816d4c2d8c9001d12167c/branches/master'>
+
 
 **Never Forget** is an organization focused to-do list tracker web app that allows users to manage their day-to-day lives. Never Forget is a clone that uses [Remember the Milk](https://www.rememberthemilk.com/) as inpiration.
 
