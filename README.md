@@ -3,7 +3,7 @@
 
 <img src='./resources/images/Index-Logo-Large.png' align="center" alt="Never Forget logo" width="300">
 <br>
-<img align=center alt="" src='https://img.shields.io/endpoint?url=https://runkit.io/sjstark/5fa816d4c2d8c9001d12167c/branches/master'>
+<img align=center alt="" src='https://img.shields.io/endpoint?url=https%3A%2F%2Fapp-never-forget.herokuapp.com%2Fstats%2Ftasks-created'>
 
 
 **Never Forget** is an organization focused to-do list tracker web app that allows users to manage their day-to-day lives. Never Forget is a clone that uses [Remember the Milk](https://www.rememberthemilk.com/) as inpiration.
