@@ -1,7 +1,7 @@
 # Never Forget
 
 <div align="center" style="display: flex; flex-direction:column; margin: 10px; ">
-<img src='./resources/images/Main-Logo.svg' align="center" alt="Never Forget logo" width="300">
+<img src='./resources/images/Index-Logo-Large.png' align="center" alt="Never Forget logo" width="300">
 <img style="margin:20px; transform: translateX(20px)" alt="" src='https://img.shields.io/endpoint?url=https://runkit.io/sjstark/5fa816d4c2d8c9001d12167c/branches/master'>
 </div>
 
@@ -117,6 +117,8 @@ If you'd like to request a new feature open up an issue [here](https://github.co
 
 | [Brandon Perry](https://github.com/Brandon-Perry) | [Dez Adkins](https://github.com/dezadkins) | [Miguel Munoz](https://github.com/memg92) | [Sam Stark](https://github.com/sjstark) |
 |-|-|-|-|
+
+<img alt='' width=75px; align=center src="./resources/images/peanut.png">
 
 
 <!-- <div style="display: grid; grid-template-columns: auto auto; " align="center">
