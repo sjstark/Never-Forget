@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         await countTotalTasks()
         await countListTasks();
       } catch (e) {
-        console.error(e);
+        // console.error(e);
         return;
       }
     }
