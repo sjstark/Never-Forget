@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         checkInputs();
         await loadLists();
         emphasisText();
+        await countTotalTasks()
         await countListTasks();
       } catch (e) {
         console.error(e);
