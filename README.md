@@ -110,6 +110,7 @@ If you'd like to request a new feature open up an issue [here](https://github.co
 <a href="https://www.postgresql.org/"><img alt="PostgreSQL" src="https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=PostgreSQL&logoColor=white" /></a>
 <a href="https://sequelize.org/"><img alt="Sequelize" src="https://img.shields.io/badge/-Sequelize-336791?style=flat-square" /></a>
 <a href="https://expressjs.com/"><img alt="Express" src="https://img.shields.io/badge/-Express-000000?style=flat-square" /></a>
+<a href="https://pugjs.org/"><img alt="Pug" src="https://img.shields.io/badge/-Pug-A86454?style=flat-square" /></a>
 
 
 ## Team
