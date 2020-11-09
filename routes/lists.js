@@ -73,7 +73,7 @@ router.get(
       next(notAuthorizedError(listId));
     } else {
       const allTasks = await Task.findAll({
-        order: [["createdAt", "DESC"]],
+        order: [["dueDate", "ASC"], ['updatedAt', 'ASC']],
         attributes: [
           "id",
           "title",

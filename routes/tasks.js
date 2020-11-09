@@ -51,7 +51,7 @@ router.get(
     const userId = req.session.auth.userId;
     let allTasks = await Task.findAll({
       include: [{ model: User, as: "user", attributes: ["email"] }],
-      order: [["createdAt", "DESC"]],
+      order: [["dueDate", "ASC"], ['updatedAt', 'ASC']],
       attributes: ["id", "title", "estimate",  "isComplete"], //Added Id so that we can select a task from our list display
       where: {
         createdBy: userId,
