@@ -198,7 +198,6 @@ const parseTaskInput = (input) => {
   const estimatePatt = /=(\d+)/g;
 
   let parameters = {};
-  console.log(input)
   if (input.includes("^")) {
     let dueDateExp, dueDate;
     try {
@@ -209,7 +208,6 @@ const parseTaskInput = (input) => {
       parameters.dueDate = false;
     }
   }
-  console.log(input)
   if (input.includes("#")) {
     try {
       let [listExp, listTitle] = listPatt.exec(input);

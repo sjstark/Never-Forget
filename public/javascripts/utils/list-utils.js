@@ -3,13 +3,10 @@
 /******************************************************************************/
 
 export const createNewList = async (title) => {
-  // console.log('\n Attempting to create new list')
   let body = {
     title: title,
     _csrf: document.querySelector('#csrf').value
   }
-
-  // console.log('list body:', body)
 
   let options = {
     method: 'POST',
@@ -21,9 +18,7 @@ export const createNewList = async (title) => {
   try {
     let res = await fetch('/lists', options)
     if (!res.ok) throw res
-    // else console.log('success in posting?')
   } catch (err) {
-    // console.log('hit error when creating list')
     console.error(err)
   }
 }

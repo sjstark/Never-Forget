@@ -101,7 +101,6 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const loggedInUserId = res.locals.user.id;
     const { title } = req.body;
-    // console.log('Hey, Im working here', title);
     const list = await List.build({
       title,
       userId: loggedInUserId,
