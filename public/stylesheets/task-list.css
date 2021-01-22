@@ -54,7 +54,7 @@ button {
 }
 
 .task-add__input-container {
-  padding: 10px;
+  padding: 10px 10px 0;
 }
 
 .task-add__input-field {
@@ -76,6 +76,7 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  padding-top: 5px;
 }
 
 .task-add__options-modifiers {
@@ -92,6 +93,10 @@ button {
   cursor: pointer;
 }
 
+.task-add__container .--focused {
+  text-shadow: 0 0 4px  #8125b930;
+}
+
 .task-add__container i {
   font-size: 16px;
   color: darkgray;
@@ -104,8 +109,7 @@ button {
   color: white;
   border-radius: 5px;
   border: none;
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 8px 15px;
 }
 
 .task-add__submit:hover {
