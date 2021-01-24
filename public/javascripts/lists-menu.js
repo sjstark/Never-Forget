@@ -127,7 +127,7 @@ export const countTotalTasks = async () => {
   let req = await fetch(route);
   let res = await req.json();
   let taskArray = res.allTasks;
-  console.log(taskArray)
+//   console.log(taskArray)
 
   let count = taskArray.length;
   // console.log(count)
