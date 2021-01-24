@@ -1,11 +1,10 @@
 const csrf = require('csurf')
 
-const csrfProtection = csrf({cookie:true})
+const csrfProtection = csrf({ cookie: true })
 
 const asyncHandler = (handler) => {
   return (req, res, next) => {
-    handler(req, res, next).catch((e)=>{
-      // console.log('hey! we got an error!')
+    handler(req, res, next).catch((e) => {
       next(e)
     })
   }
