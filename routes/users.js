@@ -138,7 +138,6 @@ router.post(
   loginValidators,
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-
     let errors = [];
     const validatorErrors = validationResult(req);
 

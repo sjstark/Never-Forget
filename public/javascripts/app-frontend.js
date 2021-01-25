@@ -13,7 +13,7 @@ import { createNewList, getListId, getLists } from "./utils/list-utils.js";
 //import {treeView, highlighting, selector }from "./menufrontend.js"
 
 document.addEventListener("DOMContentLoaded", async () => {
-  window.addEventListener('resize', addFillerTasks )
+  window.addEventListener('resize', addFillerTasks)
 
   localStorage.setItem("never-forget-currentList", null);
   localStorage.setItem("never-forget-viewIncomplete", 1);
@@ -85,6 +85,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   taskInput.addEventListener("input", checkInputs);
+
+  taskInput.addEventListener('focus', () => {
+    const optionsList = document.querySelectorAll('.task-add__container i');
+
+    optionsList.forEach(item => item.classList.add('--focused'))
+  })
+
+  taskInput.addEventListener('blur', () => {
+    const optionsList = document.querySelectorAll('.task-add__container i');
+    optionsList.forEach(item => item.classList.remove('--focused'))
+  })
 
   taskButton.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -187,7 +198,6 @@ const parseTaskInput = (input) => {
   const estimatePatt = /=(\d+)/g;
 
   let parameters = {};
-  console.log(input)
   if (input.includes("^")) {
     let dueDateExp, dueDate;
     try {
@@ -198,7 +208,6 @@ const parseTaskInput = (input) => {
       parameters.dueDate = false;
     }
   }
-  console.log(input)
   if (input.includes("#")) {
     try {
       let [listExp, listTitle] = listPatt.exec(input);

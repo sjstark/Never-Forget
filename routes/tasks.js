@@ -8,7 +8,7 @@ const db = require("../db/models");
 const { Task, User, Sequelize } = db;
 // router.use(requireAuth);
 
-const {incrementTaskCount} = require('./stats')
+const { incrementTaskCount } = require('./stats')
 
 /****************** VALIDATION AND ERROR CHECKS **************************/
 
@@ -52,7 +52,7 @@ router.get(
     let allTasks = await Task.findAll({
       include: [{ model: User, as: "user", attributes: ["email"] }],
       order: [["dueDate", "ASC"], ['updatedAt', 'ASC']],
-      attributes: ["id", "title", "estimate",  "isComplete"], //Added Id so that we can select a task from our list display
+      attributes: ["id", "title", "estimate", "isComplete"], //Added Id so that we can select a task from our list display
       where: {
         createdBy: userId,
       },
@@ -71,8 +71,6 @@ router.post(
   asyncHandler(async (req, res, next) => {
     //TODO add user ID
     const userId = req.session.auth.userId;
-
-    // console.log("\n\n\nPost request went through\n\n");
 
     const { title, listId, estimate, dueDate } = req.body;
     const task = await Task.build({
@@ -109,7 +107,7 @@ router.get(
     const taskId = parseInt(req.params.id, 10)
     const userId = req.session.auth.userId;
     let task = await Task.findByPk(taskId);
-    res.json( task );
+    res.json(task);
   })
 );
 
@@ -118,7 +116,6 @@ router.put(
   csrfProtection,
   validateEditTask,
   asyncHandler(async (req, res, next) => {
-    // console.log("-------------------------------");
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
     const userId = req.session.auth.userId;
@@ -160,7 +157,6 @@ router.patch(
   "/:id(\\d+)",
   csrfProtection,
   asyncHandler(async (req, res, next) => {
-    // console.log("-------------------------------");
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
     const userId = req.session.auth.userId;
@@ -173,7 +169,7 @@ router.patch(
       }
 
 
-      let { title, estimate, listId, dueDate, isComplete} = req.body;
+      let { title, estimate, listId, dueDate, isComplete } = req.body;
 
 
       title = title === undefined ? task.title : title;
@@ -225,7 +221,7 @@ router.delete(
 // localhost:8080/tasks/search?includes=Include%20this&excludes=Not%20this
 // use encodeURI on the front end to create path queries
 // use decodeURI on the back end to decode path query sections
-router.get('/search', asyncHandler( async (req, res) => {
+router.get('/search', asyncHandler(async (req, res) => {
   const userId = req.session.auth.userId;
 
   let include, exclude;
@@ -240,14 +236,14 @@ router.get('/search', asyncHandler( async (req, res) => {
   let allTasks = await Task.findAll({
     where: {
       title: {
-        [Sequelize.Op.iLike]: '%'+include+'%',
-        [Sequelize.Op.notILike]: '%'+exclude+'%',
+        [Sequelize.Op.iLike]: '%' + include + '%',
+        [Sequelize.Op.notILike]: '%' + exclude + '%',
       },
       createdBy: userId
     }
   })
 
-  res.json({allTasks})
+  res.json({ allTasks })
 
 }));
 

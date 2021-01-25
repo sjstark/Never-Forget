@@ -23,7 +23,7 @@ p {
 }
 
 div.spacer{
-    height:150px;
+    height:50px;
 }
 
 .main__header{
@@ -58,7 +58,7 @@ div.spacer{
 
 .main__examples {
     position: relative;
-    height: 450px;
+    height: 400px;
 }
 
 .main__exampleTask{
