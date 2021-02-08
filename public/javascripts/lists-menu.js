@@ -97,7 +97,7 @@ export const loadLists = async () => {
     htmlList.innerHTML = `
         ${list.title}
         <span class="listCount" id='${list.id}'></span>
-        <span class='list-edit-carrot'>V</span>`;
+        <span class='list-edit-carrot'>...</span>`;
 
     htmlList.querySelector(".list-edit-carrot").onclick = async (e) => {
       e.stopPropagation();
